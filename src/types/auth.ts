@@ -6,7 +6,7 @@ export interface User {
 }
 
 export interface AuthResponse {
-    token : string;
+   Authorization: { token : string;}
     user? : User;
 }
 export interface SignUpCredentials {
@@ -14,7 +14,7 @@ export interface SignUpCredentials {
     email: string;
     password : string;
 } 
- export interface loginCredentials {
+ export interface LoginCredentials {
     email: string;
     password: string;
  }
