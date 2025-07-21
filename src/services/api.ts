@@ -1,6 +1,6 @@
 // To handle request with the backend, hum axios use krenge.
 import axios from "axios";
-import type { AuthResponse, LoginCredentials, SignUpCredentials } from "../types/auth"
+import type { AuthResponse, LoginCredentials, SignUpCredentials, User } from "../types/auth"
 
 const api = axios.create({
     baseURL: "https://xyz.com"
@@ -17,7 +17,7 @@ export const signup = async (credentials : SignUpCredentials): Promise<AuthRespo
     return response.data;
  }
 
- export const dashboard = async (token : string): Promise<AuthResponse> => {
+ export const dashboard = async (token : string): Promise<User> => {
 const response = await api.get("/dashboard",{
     headers: {
         Authorization: `Bearer ${token}`    }
