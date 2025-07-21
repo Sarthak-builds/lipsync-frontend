@@ -1,16 +1,29 @@
 import './App.css'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import LoginForm from './components/authentication/LoginForm'
 import SignupForm from './components/authentication/SignupForm'
+import ProtectedRoute from './components/authentication/ProtectedRoute'
+import Dashboard from './pages/DashboardPage'
+import { useAuthStore } from './stores/authStore'
 
-function App() {
+const App:React.FC = ()=> {
+const {isAuthenticated} = useAuthStore();
+
   return (
-    <>
-    <div className='flex flex-col w-full h-screen justify-center items-center gap-10 bg-black text-white'>
-      <h1>Welcome</h1>
-      <SignupForm></SignupForm>
-      <LoginForm></LoginForm>
-    </div>
-    </>
+   <>
+   <Routes>
+    <Route path="/login" element={<LoginForm/>}/>;
+     <Route path='/signup' element= { <SignupForm></SignupForm>}/>;
+     <Route path ='/dashboard' element = {
+      // <ProtectedRoute>
+      //   <Dashboard></Dashboard>
+      // </ProtectedRoute>
+      //for now we choose not to protect because we dont have a backend yet.
+      <Dashboard></Dashboard>
+     }/>;
+     <Route path='/' element={isAuthenticated? <Navigate to='/dashboard'></Navigate>: <Navigate to="/login"></Navigate>}></Route>
+  </Routes>
+   </>
   )
 }
 

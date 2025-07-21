@@ -12,7 +12,7 @@ const Input: React.FC<InputProps> = ({type, name, value, placeholder, onChange})
     return(
         <div>
             <input type ={type} name={name} value={value} placeholder={placeholder} onChange={onChange}
-            className="bg-gray-800 text-white h-12 min-w-fit px-4 py-2">
+            className="bg-gray-800 text-white h-12 w-full  px-4 py-2 rounded-lg">
             </input>
         </div>
     )
