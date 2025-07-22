@@ -21,9 +21,9 @@ const navigate = useNavigate();
    const handleSubmit = async (e:React.FormEvent)=> {
     e.preventDefault();
     try {
-       await login({email, password}); //we dont have a backend yet so the fetch will be failed for now
+       await login({email, password}); //use swagger for it
     } catch (error) {
-console.log("Login Failed", error);
+      console.log("Login Failed", error);
     }
      navigate('/dashboard');
    }

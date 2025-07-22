@@ -13,13 +13,13 @@ const {isAuthenticated} = useAuthStore();
    <>
    <Routes>
     <Route path="/login" element={<LoginForm/>}/>;
-     <Route path='/signup' element= { <SignupForm></SignupForm>}/>;
+     <Route path='/register' element= { <SignupForm></SignupForm>}/>;
      <Route path ='/dashboard' element = {
-      // <ProtectedRoute>
-      //   <Dashboard></Dashboard>
-      // </ProtectedRoute>
-      //for now we choose not to protect because we dont have a backend yet.
-      <Dashboard></Dashboard>
+      <ProtectedRoute>
+        <Dashboard></Dashboard>
+      </ProtectedRoute>
+      
+      // <Dashboard></Dashboard>
      }/>;
      <Route path='/' element={isAuthenticated? <Navigate to='/dashboard'></Navigate>: <Navigate to="/login"></Navigate>}></Route>
   </Routes>

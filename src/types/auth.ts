@@ -1,16 +1,18 @@
 //types and interfaces for authentication
 export interface User {
     id: number;
-    name?: string;
+    first_name?: string;
+    last_name?: string;
     email: string;
 }
 
 export interface AuthResponse {
-   Authorization: { token : string;}
-    user? : User;
+    token : string | null;
+    user ?: User;
 }
 export interface SignUpCredentials {
-    name?: string;
+    first_name: string;
+    last_name: string;
     email: string;
     password : string;
 } 

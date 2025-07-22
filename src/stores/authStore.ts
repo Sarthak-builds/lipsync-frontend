@@ -1,28 +1,30 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { SignUpCredentials, LoginCredentials, User } from '../types/auth';
+import type { SignUpCredentials, LoginCredentials, User} from '../types/auth';
 import * as api from '../services/api';
 
 interface AuthState {
-    user?: User | null;
-    token : string | null ;
+    user: User | null;
+    token: string | null;
     isAuthenticated : boolean;
     login: (credentials: LoginCredentials) => Promise<void>;
-    signup: (credentials: SignUpCredentials) => Promise<void>;
+    register: (credentials: SignUpCredentials) => Promise<void>;
     logout: () => void;
 }
 export const useAuthStore = create<AuthState>() (
 persist( (set)=> ({
     user: null,
-    token: null,
+    token:null,
     isAuthenticated:false,
-    signup : async (credential)=> {
-    const response = await api.signup(credential);
-    set({user:response.user, isAuthenticated:true, token:response.Authorization.token})
+    register : async (credential)=> {
+    const response = await api.register(credential);
+    console.log(response);
+    set({user:response.user, isAuthenticated:true});
     },
     login : async (credentials) => {
      const response = await api.login(credentials);
-     set({user: response.user, token: response.Authorization.token, isAuthenticated:true})
+     console.log(response);
+     set({token:response.token, isAuthenticated:true});
     },
     logout: ()=> set({user:null, isAuthenticated:false, token:null})
     
@@ -37,7 +39,8 @@ persist( (set)=> ({
             return null;
         },
         setItem : (name, value) => {
-            localStorage.setItem(name, JSON.stringify(value))
+            localStorage.setItem(name, JSON.stringify(value));
+            console.log("value stored in local storage")
         },
         removeItem: (name) => localStorage.removeItem(name)
     },

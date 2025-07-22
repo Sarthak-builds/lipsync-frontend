@@ -3,11 +3,11 @@ import axios from "axios";
 import type { AuthResponse, LoginCredentials, SignUpCredentials, User } from "../types/auth"
 
 const api = axios.create({
-    baseURL: "https://xyz.com"
+    baseURL: "http://localhost:8000/api"
 });
 
-export const signup = async (credentials : SignUpCredentials): Promise<AuthResponse> => {
-    const response = await api.post("/signup", credentials);
+export const register = async (credentials : SignUpCredentials): Promise<AuthResponse> => {
+    const response = await api.post("/register", credentials);
     console.log(response.data); //for checking
     return response.data;
 }
@@ -19,9 +19,7 @@ export const signup = async (credentials : SignUpCredentials): Promise<AuthRespo
 
  export const dashboard = async (token : string): Promise<User> => {
 const response = await api.get("/dashboard",{
-    headers: {
-        Authorization: `Bearer ${token}`    }
+    headers: {  Authorization: `token ${token}` }
 })
-console.log(response.data);
 return response.data;
  }
