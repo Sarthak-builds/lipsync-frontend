@@ -11,6 +11,4 @@ export interface FilesResponse {
 
 export type FileUpload = File;
 
-export interface FileById {
-    id: number;
-}
+export type FileById = number;
