@@ -31,9 +31,9 @@ const [selectedFile,setSelectedFile] = useState<File | null>(null);
 
 
 //    voices
-const {getAllVoices, createVoice} = useVoiceStore();
+const {getAllVoices, createVoice, voicesCollection , generatedVoiceResponse} = useVoiceStore();
 const handleGetVoice = async () => {
-  const response=   await getAllVoices();
+  const response= await getAllVoices();
   console.log(response);
 }
 const handleCreateVoice = async () => {
@@ -42,6 +42,17 @@ const handleCreateVoice = async () => {
     const response = await createVoice(filesIdDataCollection);
     console.log(`ye raha create voice ka response ${response}`);
 }
+
+const handleVoiceGeneration = async () => {  
+    const idOfVoiceForGeneration= voicesCollection.map((o)=> o.id);
+    console.log(idOfVoiceForGeneration[0]);
+     const response= await generatedVoiceResponse(idOfVoiceForGeneration[0]);
+      //abhi ke liye we have array of voice ids....later we will select the id from the array by selecting the voice from the ui...isliye abhi direct 0th index ka add kiya hai.
+     console.log(response);
+}
+
+
+
     return (
         <div className="flex px-30 py-10 bg-black text-white w-full h-screen flex-col gap-10 "> 
            {user? ( 
@@ -54,7 +65,7 @@ const handleCreateVoice = async () => {
                     {/* uploading the file */}
         <div className="border-2 w-full px-6 py-4 rounded-xl flex flex-col gap-5">
              <h2 className="text-bold"> UPLOAD A VIDEO OR AUDIO FILE</h2>
-         <input type="file" accept="video/*, audio/*" onChange={handleFileChange}  className="bg-gray-700 px-2 py-1 rounded-lg"></input>
+         <input type="file" accept="audio/*" onChange={handleFileChange}  className="bg-gray-700 px-2 py-1 rounded-lg"></input>
          <Button type="button" text="Upload" onClick={handleUpload}></Button>                 
         </div>
          {/* display files */}
@@ -72,6 +83,7 @@ const handleCreateVoice = async () => {
          <div className="w-full px-6 py-2 flex gap-3">
             <Button type="button" text="create a voice" onClick={handleCreateVoice}></Button>
             <Button type="button" text="Get All voices" onClick={handleGetVoice}></Button>
+            <Button type="button" text="Generate the voice from eleven lab" onClick={handleVoiceGeneration}></Button>
          </div>
          <div></div>
          </div>

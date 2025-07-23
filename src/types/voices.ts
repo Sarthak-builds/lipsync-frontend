@@ -12,4 +12,11 @@ export type FilesIdData = number;
 export type VoiceMetaData = Voices | null ;
 
 
+//generated voices types
+export type VoiceIdForGeneration = number;
+export interface GeneratedVoiceResponse {
+    elevenlabs_voice_id?:string;
+    files: VoiceFiles[];
+    name?:string;
+}
 //this is the response we get from get and post request both 
