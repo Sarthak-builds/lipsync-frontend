@@ -7,4 +7,7 @@ export interface Voices {
     user: number;
     files : VoiceFiles;
     created_at : string;
-} //this is the response we get from get and post request both 
+} 
+
+export type VoiceMetaData = Voices | null ;
+//this is the response we get from get and post request both 

@@ -5,6 +5,7 @@ import * as apiFiles from '../services/apiFiles';
 
 interface FileState {
     filesData: FileResponseMetaData[];
+    filesIdData : number[];
     uploadFile : (file:FileUpload) => Promise<void>;
     getAllFiles : () => Promise<void>;
     getFileById : (id:FileById) => Promise<FileResponseMetaData>;
@@ -14,10 +15,11 @@ export const useFileStore = create<FileState>() (
     persist( (set) => ( {
 
         filesData: [],
+        filesIdData: [],
         uploadFile : async (file) => {
           const response = await apiFiles.uploadFile(file);
           console.log(response);
-          set((state)=> ({ filesData : [...state.filesData, response]}));
+          set((state)=> ({ filesData : [...state.filesData, response], filesIdData: [...state.filesIdData, response.id]}));
         },
         getAllFiles : async () => {
             const response = await apiFiles.getAllFiles();
