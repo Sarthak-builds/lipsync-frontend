@@ -7,8 +7,8 @@ export interface User {
 }
 
 export interface AuthResponse {
-    token : string | null;
-    user ?: User;
+    token? : string | null;
+    user: User;
 }
 export interface SignUpCredentials {
     first_name: string;

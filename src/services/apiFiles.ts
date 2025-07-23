@@ -21,7 +21,7 @@ export const uploadFile = async (file:FileUpload): Promise<FileResponseMetaData>
     //formData for files uploaded
     const formData = new FormData();
     formData.append('file', file instanceof File? file:(file as any).file) //handle fileUpload type in typesscript
-    const response = await api.post("/files", formData);
+    const response = await api.post("/files/", formData);
     console.log(response.data);
    return response.data;
 }

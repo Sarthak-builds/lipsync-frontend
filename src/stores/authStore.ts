@@ -19,7 +19,18 @@ persist( (set)=> ({
     register : async (credential)=> {
     const response = await api.register(credential);
     console.log(response);
-    set({user:response.user, isAuthenticated:true});
+    if(response && response.user) {
+        const userResponse:User = {
+            id: response.user.id,
+            first_name: response.user.first_name,
+            last_name : response.user.last_name,
+            email: response.user.email
+        }
+        console.log(`ye raha user response: ${userResponse}`);
+        set({user:userResponse, isAuthenticated:true});
+        console.log(userResponse);
+    }
+    
     },
     login : async (credentials) => {
      const response = await api.login(credentials);

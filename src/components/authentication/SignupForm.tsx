@@ -24,7 +24,7 @@ e.preventDefault();
 try {
     console.log({first_name, last_name, email, password})
    await register({ first_name, last_name, email, password}); 
-   navigate("/dashboard");
+   navigate("/login");
 } catch (error) {
     console.log("Signup Failed:", error);
 }

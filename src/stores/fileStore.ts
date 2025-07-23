@@ -1,6 +1,6 @@
 import {create} from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { FileById, FileResponseMetaData, FilesResponse, FileUpload } from '../types/apiFiles';
+import type { FileById, FileResponseMetaData, FileUpload } from '../types/apiFiles';
 import * as apiFiles from '../services/apiFiles';
 
 interface FileState {
