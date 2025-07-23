@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { Voices, VoiceFiles } from "../types/voices";
+import type { Voices } from "../types/voices";
 import { useAuthStore } from "../stores/authStore";
 
 
@@ -20,7 +20,8 @@ export const getAllVoices = async ():Promise<Voices[]> => {
     console.log(response.data);
     return response.data;
 }
- export const  uploadVoice = async (voices:VoiceFiles[]):Promise<Voices> => {
+ export const  createVoice = async (voices:any):Promise<Voices> => {
+    console.log(voices);
     const response = await api.post("/voices/", voices);
     console.log(response.data);
     return response.data;

@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import { useAuthStore } from "../stores/authStore";
 import { useFileStore } from "../stores/fileStore";
 import Button from "../components/UI/Button";
+import { useVoiceStore } from "../stores/voicesStore";
 
 
 const Dashboard: React.FC = () => {
    const {user} = useAuthStore();
    console.log(user);
 
-   const {deleteFileById, uploadFile, filesData} = useFileStore();
+   const {deleteFileById, uploadFile, filesData, filesIdDataCollection} = useFileStore();
    console.log(filesData);
+   console.log(filesIdDataCollection);
 const [selectedFile,setSelectedFile] = useState<File | null>(null);
 
    const handleFileChange = (e:React.ChangeEvent<HTMLInputElement>)=> {
@@ -18,7 +20,8 @@ const [selectedFile,setSelectedFile] = useState<File | null>(null);
 
   const handleUpload = async () => {
     if(selectedFile) {
-        await uploadFile(selectedFile);
+        const response = await uploadFile(selectedFile);
+        console.log(`jab upload from dashboard se krte tab ka response :${response}`)
         setSelectedFile(null);
     }
   }
@@ -26,6 +29,19 @@ const [selectedFile,setSelectedFile] = useState<File | null>(null);
    await deleteFileById(id);
    }
 
+
+//    voices
+const {getAllVoices, createVoice} = useVoiceStore();
+const handleGetVoice = async () => {
+  const response=   await getAllVoices();
+  console.log(response);
+}
+const handleCreateVoice = async () => {
+    console.log(`files id data collection : ${filesIdDataCollection}`);
+    console.log(filesIdDataCollection);
+    const response = await createVoice(filesIdDataCollection);
+    console.log(`ye raha create voice ka response ${response}`);
+}
     return (
         <div className="flex px-30 py-10 bg-black text-white w-full h-screen flex-col gap-10 "> 
            {user? ( 
@@ -52,6 +68,12 @@ const [selectedFile,setSelectedFile] = useState<File | null>(null);
                 </div>
          )
          )}
+         {/* voices checkpoints */}
+         <div className="w-full px-6 py-2 flex gap-3">
+            <Button type="button" text="create a voice" onClick={handleCreateVoice}></Button>
+            <Button type="button" text="Get All voices" onClick={handleGetVoice}></Button>
+         </div>
+         <div></div>
          </div>
         </div>
     )

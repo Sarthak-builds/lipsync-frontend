@@ -2,11 +2,15 @@ import {create} from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { FileById, FileResponseMetaData, FileUpload } from '../types/apiFiles';
 import * as apiFiles from '../services/apiFiles';
+import type { FilesIdData } from '../types/voices';
+
 
 interface FileState {
     filesData: FileResponseMetaData[];
-    filesIdData : number[];
-    uploadFile : (file:FileUpload) => Promise<void>;
+    filesIdDataCollection : {
+        files: FilesIdData[];
+    };
+    uploadFile : (file:FileUpload) => Promise<FileResponseMetaData>;
     getAllFiles : () => Promise<void>;
     getFileById : (id:FileById) => Promise<FileResponseMetaData>;
     deleteFileById : (id:FileById)=> Promise<void>;
@@ -15,11 +19,15 @@ export const useFileStore = create<FileState>() (
     persist( (set) => ( {
 
         filesData: [],
-        filesIdData: [],
+        filesIdDataCollection:{
+            files:[]
+        },
         uploadFile : async (file) => {
           const response = await apiFiles.uploadFile(file);
-          console.log(response);
-          set((state)=> ({ filesData : [...state.filesData, response], filesIdData: [...state.filesIdData, response.id]}));
+          console.log(`filestores.ts se response of uploadFile : ${response}`);
+          set((state)=> ({ filesData : [...state.filesData, response], filesIdDataCollection: 
+            {files: [...state.filesIdDataCollection.files, response.id]}   })  );
+            return response;
         },
         getAllFiles : async () => {
             const response = await apiFiles.getAllFiles();
@@ -34,7 +42,7 @@ export const useFileStore = create<FileState>() (
         deleteFileById : async (id) => {
             const response = await apiFiles.deleteFileById(id);
             console.log(response);
-            set((state)=> ({filesData: state.filesData.filter((f)=> f.id !== id)}))
+            set((state)=> ({filesData: state.filesData.filter((f)=> f.id !== id), filesIdDataCollection:{files: state.filesIdDataCollection.files.filter((fileId)=> fileId!==id)}}));
         }
     }),
     {

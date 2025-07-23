@@ -1,4 +1,4 @@
-export interface FileResponseMetaData{ //backend se response jab file upload ho
+export interface FileResponseMetaData { //backend se response jab file upload ho
     id:number;
     file: string; //url of uploaded file
     uploaded_at: string; //datetime

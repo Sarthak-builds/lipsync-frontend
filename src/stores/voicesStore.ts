@@ -1,19 +1,13 @@
 import {create} from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { VoiceFiles,  VoiceMetaData,  Voices } from '../types/voices';
+import type {  FilesIdData, VoiceMetaData,  Voices } from '../types/voices';
 import * as api from '../services/apiVoices';
-import { useFileStore } from './fileStore';
-
-
-const {filesIdData} = useFileStore();
-const filesIdCollection= filesIdData;
-console.log(filesIdCollection);
 
 interface VoicesState {
     voicesCollection : Voices[];
     voiceMetaData : VoiceMetaData;
     getAllVoices : () => Promise<void>;
-    uploadVoice : (filesIdCollection:VoiceFiles[]) => Promise<void>;
+    createVoice : (filesIdCollection:{ files: FilesIdData[]}) => Promise<VoiceMetaData>;
 } 
 
  export const useVoiceStore = create<VoicesState>() (
@@ -25,10 +19,11 @@ interface VoicesState {
             console.log(responseVoicesDataArray);
             set( (state) => ( { voicesCollection: [...state.voicesCollection, ...responseVoicesDataArray]}) );
        },
-       uploadVoice : async (filesIdCollection) => {
-           const responseVoice = await api.uploadVoice(filesIdCollection);
+       createVoice : async (filesIdCollection) => {
+           const responseVoice = await api.createVoice(filesIdCollection);
            console.log(responseVoice);
-           set ({voiceMetaData:responseVoice})
+           set ({voiceMetaData:responseVoice});
+           return responseVoice;
        }
     }),
     {
