@@ -20,3 +20,11 @@ export interface GeneratedVoiceResponse {
     name?:string;
 }
 //this is the response we get from get and post request both 
+
+//for displaying data
+export interface VoicesData {
+  id: string | number;
+  name?: string;
+  createdAt?: string;
+  generations?: number;
+}

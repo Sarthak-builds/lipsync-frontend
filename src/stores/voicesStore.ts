@@ -27,7 +27,7 @@ interface VoicesState {
        getAllVoices : async ()=> {
             const response = await api.getAllVoices();
             console.log(response);
-            set( (state) => ( { voicesCollection: [...state.voicesCollection, ...response]}) );
+            set( () => ( { voicesCollection: [ ...response]}) );
        },
        generatedVoiceResponse : async (id:number) => {
         const response = await api.generatedVoiceResponse(id);

@@ -54,7 +54,7 @@ const handleVoiceGeneration = async () => {
 
 
     return (
-        <div className="flex px-30 py-10 bg-black text-white w-full h-full  min-h-screen flex-col gap-10 "> 
+        <div className="flex px-30 py-10 bg-neutral-800 mx-1 rounded-2xl text-white w-full h-full  min-h-screen flex-col gap-10 "> 
            {user? ( 
              <h1 className="text-3xl text-white">
                 Welcome to the Dashboard {user?.first_name}
@@ -69,7 +69,7 @@ const handleVoiceGeneration = async () => {
          <Button type="button" text="Upload" onClick={handleUpload}></Button>                 
         </div>
          {/* display files */}
-         <div className="bg-gray-900 w-full h-fit px-6 py-4 rounded-xl flex flex-col gap-5">
+         <div className="bg-black/90 w-full h-fit px-6 py-4 rounded-xl flex flex-col gap-5">
             <h1>UPLOADED FILES ARE HERE</h1>
          {filesData.map((file)=> (
                 <div key={file.id} className="bg-gray-800 w-fit px-5 flex flex-col gap-2 rounded-xl"> ID: 
