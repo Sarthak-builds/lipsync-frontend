@@ -25,7 +25,7 @@ const navigate = useNavigate();
     } catch (error) {
       console.log("Login Failed", error);
     }
-     navigate('/dashboard');
+     navigate('/');
    }
 
     return (

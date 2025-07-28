@@ -54,7 +54,7 @@ const handleVoiceGeneration = async () => {
 
 
     return (
-        <div className="flex px-30 py-10 bg-black text-white w-full h-screen flex-col gap-10 "> 
+        <div className="flex px-30 py-10 bg-black text-white w-full h-full  min-h-screen flex-col gap-10 "> 
            {user? ( 
              <h1 className="text-3xl text-white">
                 Welcome to the Dashboard {user?.first_name}
