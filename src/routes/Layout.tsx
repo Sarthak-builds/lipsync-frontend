@@ -1,6 +1,5 @@
 import React, { type ReactNode } from 'react';
 import { Outlet } from 'react-router-dom';
-import Navbar from '../components/UI/Navbar';
 import Sidebar from '../components/UI/Sidebar';
 import ProtectedRoute from './ProtectedRoute';
 

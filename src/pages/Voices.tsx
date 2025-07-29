@@ -10,7 +10,7 @@ const [createPanel, setCreatePanel] = useState(false);
 const [selectedFile, setSelectedFile] = useState< File | File[] | null> (null);
 const fileInputRef = useRef<HTMLInputElement>(null);
 const { uploadFile, filesData, filesIdDataCollection, setFilesDataEmpty} = useFileStore();
-const {createVoice, generatedVoiceResponse} = useVoiceStore();
+const {createVoice} = useVoiceStore();
 
 const onCreateClick = () => {
 setCreatePanel((prev)=> !prev);

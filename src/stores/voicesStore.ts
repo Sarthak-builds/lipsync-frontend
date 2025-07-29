@@ -37,7 +37,7 @@ interface VoicesState {
        }
     }),
     {
-        name: "file-storage",
+        name: "voice-storage",
         storage: {
             getItem: (name) => {
                 const str = localStorage.getItem(name);
@@ -48,7 +48,7 @@ interface VoicesState {
             },
             setItem: (name, value) => {
                 localStorage.setItem(name, JSON.stringify(value));
-                console.log("files stored in file Storage")
+                console.log("voices metadata stored in file Storage")
             },
             removeItem: (name) => {
                 localStorage.removeItem(name);
