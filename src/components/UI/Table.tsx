@@ -16,7 +16,7 @@ const Table: React.FC<TableProps> = ({voiceDataDisplay}) => {
                     <th>ID</th>
                     <th> NAME</th>
                     <th> Created at:</th>
-                    <th> Generations</th>
+                    <th> Files Uploaded</th>
                     </tr>
                 </thead>
                 <tbody className="h-fit border-1">

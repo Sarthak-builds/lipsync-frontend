@@ -9,6 +9,6 @@ export interface FilesResponse {
     files_collection: FileResponseMetaData[];
 }
 
-export type FileUpload = File;
+export type FileUpload = File | File[];
 
 export type FileById = number;

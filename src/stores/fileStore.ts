@@ -14,6 +14,7 @@ interface FileState {
     getAllFiles : () => Promise<void>;
     getFileById : (id:FileById) => Promise<FileResponseMetaData>;
     deleteFileById : (id:FileById)=> Promise<void>;
+    setFilesDataEmpty : () => Promise<void>;
 }
 export const useFileStore = create<FileState>() (
     persist( (set) => ( {
@@ -25,8 +26,8 @@ export const useFileStore = create<FileState>() (
         uploadFile : async (file) => {
           const response = await apiFiles.uploadFile(file);
           console.log(`filestores.ts se response of uploadFile : ${response}`);
-          set((state)=> ({ filesData : [...state.filesData, response], filesIdDataCollection: 
-            {files: [...state.filesIdDataCollection.files, response.id]}   })  );
+          set(()=> ({ filesData : [response], filesIdDataCollection: 
+            {files: [response.id]}   })  );
             return response;
         },
         getAllFiles : async () => {
@@ -43,6 +44,9 @@ export const useFileStore = create<FileState>() (
             const response = await apiFiles.deleteFileById(id);
             console.log(response);
             set((state)=> ({filesData: state.filesData.filter((f)=> f.id !== id), filesIdDataCollection:{files: state.filesIdDataCollection.files.filter((fileId)=> fileId!==id)}}));
+        },
+        setFilesDataEmpty : async () => {
+            set({filesData:[]});
         }
     }),
     {

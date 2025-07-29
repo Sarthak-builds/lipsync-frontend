@@ -2,12 +2,15 @@ import VoicesTable from "../components/Voices/VoicesTable";
 import Button from "../components/UI/Button";
 import { useEffect, useRef, useState } from "react";
 import { useFileStore } from "../stores/fileStore";
+import { useVoiceStore } from "../stores/voicesStore";
+import type { VoiceMetaData } from "../types/voices";
 
 const VoicePage:React.FC = () => {
 const [createPanel, setCreatePanel] = useState(false);
-const [selectedFile, setSelectedFile] = useState< File | null> (null);
+const [selectedFile, setSelectedFile] = useState< File | File[] | null> (null);
 const fileInputRef = useRef<HTMLInputElement>(null);
-const { uploadFile, filesData} = useFileStore();
+const { uploadFile, filesData, filesIdDataCollection, setFilesDataEmpty} = useFileStore();
+const {createVoice, generatedVoiceResponse} = useVoiceStore();
 
 const onCreateClick = () => {
 setCreatePanel((prev)=> !prev);
@@ -18,7 +21,12 @@ const handleFormDisplay = () => {
     }
 }
 const handleAddFiles = async (e:React.ChangeEvent<HTMLInputElement>) => {
-    if( e.target.files) {setSelectedFile(e.target.files[0])};
+    if( e.target?.files || e.target.files?.length) {
+        for (const file of e.target.files) {
+            setSelectedFile(file);
+        }
+    };
+    console.log(e.target.files);
     console.log(selectedFile);
 }
 
@@ -41,9 +49,24 @@ useEffect(()=> {
 },[uploadFile, selectedFile]);
 
 //handle create a voice by clicking on button
-const handleCreateVoice = () => {
-
-    
+const handleCreateVoice = async () => {
+    console.log(filesIdDataCollection);
+const newVoice:VoiceMetaData =  await createVoice(filesIdDataCollection);
+   setSelectedFile(null);
+   setCreatePanel(false);
+   ///////////////
+   //generating voice
+   if(newVoice?.id){ 
+   const response= await generatedVoiceResponse(newVoice?.id);
+      //abhi ke liye we have array of voice ids....later we will select the id from the array by selecting the voice from the ui...isliye abhi direct 0th index ka add kiya hai.
+     console.log(response);
+   }
+   //generating voice
+   //////////////////
+   if (fileInputRef.current) {
+        fileInputRef.current.value = ""; // Clear file input
+      }
+   await setFilesDataEmpty();
 }
 
     return (
