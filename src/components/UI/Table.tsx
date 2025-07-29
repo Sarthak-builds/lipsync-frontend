@@ -25,8 +25,8 @@ const Table: React.FC<TableProps> = ({voiceDataDisplay}) => {
                           <tr key={voice.id}>
                           <td>{voice.id}</td>
                           <td>{voice.name}</td>
-                          <td>{voice.createdAt}</td>
-                           <td>{voice.generations}</td>
+                          <td>{voice.created_at?.split('T')[0]}</td>
+                           <td>{voice.files?.length}</td>
                                </tr>
                                   );
                     })}

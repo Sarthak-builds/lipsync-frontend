@@ -10,11 +10,10 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({children}) => {
   return (
-    <div className="flex flex-col h-full w-full min-h-screen px-2 py-1 bg-black">
-        <Navbar />
+    <div className="flex flex-col h-full w-full min-h-screen px-3 py-2 bg-black/95">
 
      
-      <div className=" flex bg-black h-full min-h-screen">
+      <div className=" flex h-full min-h-screen">
      <Sidebar />
         <main className="h-full w-full min-h-screen">
             <ProtectedRoute>
