@@ -18,7 +18,7 @@ export const useSpeechStore = create<SpeechState> () (
       getAllSpeechesGenerated : async () => {
         const response = await api.getAllSpeechesGenerated();
         set(()=> ({allSpeechGenerated: response}));
-        console.log(response);
+        // console.log(response);
         return response;
       },
       generateSpeech : async (speechPayload) => {

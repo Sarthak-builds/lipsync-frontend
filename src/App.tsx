@@ -6,6 +6,7 @@ import Dashboard from './pages/DashboardPage'
 import { useAuthStore } from './stores/authStore'
 import Layout from './routes/Layout'
 import VoicePage from './pages/Voices'
+import Speech from './pages/Speech'
 
 
 const App:React.FC = ()=> {
@@ -22,6 +23,7 @@ const {isAuthenticated} = useAuthStore();
          <Route path='/' element={<Layout></Layout>}>
             <Route index element= {<Dashboard></Dashboard>}></Route>
             <Route path='/voices' element={<VoicePage></VoicePage>}></Route>
+            <Route path= '/speech' element={<Speech></Speech>}></Route>
          </Route>
      
   </Routes>

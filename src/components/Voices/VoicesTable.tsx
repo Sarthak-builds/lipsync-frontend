@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Table from "../../components/UI/Table";
+import Table from "./TableComponentForVoices";
 import { useVoiceStore } from "../../stores/voicesStore";
 
 
