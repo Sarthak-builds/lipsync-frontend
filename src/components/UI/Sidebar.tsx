@@ -13,8 +13,9 @@ const Sidebar: React.FC = () => {
 
            <div className="flex flex-col gap-2">
              <NavLink to="/Voices" className={({isActive})=>isActive? "bg-blue-400 w-full rounded-lg px-1":""}>Voices</NavLink>
-            <NavLink to="Videos" className={({isActive})=>isActive? "bg-blue-400 w-full rounded-lg px-1":""}>Videos</NavLink>
-            <NavLink to="Clips" className={({isActive})=>isActive? "bg-blue-400 w-full rounded-lg px-1":""}>Generate clips</NavLink>
+            <NavLink to="/Speech" className={({isActive})=>isActive? "bg-blue-400 w-full rounded-lg px-1":""}>Speech</NavLink>
+            <NavLink to="/Videos" className={({isActive})=>isActive? "bg-blue-400 w-full rounded-lg px-1":""}>Videos</NavLink>
+            <NavLink to="/Clips" className={({isActive})=>isActive? "bg-blue-400 w-full rounded-lg px-1":""}>Generate clips</NavLink>
            </div>
 
             {/* videos, */}

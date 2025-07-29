@@ -57,9 +57,9 @@ const newVoice:VoiceMetaData =  await createVoice(filesIdDataCollection);
    ///////////////
    //generating voice
    if(newVoice?.id){ 
-   const response= await generatedVoiceResponse(newVoice?.id);
+//    const response= await generatedVoiceResponse(newVoice?.id);
       //abhi ke liye we have array of voice ids....later we will select the id from the array by selecting the voice from the ui...isliye abhi direct 0th index ka add kiya hai.
-     console.log(response);
+    //  console.log(response);
    }
    //generating voice
    //////////////////

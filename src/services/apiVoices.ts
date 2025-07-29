@@ -3,6 +3,7 @@ import type { GeneratedVoiceResponse, Voices } from "../types/voices";
 import { useAuthStore } from "../stores/authStore";
 
 
+
 export const api = axios.create({
     baseURL:"http://localhost:8000/api"
 });
