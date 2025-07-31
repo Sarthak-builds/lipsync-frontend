@@ -1,17 +1,16 @@
 import { useState } from "react";
 import SpeechTable from "../components/Speech/SpeechTable";
 import Button from "../components/UI/Button";
-import { generateSpeech } from "../services/apiSpeech";
 import { useSpeechStore } from "../stores/speechStore";
 import type { SpeechRequest } from "../types/speech";
 import { useVoiceStore } from "../stores/voicesStore";
-import { useFileStore } from "../stores/fileStore";
+// import { useFileStore } from "../stores/fileStore";
 
 const Speech: React.FC = () => {
     const { voicesCollection} = useVoiceStore();
     const [text,  setText] = useState< string >('');
-    const { getFileById} = useFileStore();
-    const { getAllSpeechesGenerated, generateSpeech} = useSpeechStore();
+    // const { getFileById} = useFileStore();
+    const { getAllSpeechesGenerated} = useSpeechStore();
     const [selectedVoiceId, setSelectedVoiceId] = useState<number | null>(null);
 
 const handleSpeechGetClick = async () => {
