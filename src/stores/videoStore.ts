@@ -29,7 +29,7 @@ export const useVideoStore = create<VideoState>() (
         generatevideo : async (videoGeneratePayload) => {
             const response =await api.generateVideo(videoGeneratePayload);
            console.log(response);
-           set( {videoGeneratedResponse:  response})
+           set( {videoGeneratedResponse:  response});
            return response;
         },
     }),
