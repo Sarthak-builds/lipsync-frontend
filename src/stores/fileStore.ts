@@ -12,7 +12,7 @@ interface FileState {
     };
     uploadFile : (file:FileUpload) => Promise<FileResponseMetaData>;
     getAllFiles : () => Promise<void>;
-    getFileById : (id:FileById) => Promise<FileResponseMetaData>;
+    getFileById : (id:FileById | FileById[]) => Promise<FileResponseMetaData>;
     deleteFileById : (id:FileById)=> Promise<void>;
     setFilesDataEmpty : () => Promise<void>;
 }

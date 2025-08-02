@@ -32,7 +32,7 @@ export const getAllFiles = async (): Promise<FilesResponse> => {
     return response.data;
 }
 
-export const getFileById = async (id:FileById): Promise<FileResponseMetaData> => {
+export const getFileById = async (id:FileById | FileById[]): Promise<FileResponseMetaData> => {
     const response = await api.get(`/files/${id}`);
     return response.data;
 }

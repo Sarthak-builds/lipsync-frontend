@@ -10,7 +10,7 @@ const [createPanel, setCreatePanel] = useState(false);
 const [selectedFile, setSelectedFile] = useState< File | File[] | null> (null);
 const fileInputRef = useRef<HTMLInputElement>(null);
 const { uploadFile, filesData, filesIdDataCollection, setFilesDataEmpty} = useFileStore();
-const {createVoice} = useVoiceStore();
+const {createVoice, generatedVoiceResponse} = useVoiceStore();
 
 const onCreateClick = () => {
 setCreatePanel((prev)=> !prev);
@@ -82,7 +82,7 @@ const newVoice:VoiceMetaData =  await createVoice(filesIdDataCollection);
              <Button type="button" text="Create+"  onClick={onCreateClick}></Button>
              </div>
              {(createPanel)&&<div className="w-full h-full bg-black/40 inset-0 bg-opacity-50 backdrop-blur-xs z-50 flex justify-center items-center fixed  ">
-             
+
                 <div className=" w-200 h-140 bg-white/30 rounded-3xl flex flex-col justify-center items-center gap-5 ">
                 <div className="w-40 h-40 rounded-2xl flex justify-center items-center bg-black/70 text-xl" onClick={handleFormDisplay}>
                 <input type="file" ref={fileInputRef} accept="audio/*" className="hidden" onChange={handleAddFiles}></input>
