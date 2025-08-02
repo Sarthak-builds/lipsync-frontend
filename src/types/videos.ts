@@ -16,3 +16,9 @@ export interface VideoPayload {
     file : number;
 }
 
+//PAYLOAD FOR VIDEO GENERATION
+export interface VideoGenerationPayload {
+    video_file_id : number;
+    audio_file_id : number;
+}
+

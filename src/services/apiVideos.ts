@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { Video, VideoPayload, VideoCollection } from "../types/videos";
+import type { Video, VideoPayload, VideoCollection , VideoGenerationPayload} from "../types/videos";
 import { useAuthStore } from "../stores/authStore";
 
 export const api = axios.create({
@@ -22,6 +22,13 @@ return response.data;
 
 export const createVideo = async (videoPayload:VideoPayload):Promise<Video> => {
 const response = await api.post('/videos/', videoPayload);
+console.log(response.data);
+return response.data;
+}
+
+//to generate the video from fal
+export const generateVideo = async (videoGeneratePayload:VideoGenerationPayload) => {
+const response = await api.post("/videos/generate_videos/", videoGeneratePayload);
 console.log(response.data);
 return response.data;
 }
