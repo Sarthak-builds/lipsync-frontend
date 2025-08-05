@@ -10,6 +10,7 @@ interface FileState {
     filesIdDataCollection : {
         files: FilesIdData[];
     };
+    filesByIdData : FileResponseMetaData[];
     uploadFile : (file:FileUpload) => Promise<FileResponseMetaData>;
     getAllFiles : () => Promise<void>;
     getFileById : (id:FileById | FileById[]) => Promise<FileResponseMetaData>;
@@ -23,6 +24,7 @@ export const useFileStore = create<FileState>() (
         filesIdDataCollection:{
             files:[]
         },
+        filesByIdData: [],
         uploadFile : async (file) => {
           const response = await apiFiles.uploadFile(file);
           console.log(`filestores.ts se response of uploadFile : ${response}`);
@@ -38,6 +40,10 @@ export const useFileStore = create<FileState>() (
         getFileById : async (id) => {
             const response = await apiFiles.getFileById(id);
             console.log(response);
+           set ({
+  filesByIdData: [response],
+});
+
             return response;
         },
         deleteFileById : async (id) => {

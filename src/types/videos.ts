@@ -12,7 +12,7 @@ export type VideoCollection = Video[];
 
 //PAYLOAD FOR VIDEO UPLOAD
 export interface VideoPayload {
-    title : string;
+    title : string | null ;
     file : number;
 }
 
