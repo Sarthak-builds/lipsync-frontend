@@ -1,11 +1,11 @@
 import axios from "axios";
 import type { GeneratedVoiceResponse, Voices } from "../types/voices";
 import { useAuthStore } from "../stores/authStore";
-
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 export const api = axios.create({
-    baseURL:"http://localhost:8000/api"
+    baseURL:`${API_URL}`
 });
 api.interceptors.request.use((config)=>{
     const AuthState = useAuthStore.getState();

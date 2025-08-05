@@ -8,6 +8,7 @@ import Layout from './routes/Layout'
 import VoicePage from './pages/Voices'
 import Speech from './pages/Speech'
 import Videos from './pages/Videos'
+import GenerateClips from './pages/GenerateClips'
 
 
 const App:React.FC = ()=> {
@@ -26,6 +27,7 @@ const {isAuthenticated} = useAuthStore();
             <Route path='/voices' element={<VoicePage></VoicePage>}></Route>
             <Route path= '/speech' element={<Speech></Speech>}></Route>
             <Route path= '/videos' element={<Videos></Videos>}></Route>
+            <Route path='/Clips' element={<GenerateClips></GenerateClips>}></Route>
          </Route>
      
   </Routes>

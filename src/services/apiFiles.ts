@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useAuthStore } from "../stores/authStore";
 import type {FileById, FileResponseMetaData, FileUpload, FilesResponse} from '../types/apiFiles';
-
+const API_URL = import.meta.env.VITE_API_URL;
 
 const api = axios.create({
-    baseURL:"http://localhost:8000/api"
+    baseURL:`${API_URL}`
 });
 
 //adding the tokens inside the each request

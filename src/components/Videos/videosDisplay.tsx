@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useVideoStore } from "../../stores/videoStore";
 import { useFileStore } from "../../stores/fileStore";
-import type { FileResponseMetaData } from "../../types/apiFiles";
 import type { VideoCollection } from "../../types/videos";
 
 const VideosDisplay: React.FC = () => {
@@ -12,9 +11,7 @@ const VideosDisplay: React.FC = () => {
 
   useEffect(() => {
     const fetchVideos = async () => {
-      try {
-  
-        let videos: VideoCollection = videosCollection || [];
+      try { let videos: VideoCollection = videosCollection || [];
         if (!videosCollection) {
           videos = await getAllVideos();
         }
@@ -22,7 +19,6 @@ const VideosDisplay: React.FC = () => {
         const videoFileIds = videos
           .map((video) => video.file)
           .filter((id) => !fetchedVideoIdsRef.current.has(id));
-
         if (videoFileIds.length === 0) {
           console.log("No new videos to fetch");
           return;
