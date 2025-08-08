@@ -1,31 +1,23 @@
 // src/components/GenerateClips.tsx
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useClipStore } from '../stores/clipStore';
 import { useVideoStore } from '../stores/videoStore';
 import { useSpeechStore } from '../stores/speechStore';
 import type { generateClipsPayload } from '../types/generateClips';
-import type { Video } from '../types/videos';
+import type { FileResponseMetaData } from '../types/apiFiles';
 
 const GenerateClips: React.FC = () => {
     const {allSpeechGenerated} = useSpeechStore();
-  const { generateClip, generatedClipsResponse } = useClipStore();
-  const { videosCollection, getAllVideos } = useVideoStore();
+    // const { generateClip} = useClipStore();
+  const { generatedClipsResponse } = useClipStore();
+  const { videosCollection,  } = useVideoStore();
   const [selectedVideoId, setSelectedVideoId] = useState<number | null>(null);
   const [selectedAudioId, setSelectedAudioId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // Fetch videos on mount
-  useEffect(() => {
-    const fetchVideos = async () => {
-      try {
-        await getAllVideos();
-      } catch (err) {
-        setError('Failed to load videos');
-      }
-    };
-    fetchVideos();
-  }, [getAllVideos]);
+  
 
   const handleGenerateClip = async () => {
     if (!selectedVideoId || !selectedAudioId) {
@@ -37,10 +29,11 @@ const GenerateClips: React.FC = () => {
     setError(null);
     try {
       const generateClipPayload: generateClipsPayload = {
-         video_file_id:selectedVideoId,
-    audio_file_id:selectedAudioId,
+         source_video_file_id:selectedVideoId,
+      speech_generation_id:selectedAudioId,
       };
-      await generateClip(generateClipPayload);
+      console.log(generateClipPayload);
+      // await generateClip(generateClipPayload);
     } catch (err) {
       setError('Failed to generate clip');
       console.error('Clip generation error:', err);
@@ -60,9 +53,9 @@ const GenerateClips: React.FC = () => {
      <label className="text-white">Video ID</label>
  <select value={selectedVideoId ?? ''} onChange={(e) => setSelectedVideoId(Number(e.target.value) || null)} className="p-2 rounded bg-gray-800 text-white"  disabled={isLoading} >
                 <option value="">Select a video ID</option>
-                {videosCollection?.map((video: Video) => (
-                  <option key={video.id || video.file} value={video.file}>
-                    Video {video.id || video.file}
+                {videosCollection?.map((video: FileResponseMetaData) => (
+                  <option key={video.id} value={video.id}>
+                    Video {video.id}
                   </option>
                 ))}
               </select>

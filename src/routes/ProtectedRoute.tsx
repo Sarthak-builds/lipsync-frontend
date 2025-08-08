@@ -11,7 +11,7 @@ const ProtectedRoute: React.FC <ProtectedRouteType> = ({children}) => {
 const { isAuthenticated } = useAuthStore();
  
 if(!isAuthenticated) {
-    return <Navigate to='/login' replace></Navigate>;
+    return <Navigate to='/register' replace></Navigate>;
 }
 return <>
 {children}

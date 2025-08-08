@@ -10,7 +10,7 @@ const Speech: React.FC = () => {
     const { voicesCollection} = useVoiceStore();
     const [text,  setText] = useState< string >('');
     // const { getFileById} = useFileStore();
-    const { getAllSpeechesGenerated} = useSpeechStore();
+    const { getAllSpeechesGenerated, generateSpeech} = useSpeechStore();
     const [selectedVoiceId, setSelectedVoiceId] = useState<number | null>(null);
 
 const handleSpeechGetClick = async () => {
@@ -29,8 +29,8 @@ const handleSpeechGenerate = async (selectedVoiceId: number | null, text:string)
     console.log(selectedVoiceId);
      console.log(speechPayload);
 
-    // const response = await generateSpeech(speechPayload);
-    // console.log(response);
+    const response = await generateSpeech(speechPayload);
+    console.log(response);
 }
 
     return (

@@ -1,31 +1,44 @@
 import {create} from 'zustand';
 import { persist } from 'zustand/middleware'; 
 import * as api from '../services/apiVideos';
-import type { Video, VideoCollection, VideoGenerationPayload, VideoPayload } from '../types/videos';
+import type { Video, VideoGenerationPayload } from '../types/videos';
+import { useFileStore } from './fileStore';
+import type { FileUpload, FileResponseMetaData } from '../types/apiFiles';
 
 interface VideoState {
-    videosCollection : VideoCollection | null;
-    videoGeneratedResponse : Video| null;
-    getAllVideos : () => Promise<VideoCollection>;
-    createVideo : (videoPayload:VideoPayload) => Promise<Video>;
+    videosCollection : FileResponseMetaData[] ;
+    videoGeneratedResponse : FileResponseMetaData| null;
+    // getAllVideos : () => Promise<VideoCollection>;
+    uploadVideoFile :(file:FileUpload) => Promise<FileResponseMetaData>;
+    // createVideo : (videoPayload:VideoPayload) => Promise<Video>;
     generatevideo : (videoGeneratePayload:VideoGenerationPayload) => Promise<Video>;
 }
 
 export const useVideoStore = create<VideoState>() (
     persist( (set)=> ({
-        videosCollection: null,
+        videosCollection:[],
         videoGeneratedResponse: null,
-        getAllVideos: async () => {
-            const response = await api.getAllVideos();
-            console.log(response);
-            set( {videosCollection:response })
-            return response;
-        },
-        createVideo : async (videoPayload) => {
-            const response= await api.createVideo(videoPayload);
-            console.log(response);
-            return response;
-        },
+        // getAllVideos: async () => {
+        //     const response = await api.getAllVideos();
+        //     console.log(response);
+        //     set( {videosCollection:response })
+        //     return response;
+        // },
+        // createVideo : async (videoPayload) => {
+        //     const response= await api.createVideo(videoPayload);
+        //     console.log(response);
+        //     return response;
+        // },
+          uploadVideoFile: async  (file) => {
+            const fileStore = useFileStore.getState();
+      const uploadedFile = await fileStore.uploadFile(file);
+       set((state) => ({
+        videosCollection: [...state.videosCollection, uploadedFile],
+        videoGeneratedResponse: uploadedFile,
+      }));
+      console.log(uploadedFile);
+      return uploadedFile;
+          },
         generatevideo : async (videoGeneratePayload) => {
             const response =await api.generateVideo(videoGeneratePayload);
            console.log(response);

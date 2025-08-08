@@ -3,8 +3,8 @@ import { useFileStore } from "../../stores/fileStore";
 import { useVideoStore } from "../../stores/videoStore";
 
 const VideosUpload: React.FC = () => {
-  const { uploadFile, getFileById } = useFileStore();
-  const { createVideo, getAllVideos } = useVideoStore(); // Added getAllVideos
+  const { getFileById } = useFileStore();
+  const { uploadVideoFile } = useVideoStore(); // Added getAllVideos
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [videoPreviewUrl, setVideoPreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -20,9 +20,8 @@ const VideosUpload: React.FC = () => {
       const uploadFileAsync = async () => {
         try {
    
-          const responseOfVideoUploaded = await uploadFile(selectedFile);
-          await createVideo({ title: "TEST", file: responseOfVideoUploaded.id });
-          await getAllVideos(); 
+          const responseOfVideoUploaded = await uploadVideoFile(selectedFile);
+          // await createVideo({ title: "TEST", file: responseOfVideoUploaded.id });
           setSelectedFile(null);
           console.log("Upload response:", responseOfVideoUploaded);
           const videoPreviewResponse = await getFileById(responseOfVideoUploaded.id);
@@ -37,7 +36,7 @@ const VideosUpload: React.FC = () => {
       };
       uploadFileAsync();
     }
-  }, [uploadFile, selectedFile, getFileById, createVideo, getAllVideos]);
+  }, [uploadVideoFile, selectedFile, getFileById]);
 
   const handleAddFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {

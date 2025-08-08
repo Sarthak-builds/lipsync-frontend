@@ -1,6 +1,6 @@
 export interface generateClipsPayload {
-    video_file_id:number,
-    audio_file_id:number
+    source_video_file_id:number,
+    speech_generation_id:number
 }
 
 export interface generatedClipsResponse {

@@ -1,46 +1,68 @@
-import { useState, useEffect, useRef } from "react";
-import { useVideoStore } from "../../stores/videoStore";
-import { useFileStore } from "../../stores/fileStore";
-import type { VideoCollection } from "../../types/videos";
+import { useState, useEffect, useRef } from 'react';
+import { useVideoStore } from '../../stores/videoStore';
+import { useFileStore } from '../../stores/fileStore';
+import type { FileResponseMetaData } from '../../types/apiFiles';
+import Button from '../UI/Button';
 
 const VideosDisplay: React.FC = () => {
-  const { getAllVideos, videosCollection } = useVideoStore();
+  const { videosCollection, videoGeneratedResponse } = useVideoStore();
   const { getFileById } = useFileStore();
-  const [videoUrls, setVideoUrls] = useState<string[]>([]); 
-  const fetchedVideoIdsRef = useRef<Set<number>>(new Set()); 
+  const [videoUrls, setVideoUrls] = useState<string[]>([]);
+  const fetchedVideoIdsRef = useRef<Set<number>>(new Set());
+
+  // Move fetchVideos outside useEffect
+  const fetchVideos = async () => {
+    try {
+      // Use videosCollection directly (no getAllVideos)
+      const videos: FileResponseMetaData[] = videosCollection;
+      console.log('Videos collection:', videos);
+
+      // Filter out already fetched video IDs
+      const videoFileIds = videos
+        .map((video) => video.id)
+        .filter((id) => !fetchedVideoIdsRef.current.has(id));
+
+      if (videoFileIds.length === 0) {
+        console.log('No new videos to fetch');
+        return;
+      }
+
+      // Fetch file data for new video IDs
+      const videoFilesPromises = videoFileIds.map((videoFileId) =>
+        getFileById(videoFileId)
+      );
+      const videoFiles = await Promise.all(videoFilesPromises);
+
+      // Update fetched IDs
+      videoFileIds.forEach((id) => fetchedVideoIdsRef.current.add(id));
+
+      // Extract URLs from fetched files
+      const newUrls = videoFiles.map((file) => file.file);
+      setVideoUrls((prevUrls) => {
+        const updatedUrls = [...prevUrls, ...newUrls];
+        console.log('Updated video URLs:', updatedUrls);
+        return updatedUrls;
+      });
+    } catch (error) {
+      console.error('Failed to fetch videos:', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchVideos = async () => {
-      try { let videos: VideoCollection = videosCollection || [];
-        if (!videosCollection) {
-          videos = await getAllVideos();
-        }
-        console.log("Videos collection:", videos);
-        const videoFileIds = videos
-          .map((video) => video.file)
-          .filter((id) => !fetchedVideoIdsRef.current.has(id));
-        if (videoFileIds.length === 0) {
-          console.log("No new videos to fetch");
-          return;
-        }
-        const videoFilesPromises = videoFileIds.map((videoFileId) =>
-          getFileById(videoFileId)
-        );
-        const videoFiles = await Promise.all(videoFilesPromises);
-        videoFileIds.forEach((id) => fetchedVideoIdsRef.current.add(id));
-        const newUrls = videoFiles.map((file) => file.file);
-        setVideoUrls((prevUrls) => [...prevUrls, ...newUrls]);
-        console.log("Updated video URLs:", [...videoUrls, ...newUrls]);
-      } catch (error) {
-        console.error("Failed to fetch videos:", error);
-      }
-    };
-
     fetchVideos();
-  }, [videosCollection, getAllVideos, getFileById]); 
+  }, [videosCollection, getFileById, videoGeneratedResponse]);
+
+  const handleRefresh = () => {
+    fetchedVideoIdsRef.current.clear(); // Reset fetched IDs to refetch all
+    setVideoUrls([]); // Clear current URLs
+    fetchVideos(); // Now accessible
+  };
 
   return (
     <div className="flex flex-col gap-4 overflow-x-auto px-2 py-1 border-2">
+      <div>
+        <Button type="button" text="Refresh Videos" onClick={handleRefresh} />
+      </div>
       <div className="w-full rounded-2xl flex justify-center items-center gap-4 px-1 py-1">
         {videoUrls.length > 0 ? (
           videoUrls.map((url, index) => (
