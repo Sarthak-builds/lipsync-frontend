@@ -14,10 +14,10 @@ interface TableProps {
 
 const VoicesTableComponent: React.FC<TableProps> = ({ voiceDataDisplay }) => {
   return (
-    <div className="overflow-x-auto px-2 py-1 font-grotesk">
-      <Table className="w-full rounded-2xl border border-neutral-700">
-        <TableHeader className="bg-black/80 h-12 rounded-t-2xl">
-          <TableRow className="text-base">
+    <div className="overflow-x-auto px-2 py-1 font-grotesk ">
+      <Table className="w-full rounded-2xl  border-neutral-700 ">
+        <TableHeader className="bg-black/80 h-12  rounded-t-2xl">
+          <TableRow className="text-base bg-indigo-600/60 hover:bg-indigo-700/70">
             <TableHead className="text-center text-white ">ID</TableHead>
             <TableHead className="text-center text-white">NAME</TableHead>
             <TableHead className="text-center text-white">CREATED AT</TableHead>

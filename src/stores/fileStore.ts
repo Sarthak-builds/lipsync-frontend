@@ -29,7 +29,7 @@ export const useFileStore = create<FileState>() (
           const response = await apiFiles.uploadFile(file);
           console.log(`filestores.ts se response of uploadFile : ${response}`);
           set(()=> ({ filesData : [response], filesIdDataCollection: 
-            {files: [response.id]}   })  );
+            {files: [response.id]}  })  );
             return response;
         },
         getAllFiles : async () => {
