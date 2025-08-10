@@ -70,12 +70,15 @@ const newVoice:VoiceMetaData =  await createVoice(filesIdDataCollection);
 }
 
     return (
-       <div className="flex px-30 py-10 bg-neutral-800 mx-1 rounded-2xl text-white w-full h-full  min-h-screen flex-col gap-10 "> 
+       <div className="flex px-30
+        py-10  bg-black/30 mx-1 text-white w-full h-full  min-h-screen flex-col gap-5 font-grotesk"> 
        <div>
-        <h1>VOICES</h1>
+        <h1 className="text-3xl font-semibold my-2 ">VOICES</h1>
+       <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 " />
+
        </div>
             <div>
-                <VoicesTable></VoicesTable>
+               <VoicesTable></VoicesTable>
             </div>
 
             <div className="flex justify-center items-center">

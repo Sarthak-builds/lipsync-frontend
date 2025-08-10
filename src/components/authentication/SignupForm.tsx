@@ -63,7 +63,7 @@ try {
                 <div className="w-full flex flex-col items-center justify-center mt-4 gap-2">
                     <Button type="submit" text="Signup"></Button>
                     <p className="text-gray-300"> Already have an Account?{" "}
-    <Link to="/login" className="text-red-500 hover:underline">
+    <Link to="/login" className="text-indigo-400 hover:underline">
       Login
     </Link></p>
                 </div>

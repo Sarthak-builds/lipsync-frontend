@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import Table from "./TableComponentForVoices";
 import { useVoiceStore } from "../../stores/voicesStore";
+import VoicesTableComponent from "./TableComponentForVoices";
 
 
 
@@ -20,9 +20,9 @@ useEffect(() => {
     return(
         <>
         <div>
-            <h1> Your voices Table</h1>
-            <hr></hr>
-            <Table voiceDataDisplay = {voicesCollection}></Table>
+            <h1 className=" font-bold  my-2 mt-10 px-5 py-1 rounded-tl-lg rounded-br-lg  text-lg text-center ring-1 ring-gray-500 w-fit ] ">Voice Collection</h1>
+            <VoicesTableComponent voiceDataDisplay={voicesCollection}></VoicesTableComponent>
+            
         </div>
         </>
     )

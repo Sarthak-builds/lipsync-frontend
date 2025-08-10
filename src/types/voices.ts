@@ -4,6 +4,7 @@ export type VoiceFiles = number | null; //when sending the post request we send 
 
 export interface Voices {
     id: number;
+    name:string;
     user?: number;
     files ?: VoiceFiles[];
     created_at ?: string;
@@ -24,7 +25,7 @@ export interface GeneratedVoiceResponse {
 //for displaying data
 export interface VoicesData {
   id: string | number;
-  name?: string;
+  name: string;
   created_at?: string;
   files?: VoiceFiles[];
 }
