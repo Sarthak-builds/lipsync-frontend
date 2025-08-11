@@ -5,6 +5,7 @@ import { useFileStore } from "../stores/fileStore";
 import { useVoiceStore } from "../stores/voicesStore";
 import type { VoiceMetaData } from "../types/voices";
 import {Card, CardHeader, CardTitle,CardContent} from "../components/UI/card"
+import ButtonRed from "../components/UI/ButtonRed";
 
 
 const VoicePage:React.FC = () => {
@@ -103,13 +104,16 @@ const newVoice:VoiceMetaData =  await createVoice(filesDataForNewVoice);
        <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 " />
 
        </div>
-            <div>
+            <div className="flex flex-col relative">
+              <div className="absolute right-0 top-10 w-40 flex justify-end">
+              <Button type="button" text="Create+" onClick={onCreateClick}></Button>
+              </div>
                <VoicesTable></VoicesTable>
             </div>
 
-            <div className="flex justify-center items-center">
+            {/* <div className="flex justify-end items-center w-80">
              <Button type="button" text="Create+"  onClick={onCreateClick}></Button>
-             </div>
+             </div> */}
              {(createPanel)&&<div className="w-full h-full bg-black/40 inset-0 bg-opacity-50 backdrop-blur-xs z-50 flex justify-center items-center fixed  ">
 
                 {/* <div className=" w-200 h-140 bg-white/30 rounded-3xl flex flex-col justify-center items-center gap-5 "> */}
@@ -152,10 +156,11 @@ const newVoice:VoiceMetaData =  await createVoice(filesDataForNewVoice);
               ))}
               </div>
               <div className="flex gap-4 justify-center">
+                <ButtonRed type="button" text="back" onClick={handleBackClick}>
+                </ButtonRed>
                 <Button text="Create a Voice" type="button" onClick={handleCreateVoice}>
                 </Button>
-                <Button type="button" text="back" onClick={handleBackClick}>
-                </Button>
+                
               </div>
             </CardContent>
           </Card>

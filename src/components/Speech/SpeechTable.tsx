@@ -1,28 +1,29 @@
 import { useEffect } from "react";
 import TableSpeech from "./TableComponentForSpeech";
 import { useSpeechStore } from "../../stores/speechStore";
-
+import { useVoiceStore } from "../../stores/voicesStore";
 
 
 const SpeechTable: React.FC = () => {
 const {allSpeechGenerated, getAllSpeechesGenerated} = useSpeechStore();
+const {voicesCollection, getAllVoices} = useVoiceStore();
 
 useEffect(() => {
-  const fetchSpeeches = async () => {
+  const fetchData = async () => {
+    await getAllVoices();
     const response = await getAllSpeechesGenerated();
     console.log(response);
   };
 
-  fetchSpeeches();
+  fetchData();
 }, []);
 
 
     return(
         <>
-        <div>
-            <h1> Your voices Table</h1>
-            <hr></hr>
-            <TableSpeech speechGeneratedResponseDisplay = {allSpeechGenerated}></TableSpeech>
+        <div className="mt-15">
+            <h1 className="font-bold  my-2  px-5 py-1 rounded-tl-lg rounded-br-lg  text-lg text-center ring-1 ring-gray-500 w-fit mb-5"> Your speeches Table</h1>
+            <TableSpeech speechGeneratedResponseDisplay = {allSpeechGenerated} voicesCollection={voicesCollection}></TableSpeech>
         </div>
         </>
     )
@@ -30,5 +31,3 @@ useEffect(() => {
 
 
 export default SpeechTable;
-
-
