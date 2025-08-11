@@ -2,22 +2,19 @@ import { useState, useEffect, useRef } from 'react';
 import { useVideoStore } from '../../stores/videoStore';
 import { useFileStore } from '../../stores/fileStore';
 import type { FileResponseMetaData } from '../../types/apiFiles';
-import Button from '../UI/Button';
+import { Card, CardHeader, CardTitle, CardContent } from '../UI/card';
 
 const VideosDisplay: React.FC = () => {
   const { videosCollection, videoGeneratedResponse } = useVideoStore();
   const { getFileById } = useFileStore();
   const [videoUrls, setVideoUrls] = useState<string[]>([]);
   const fetchedVideoIdsRef = useRef<Set<number>>(new Set());
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // Move fetchVideos outside useEffect
   const fetchVideos = async () => {
     try {
-      // Use videosCollection directly (no getAllVideos)
       const videos: FileResponseMetaData[] = videosCollection;
       console.log('Videos collection:', videos);
-
-      // Filter out already fetched video IDs
       const videoFileIds = videos
         .map((video) => video.id)
         .filter((id) => !fetchedVideoIdsRef.current.has(id));
@@ -26,17 +23,11 @@ const VideosDisplay: React.FC = () => {
         console.log('No new videos to fetch');
         return;
       }
-
-      // Fetch file data for new video IDs
       const videoFilesPromises = videoFileIds.map((videoFileId) =>
         getFileById(videoFileId)
       );
       const videoFiles = await Promise.all(videoFilesPromises);
-
-      // Update fetched IDs
       videoFileIds.forEach((id) => fetchedVideoIdsRef.current.add(id));
-
-      // Extract URLs from fetched files
       const newUrls = videoFiles.map((file) => file.file);
       setVideoUrls((prevUrls) => {
         const updatedUrls = [...prevUrls, ...newUrls];
@@ -50,34 +41,44 @@ const VideosDisplay: React.FC = () => {
 
   useEffect(() => {
     fetchVideos();
-  }, [videosCollection, getFileById, videoGeneratedResponse]);
-
-  const handleRefresh = () => {
-    fetchedVideoIdsRef.current.clear(); // Reset fetched IDs to refetch all
-    setVideoUrls([]); // Clear current URLs
-    fetchVideos(); // Now accessible
-  };
+  }, [videosCollection, videoGeneratedResponse]);
 
   return (
-    <div className="flex flex-col gap-4 overflow-x-auto px-2 py-1 border-2">
-      <div>
-        <Button type="button" text="Refresh Videos" onClick={handleRefresh} />
-      </div>
-      <div className="w-full rounded-2xl flex justify-center items-center gap-4 px-1 py-1">
-        {videoUrls.length > 0 ? (
-          videoUrls.map((url, index) => (
-            <div key={index} className="w-80 h-60">
-              <video
-                src={url}
-                controls
-                className="w-full h-full object-contain rounded-2xl"
-              />
-            </div>
-          ))
-        ) : (
-          <p className="text-gray-500">No videos available</p>
-        )}
-      </div>
+    <div className='flex justify-center'>
+    <Card className="w-full bg-black rounded-3xl border-1 border-gray-500 text-white font-grotesk max-w-[62rem]">
+      <CardHeader>
+        <CardTitle className="font-bold px-5 py-1 rounded-tl-lg rounded-br-lg text-lg text-center ring-1 ring-gray-500 w-fit">
+          Your Videos
+        </CardTitle>
+      </CardHeader>
+      <CardContent className=" w-full relative overflow-hidden">
+        <div className="flex items-center gap-2">
+          <div
+            ref={scrollContainerRef}
+            className="flex overflow-x-auto space-x-8 py-4 scrollbar-hide max-w-full"
+            style={{ scrollSnapType: 'x mandatory' }}
+          >
+            {videoUrls.length > 0 ? (
+              videoUrls.map((url, index) => (
+                <div
+                  key={index}
+                  className="flex-none w-80 h-60"
+                  style={{ scrollSnapAlign: 'start' }}
+                >
+                  <video
+                    src={url}
+                    controls
+                    className="w-full h-full object-contain rounded-xl"
+                  />
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-400 text-center w-full py-4">No videos available</p>
+            )}
+          </div>
+        </div>
+      </CardContent>
+    </Card>
     </div>
   );
 };

@@ -5,7 +5,7 @@ const Sidebar: React.FC = () => {
 
 
     return (
-        <div className=" w-65  bg-white/5 px-5 h-full min-h-screen py-30  text-white flex flex-col text-base  gap-15">
+        <div className=" w-55  border-r-1 border-gray-400 px-5 h-full min-h-screen py-30  sticky top-0 text-white flex flex-col text-base  gap-15">
            <div className="flex flex-col gap-2 w-full">
              <NavLink to="/Home"  className={({isActive})=>isActive? "bg-blue-400 w-full rounded-lg px-2 py-1":""}>Home</NavLink>
             <NavLink to="/" className={({isActive})=>isActive? "bg-blue-400 w-full rounded-lg px-2 py-1":""}>Collection</NavLink>

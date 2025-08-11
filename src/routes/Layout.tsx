@@ -4,22 +4,18 @@ import Sidebar from '../components/UI/Sidebar';
 import ProtectedRoute from './ProtectedRoute';
 
 interface LayoutProps {
-  children?: ReactNode; // Explicitly allow children for flexibility
+  children?: ReactNode; //ye...it is used for exlicity allowing children to be flexible as react node or component type thing
 }
 
-const Layout: React.FC<LayoutProps> = ({children}) => {
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="flex flex-col h-full w-full min-h-screen overflow-x-hidden pl-1  bg-black">
-
-     
-      <div className=" flex h-full min-h-screen">
-     <Sidebar />
-        <main className="h-full w-full min-h-screen">
-            <ProtectedRoute>
-         { children || <Outlet /> }
-         </ProtectedRoute>
-        </main>
-      </div>
+    <div className="flex min-h-screen bg-black">
+      <Sidebar />
+      <main className="flex-1 min-h-screen overflow-hidden">
+        <ProtectedRoute>
+          {children || <Outlet />}
+        </ProtectedRoute>
+      </main>
     </div>
   );
 };
