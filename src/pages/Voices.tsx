@@ -105,7 +105,7 @@ const newVoice:VoiceMetaData =  await createVoice(filesDataForNewVoice);
 
        </div>
             <div className="flex flex-col relative">
-              <div className="absolute right-0 top-10 w-40 flex justify-end">
+              <div className="absolute right-0 top-9 w-40 flex justify-end ">
               <Button type="button" text="Create+" onClick={onCreateClick}></Button>
               </div>
                <VoicesTable></VoicesTable>

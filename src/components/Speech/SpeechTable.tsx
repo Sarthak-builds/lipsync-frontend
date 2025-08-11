@@ -22,7 +22,7 @@ useEffect(() => {
     return(
         <>
         <div className="mt-15">
-            <h1 className="font-bold  my-2  px-5 py-1 rounded-tl-lg rounded-br-lg  text-lg text-center ring-1 ring-gray-500 w-fit mb-5"> Your speeches Table</h1>
+            <h1 className=" my-2  px-5 py-1 rounded-tl-lg rounded-br-lg  text-md text-center ring-1 ring-gray-500 w-fit mb-5"> Your speeches Table</h1>
             <TableSpeech speechGeneratedResponseDisplay = {allSpeechGenerated} voicesCollection={voicesCollection}></TableSpeech>
         </div>
         </>
