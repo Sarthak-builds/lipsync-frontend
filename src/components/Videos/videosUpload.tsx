@@ -55,17 +55,17 @@ const handleReset = () => {
   }
 };
   return (
-    <div className=" h-120 flex flex-col md:flex-row gap-6 px-4 py-6 text-white font-grotesk">
-       <Card className="w-full md:w-1/2 bg-black rounded-3xl border-1 border-gray-500">
+    <div className=" h-100 flex flex-col md:flex-row gap-6 px-4 py-6 text-white font-grotesk rounded-md  border-gray-500">
+       <Card className="w-full md:w-1/2 bg-black rounded-md border-1 border-gray-500">
         <CardHeader>
-          <CardTitle className="text-xl">Upload Video</CardTitle>
+          <CardTitle className="text-lg">Upload Video</CardTitle>
           <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500" />
         </CardHeader>
-        <CardContent className=" h-full flex flex-col gap-12 justify-between">
+        <CardContent className=" h-full flex flex-col justify-between">
           <div className="flex flex-col gap-4 justify-center items-center mt-5">
             {/* <p className="italic text-gray-500 text-md w-fit">Upload a Video</p> */}
             <div
-              className="w-90 h-40 rounded-xl flex justify-center items-center border-1 hover:bg-indigo-600/10 border-indigo-600/50 text-base cursor-pointer"
+              className="w-90 h-40 rounded-md flex justify-center items-center border-1 hover:bg-indigo-600/10 border-indigo-600/50 text-base cursor-pointer"
               onClick={handleFormDisplay}
             >
               <input
@@ -84,13 +84,13 @@ const handleReset = () => {
           </div>
         </CardContent>
       </Card>
-      <Card className="w-full md:w-1/2 bg-black rounded-3xl border-1 border-gray-500">
+      <Card className="w-full md:w-1/2 bg-black rounded-md border-1 border-gray-500">
         <CardHeader>
-          <CardTitle className="text-xl">Video Preview</CardTitle>
+          <CardTitle className="text-lg">Video Preview</CardTitle>
           <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500" />
         </CardHeader>
         <CardContent>
-          <div className=" px-4 w-100 h-80 bg-black/20 rounded-xl flex items-center justify-center">
+          <div className=" px-4 w-full h-60 bg-black/20 rounded-xl flex items-center justify-center">
             {videoPreviewUrl ? (
               <video
                 src={videoPreviewUrl}

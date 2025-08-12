@@ -54,7 +54,7 @@ const handleVoiceChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
 }
 
     return (
-        <div className="flex px-30 py-10 bg-black/30 mx-1 rounded-2xl text-white w-full h-full  min-h-screen flex-col gap-5 font-grotesk">
+        <div className="flex px-20 py-10 bg-black/30 mx-1 rounded-2xl text-white w-full h-full  min-h-screen flex-col gap-5 font-grotesk">
             
             <div>
                 <div>
@@ -67,7 +67,7 @@ const handleVoiceChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
                </div>
                  {/* <Button type="button" onClick={handleSpeechGetClick} text="🔄️"></Button> */}
             </div>
-            <Card className="w-full bg-black rounded-3xl border-1 border-gray-500 text-white font-grotesk">
+            <Card className="w-full bg-black rounded-md border-1 border-gray-500 text-white font-geist">
             <CardHeader>
               <CardTitle className="text-xl">Generate Speech</CardTitle>
                <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 " />
@@ -76,7 +76,7 @@ const handleVoiceChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
               <div className="flex  justify-center items-center mt-5">
                 <p className="italic text-gray-500 text-md w-40">Select a voice</p>
                 <select 
-                  className=" px-4 w-full h-12 rounded-xl flex justify-center items-center border-1 hover:bg-indigo-600/50 border-indigo-600/50 text-base cursor-pointer bg-black"
+                  className=" px-4 w-full h-12 rounded-md flex justify-center items-center border-1 hover:bg-indigo-600/50 border-indigo-600/50 text-base cursor-pointer bg-black"
                   value={selectedVoiceId ?? ''}
                   onChange={handleVoiceChange}
                 >
@@ -97,7 +97,7 @@ const handleVoiceChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
                  <h2 className="text-xl ">Text:</h2>
                 <textarea 
                   ref={textAreaRef}
-                  className="border-1 rounded-sm border-gray-600 py-1 px-3 h-50 w-full bg-white/10 " 
+                  className="border-1 rounded-sm border-gray-600 py-1 px-3 h-50 w-full bg-white/4 " 
                   name="speechText" 
                   onChange={handleTextChange} 
                   placeholder="Enter the speech text..." 

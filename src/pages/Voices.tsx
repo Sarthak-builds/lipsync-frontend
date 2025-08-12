@@ -97,7 +97,7 @@ const newVoice:VoiceMetaData =  await createVoice(filesDataForNewVoice);
  }
 
     return (
-       <div className="flex px-30
+       <div className="flex px-20
         py-10  bg-black/30 mx-1 text-white w-full h-full  min-h-screen flex-col gap-5 font-grotesk"> 
        <div>
         <h1 className="text-3xl font-semibold my-2 ">VOICES</h1>
@@ -119,12 +119,12 @@ const newVoice:VoiceMetaData =  await createVoice(filesDataForNewVoice);
                 {/* <div className=" w-200 h-140 bg-white/30 rounded-3xl flex flex-col justify-center items-center gap-5 "> */}
                 <Card className="w-[700px] bg-black rounded-3xl border-1 border-gray-500 text-white font-grotesk">
             <CardHeader>
-              <CardTitle className="text-xl">Create Voice</CardTitle>
+              <CardTitle className="text-lg">Create Voice</CardTitle>
                <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 " />
             </CardHeader>
             <CardContent className="flex flex-col gap-5">
               <div className="flex gap-4  justify-center items-center mt-5">
-                <p className="italic text-gray-500 text-md w-50">Add a voice sample</p>
+                <p className="italic text-gray-500 text-md w-50 ">Add a voice sample</p>
                 <div
                   className="w-full h-12 rounded-xl flex justify-center items-center border-1 hover:bg-indigo-600/50 border-indigo-600/50 text-base cursor-pointer "
                   onClick={handleFormDisplay}
@@ -136,7 +136,7 @@ const newVoice:VoiceMetaData =  await createVoice(filesDataForNewVoice);
                     className="hidden"
                     onChange={handleAddFiles}
                   />
-                  <span>Upload Voice Sample</span>
+                  <span className="text-base">Upload Voice Sample</span>
                 </div>
               </div>
               <div className="flex  flex-col gap-2 items-start px-5 my-8">

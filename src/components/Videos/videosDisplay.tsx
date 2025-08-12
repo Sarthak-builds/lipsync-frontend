@@ -44,8 +44,8 @@ const VideosDisplay: React.FC = () => {
   }, [videosCollection, videoGeneratedResponse]);
 
   return (
-    <div className='flex justify-center'>
-    <Card className="w-full bg-black rounded-3xl border-1 border-gray-500 text-white font-grotesk max-w-[62rem]">
+    <div className='flex justify-center max-h-120'>
+    <Card className="w-full bg-black rounded-md border-gray-500 text-white font-grotesk max-w-[62rem]">
       <CardHeader>
         <CardTitle className=" px-5 py-1 rounded-tl-lg rounded-br-lg text-md text-center ring-1 ring-gray-500 w-fit">
           Your Videos
