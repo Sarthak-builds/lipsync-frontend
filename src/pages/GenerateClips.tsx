@@ -5,23 +5,23 @@ import { useVideoStore } from '../stores/videoStore';
 import { useSpeechStore } from '../stores/speechStore';
 import type { generateClipsPayload } from '../types/generateClips';
 import type { FileResponseMetaData } from '../types/apiFiles';
+import { Card, CardHeader, CardTitle, CardContent } from '../components/UI/card';
+import Button from '../components/UI/Button';
+import ButtonRed from '../components/UI/ButtonRed';
+
 
 const GenerateClips: React.FC = () => {
     const {allSpeechGenerated} = useSpeechStore();
-    // const { generateClip} = useClipStore();
+    const { generateClip} = useClipStore();
   const { generatedClipsResponse } = useClipStore();
   const { videosCollection,  } = useVideoStore();
   const [selectedVideoId, setSelectedVideoId] = useState<number | null>(null);
-  const [selectedAudioId, setSelectedAudioId] = useState<number | null>(null);
+  const [selectedSpeechId, setSelectedSpeechId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  // Fetch videos on mount
-  
-
   const handleGenerateClip = async () => {
-    if (!selectedVideoId || !selectedAudioId) {
-      setError('Please select both a video ID and an audio ID');
+    if (!selectedVideoId || !selectedSpeechId) {
+      setError('Please select both a video and a speech');
       return;
     }
 
@@ -30,10 +30,10 @@ const GenerateClips: React.FC = () => {
     try {
       const generateClipPayload: generateClipsPayload = {
          source_video_file_id:selectedVideoId,
-      speech_generation_id:selectedAudioId,
+      speech_generation_id:selectedSpeechId,
       };
       console.log(generateClipPayload);
-      // await generateClip(generateClipPayload);
+      await generateClip(generateClipPayload);
     } catch (err) {
       setError('Failed to generate clip');
       console.error('Clip generation error:', err);
@@ -41,67 +41,97 @@ const GenerateClips: React.FC = () => {
       setIsLoading(false);
     }
   };
+  const handleReset = () => {
+    setSelectedSpeechId(null);
+    setSelectedVideoId(null);
+    setError(null);
+
+  }
 
   return (
-    <div className="flex py-10 bg-neutral-800 mx-1 rounded-2xl text-white w-full h-full min-h-screen flex-col gap-10">
- <div className="flex w-full h-full bg-red-400 p-7 gap-2">
+    <div className="flex py-10 px-20 bg-black/30 mx-1 rounded-2xl text-white w-full h-full min-h-screen flex-col gap-10 font-grotesk">
+       <div>
+        <h1 className="text-3xl font-semibold my-2">GENERATE CLIPS</h1>
+        <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500" />
+      </div>
+ 
 {/* Selection Section */}
-     <div className="w-full h-150 rounded-2xl bg-black text-white px-4 py-2">
-     <h2 className="text-xl mb-4">Select Video and Audio</h2>
-     <div className="flex flex-col gap-4">
-     <div className="flex flex-col gap-2">
-     <label className="text-white">Video ID</label>
- <select value={selectedVideoId ?? ''} onChange={(e) => setSelectedVideoId(Number(e.target.value) || null)} className="p-2 rounded bg-gray-800 text-white"  disabled={isLoading} >
-                <option value="">Select a video ID</option>
-                {videosCollection?.map((video: FileResponseMetaData) => (
-                  <option key={video.id} value={video.id}>
-                    Video {video.id}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="flex flex-col gap-2">
-              <label className="text-white">Audio ID</label>
-              <select
-                value={selectedAudioId ?? ''}
-                onChange={(e) => setSelectedAudioId(Number(e.target.value) || null)}
-                className="p-2 rounded bg-gray-800 text-white"
-                disabled={isLoading}
-              >
-                <option value="">Select an audio ID</option>
-                {allSpeechGenerated?.map((clip) => (
-                  <option key={clip.id} value={clip.id}>
-                    { `Audio ${clip.id}`}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <button
-              onClick={handleGenerateClip}
+     <Card className="w-full bg-black rounded-3xl  border border-gray-500">
+        <CardHeader>
+          <CardTitle className="text-lg">Select Video and Voice</CardTitle>
+          <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500" />
+        </CardHeader>
+        <CardContent className="flex  my-5 gap-6 w-full   justify-center items-center">
+          <div className="flex flex-col gap-2 w-full">
+            {/* <label className="text-white">Select Video</label> */}
+            <select
+              value={selectedVideoId ?? ''}
+              onChange={(e) => setSelectedVideoId(Number(e.target.value) || null)}
+              className="p-2 rounded bg-black text-white font-grotesk ring-1 ring-gray-500"
               disabled={isLoading}
-              className={`bg-blue-500 text-white px-4 py-2 rounded ${
-                isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'
-              }`}
             >
-              {isLoading ? 'Generating...' : 'Generate Clip'}
-            </button>
-            {error && <p className="text-red-500">{error}</p>}
+              <option value="">Select a video</option>
+              {videosCollection?.map((video: FileResponseMetaData) => (
+                <option key={video.id} value={video.id} className='bg-white/9'>
+                  Video ID: {video.id}
+                </option>
+              ))}
+            </select>
           </div>
-        </div>
+          <div className="flex flex-col gap-2 w-full bg-black">
+            {/* <label className="text-white">Select Voice</label> */}
+            <select
+              value={selectedSpeechId ?? ''}
+              onChange={(e) => setSelectedSpeechId(Number(e.target.value) || null)}
+              className="p-2 rounded  text-white font-grotesk bg-black ring-1 ring-gray-500"
+              disabled={isLoading}
+            >
+              <option value="" >Select a voice</option>
+              {allSpeechGenerated?.map((speech) => (
+                <option key={speech.id} value={speech.id} className='bg-white/9'>
+                  {speech.voice || `Voice ${speech.id}`}
+                </option>
+              ))}
+            </select>
+          </div>
+          
+          {error && <p className=" text-center">{error}</p>}
+          
+        </CardContent>
+        <div className="flex gap-4 justify-center">
+            <ButtonRed
+              type="button"
+              text="Reset"
+              onClick={handleReset}
+              // disabled={isLoading}
+            />
+            <Button
+              type="button"
+              text={isLoading ? 'Generating...' : 'Generate Clip'}
+              onClick={handleGenerateClip}
+              
+            />
+          </div>
+      </Card>
+
 
         {/* Preview Section */}
-        <div className="w-full h-150 rounded-2xl bg-black text-white px-4 py-2">
-          <h2 className="text-xl mb-4">Generated Clip Response</h2>
-          {generatedClipsResponse ? (
-            <pre className="bg-gray-900 p-4 rounded text-sm overflow-auto">
-              {JSON.stringify(generatedClipsResponse, null, 2)}
-            </pre>
-          ) : (
-            <p className="text-gray-500">No clip generated yet</p>
-          )}
-        </div>
+        <Card className="w-full bg-black rounded-3xl border-gray-500">
+        <CardHeader>
+          <CardTitle className="text-lg">Generated Clip</CardTitle>
+          <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500" />
+        </CardHeader>
+        <CardContent>
+          <div className="w-full h-80 bg-black/20 rounded-xl flex items-center justify-center overflow-hidden">
+            {generatedClipsResponse ? (
+              <p>{generatedClipsResponse.title}</p>
+            ) : (
+              <p className="text-gray-400 ring-gray-500 px-2 py-1">No clip generated yet</p>
+            )}
+          </div>
+        </CardContent>
+      </Card>
       </div>
-    </div>
   );
 };
 

@@ -32,7 +32,7 @@ const navigate = useNavigate();
 //new changes are reuqired
     return (
          <AuroraBackground>
-        <div className="z-20 text-white flex justify-center items-center w-full h-screen font-grotesk">
+        <div className="z-20 text-white flex justify-center items-center w-full h-screen font-grotesk bg-black/30">
             <form onSubmit={handleSubmit} className="flex flex-col gap-5 px-6 py-5 rounded-tl-3xl rounded-br-3xl  ring-2 ring-gray-500 border-gray-500  justify-between w-170 h-fit">
                 <div className="flex flex-col justify-center">
                     <h2 className="text-3xl font-bold text-white/90">Welcome Back  <span className="px-2">(⌐■_■)</span></h2>
@@ -60,15 +60,6 @@ const navigate = useNavigate();
             </form>
         </div>
         </AuroraBackground>
-    
-        // <div className="w-full h-screen flex bg-black text-white justify-center items-center">
-        //      <form onSubmit={handleSubmit} className="flex flex-col gap-4  py-4 rounded-xl border-1  justify-center items-center w-100 h-fit ">
-        //         <h2 className="">LOGIN FORM</h2>
-        //         <Input type="email" name="email" value={email} placeholder="Enter you email" onChange={handleChange}></Input>
-        //         <Input type="password" name="password" value={password} placeholder="Enter password" onChange={handleChange}></Input>
-        //         <Button type="submit" text="Login"></Button>
-        //     </form>
-        // </div>
     )
 }
 export default LoginForm;

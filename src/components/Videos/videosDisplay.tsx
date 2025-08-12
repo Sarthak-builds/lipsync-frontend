@@ -73,7 +73,9 @@ const VideosDisplay: React.FC = () => {
                 </div>
               ))
             ) : (
-              <p className="text-gray-400 text-center w-full py-4">No videos available</p>
+              <div className='w-full flex justify-center items-center'>
+              <p className="text-gray-400 text-center w-full py-2 px-2  ring-gray-500">No videos available</p>
+              </div>
             )}
           </div>
         </div>
