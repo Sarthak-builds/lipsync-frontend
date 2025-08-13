@@ -38,22 +38,23 @@ try {
         <div className="z-20 text-white flex justify-center items-center w-full h-screen font-grotesk">
             <form onSubmit={handleSubmit} className="flex flex-col gap-7 px-6 py-5 rounded-tl-3xl rounded-br-3xl  ring-2 ring-gray-500 border-gray-500  justify-between w-150 h-fit">
                 <div className="flex flex-col justify-center">
-                    <h2 className="text-3xl font-bold text-white/95">Create Account <span className="px-1">◔◡◔</span></h2>
+                    <h2 className="text-3xl  text-white/95">Create Account <span className="px-1 py-1"></span></h2>
                 <p className="text-left text-gray-300">Welcome to Lipsync : Your AI-powered video generation and speech sync tool.</p>
                 </div>
-
                 <div>
                     <div className="flex items-center justify-between gap-3">
                  <h3 className="text-md font-light text-white/80">FirstName:</h3>
                 <Input type="string" name="firstName" value={first_name} placeholder="Spongebob" onChange={handleChange}></Input>
-                 <h3 className="text-md font-light text-white/80">LastName:</h3>
+                
+                 <h3 className="text-md font-light text-white/80 ml-3">LastName:</h3>
                 <Input type="string" name="lastName" value={last_name} placeholder="Squarepants" onChange={handleChange}></Input>
                 </div>
-
+                 <br></br>
                  <div className="flex flex-col gap-1 py-1">
                  <h3 className="text-md font-light text-white/80">Email:</h3>
                 <Input type="email" name="email" value={email} placeholder="spongebob@gmail.com" onChange={handleChange}></Input>
                 </div>
+                <br></br>
                  <div className="flex flex-col gap-1 py-1">
                  <h3 className="text-md font-light text-white/80">Password:</h3>
                 <Input type="password" name="password" value={password} placeholder="....." onChange={handleChange}></Input>

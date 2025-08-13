@@ -45,6 +45,18 @@ export const AuroraBackground: React.FC<AuroraBackgroundProps> = ({
               showRadialGradient &&
                 "[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,transparent_70%)]"
             )}
+            style={{
+    animation: "var(--animate-aurora)",
+    "--aurora": "repeating-linear-gradient(100deg, #3b82f6 10%, #a5b4fc 15%, #93c5fd 20%, #ddd6fe 25%, #60a5fa 30%)",
+    "--gradient": "repeating-linear-gradient(100deg, #000 0%, #000 7%, transparent 10%, transparent 12%, #000 16%)",
+    "--blue-500": "#3b82f6",
+    "--indigo-300": "#a5b4fc",
+    "--blue-300": "#93c5fd",
+    "--violet-200": "#ddd6fe",
+    "--blue-400": "#60a5fa",
+    "--black": "#000",
+    "--transparent": "transparent",
+  } as React.CSSProperties}
           ></div>
         </div>
         <div className="relative z-20 flex justify-center items-center w-full h-full font-grotesk">

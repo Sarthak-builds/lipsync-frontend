@@ -16,13 +16,6 @@ const Speech: React.FC = () => {
     const [selectedVoiceId, setSelectedVoiceId] = useState<number | null>(null);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-// const handleSpeechGetClick = async () => {
-// const response = await getAllSpeechesGenerated();
-// const audioTrackIdCollection = response.map((audioFile)=> {audiotrackId:audioFile.audio_file});
-// console.log(audioTrackIdCollection);
-// console.log(response);
-// }
-
 const handleSpeechGenerate = async (selectedVoiceId: number | null, text:string) => {
     if(!text.trim()) {
         textAreaRef.current?.focus();

@@ -110,13 +110,7 @@ const newVoice:VoiceMetaData =  await createVoice(filesDataForNewVoice);
               </div>
                <VoicesTable></VoicesTable>
             </div>
-
-            {/* <div className="flex justify-end items-center w-80">
-             <Button type="button" text="Create+"  onClick={onCreateClick}></Button>
-             </div> */}
              {(createPanel)&&<div className="w-full h-full bg-black/40 inset-0 bg-opacity-50 backdrop-blur-xs z-50 flex justify-center items-center fixed  ">
-
-                {/* <div className=" w-200 h-140 bg-white/30 rounded-3xl flex flex-col justify-center items-center gap-5 "> */}
                 <Card className="w-[700px] bg-black rounded-3xl border-1 border-gray-500 text-white font-grotesk">
             <CardHeader>
               <CardTitle className="text-lg">Create Voice</CardTitle>

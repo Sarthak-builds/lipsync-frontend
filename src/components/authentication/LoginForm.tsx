@@ -44,6 +44,7 @@ const navigate = useNavigate();
                  <h3 className="text-md font-light text-white/80">Email: </h3>
                 <Input type="string" name="email" value={email} placeholder="Spongebob@gmail.com" onChange={handleChange}></Input>
                 </div>
+                <br></br>
                 <div className="flex flex-col gap-1">
                  <h3 className="text-md font-light text-white/80">Password:</h3>
                 <Input type="string" name="password" value={password} placeholder="......" onChange={handleChange}></Input>
