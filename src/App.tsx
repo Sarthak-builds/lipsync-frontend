@@ -10,6 +10,7 @@ import Speech from './pages/Speech'
 import Videos from './pages/Videos'
 import GenerateClips from './pages/GenerateClips'
 import Home from './pages/Home'
+// import Uploads from './pages/Uploads'
 
 
 const App:React.FC = ()=> {
