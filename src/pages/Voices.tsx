@@ -97,30 +97,30 @@ const newVoice:VoiceMetaData =  await createVoice(filesDataForNewVoice);
  }
 
     return (
-       <div className="flex px-20
-        py-10  bg-black/30 mx-1 text-white w-full h-full  min-h-screen flex-col gap-5 font-grotesk"> 
+       <div className="flex my-1 rounded-sm border-1 border-neutral-800
+        py-4 px-8 bg-[#0d0d0fd6] mx-1 text-white w-full h-full  flex-col  font-geist"> 
        <div>
-        <h1 className="text-3xl font-semibold my-2 ">VOICES</h1>
-       <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 " />
+        <h1 className="text-2xl font-semibold my-2 ">VOICES</h1>
+       <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 " />
 
        </div>
             <div className="flex flex-col relative">
-              <div className="absolute right-0 top-9 w-40 flex justify-end ">
-              <Button type="button" text="Create+" onClick={onCreateClick}></Button>
+              <div className="absolute right-0 top-5 w-45 flex justify-end ">
+              <Button type="button" text="Create +" onClick={onCreateClick}></Button>
               </div>
                <VoicesTable></VoicesTable>
             </div>
              {(createPanel)&&<div className="w-full h-full bg-black/40 inset-0 bg-opacity-50 backdrop-blur-xs z-50 flex justify-center items-center fixed  ">
-                <Card className="w-[700px] bg-black rounded-3xl border-1 border-gray-500 text-white font-grotesk">
+                <Card className="w-[700px] bg-black rounded-3xl border-1 border-neutral-800 text-white font-geist">
             <CardHeader>
               <CardTitle className="text-lg">Create Voice</CardTitle>
                <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 " />
             </CardHeader>
             <CardContent className="flex flex-col gap-5">
               <div className="flex gap-4  justify-center items-center mt-5">
-                <p className="italic text-gray-500 text-md w-50 ">Add a voice sample</p>
+                {/* <p className="italic text-gray-500 text-md w-50 ">Add a voice sample</p> */}
                 <div
-                  className="w-full h-12 rounded-xl flex justify-center items-center border-1 hover:bg-indigo-600/50 border-indigo-600/50 text-base cursor-pointer "
+                  className="w-full h-fit rounded-xl flex justify-center items-center border-dotted border-2 hover:bg-blue-600/10 border-blue-500 text-base cursor-pointer py-6 text-center"
                   onClick={handleFormDisplay}
                 >
                   <input
@@ -130,27 +130,27 @@ const newVoice:VoiceMetaData =  await createVoice(filesDataForNewVoice);
                     className="hidden"
                     onChange={handleAddFiles}
                   />
-                  <span className="text-base">Upload Voice Sample</span>
+                  <span className="text-base"> <i className="ri-voice-ai-line px-2"></i>Upload Your Voice Sample <br></br><span className="text-gray-500">[Max - 100 MB]</span></span>
                 </div>
               </div>
-              <div className="flex  flex-col gap-2 items-start px-5 my-8">
-               <div className="flex  justify-center gap-5 items-center">
-                 <h2>Name:</h2>
-                <input ref={voiceNameInputRef} className="border-1 rounded-sm border-gray-600 py-1 px-3 w-full" type="string" name="VoiceName" onChange={handleVoiceName} placeholder="voice sample" value={voiceName} ></input>
+              <div className="flex  flex-col gap-2 items-start px-5 my-2">
+               <div className="flex  justify-center gap-5 items-center w-full">
+                 <h2 className="w-fit"> Name:</h2>
+                <input ref={voiceNameInputRef} className="border-1 rounded-sm border-neutral-800 py-1 px-3 w-full" type="string" name="VoiceName" onChange={handleVoiceName} placeholder="Spongebob's voice sample" value={voiceName} ></input>
                </div>
               
               {filesData.map((file) => (
-                <div key={file.id} className="">
+                <div key={file.id} className=" w-full">
                   {/* <p>ID: {file.id}</p> */}
                   {/* <p>Name: {file.id || "Unknown"}</p> */}
-                  <a href={file.file} target="_blank" className="text-blue-400">
+                  <a href={file.file} target="_blank" className="text-blue-400 w-full">
                    <span className=" text-white"> Source:</span>  {file.file}
                   </a>
                 </div>
               ))}
               </div>
               <div className="flex gap-4 justify-center">
-                <ButtonRed type="button" text="back" onClick={handleBackClick}>
+                <ButtonRed type="button" text="Back" onClick={handleBackClick}>
                 </ButtonRed>
                 <Button text="Create a Voice" type="button" onClick={handleCreateVoice}>
                 </Button>

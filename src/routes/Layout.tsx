@@ -9,7 +9,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="flex min-h-screen bg-black">
+    <div className="flex min-h-screen bg-[#0d0d0f]">
       <Sidebar />
       <main className="flex-1 min-h-screen overflow-hidden">
         <ProtectedRoute>

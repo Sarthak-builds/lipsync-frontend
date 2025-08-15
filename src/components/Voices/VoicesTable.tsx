@@ -21,8 +21,7 @@ useEffect(() => {
     return(
         <>
         <div>
-            <h1 className="   my-2 mt-10 px-5 py-1 rounded-tl-lg rounded-br-lg  text-md text-center ring-1 ring-gray-500 w-fit ] ">Voice Collection</h1>
-            <br></br>
+            <h1 className="  mt-6 mb-4 px-5 py-1  border-1 border-neutral-800 bg-[#0e0e11] rounded-sm text-md text-center  w-fit ] ">Voice Collection</h1>
             <VoicesTableComponent voiceDataDisplay={voicesCollection}></VoicesTableComponent>
             
         </div>
