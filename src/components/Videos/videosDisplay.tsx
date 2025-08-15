@@ -44,11 +44,10 @@ const VideosDisplay: React.FC = () => {
   }, [videosCollection, videoGeneratedResponse]);
 
   return (
-    <div className='flex justify-center max-h-120'>
-    <Card className="w-full bg-black rounded-md border-gray-500 text-white font-grotesk max-w-[62rem]">
+    <Card className="w-full  rounded-md  bg-[#0f0f11eb] text-white font-geist ">
       <CardHeader>
-        <CardTitle className=" px-5 py-1 rounded-tl-lg rounded-br-lg text-md text-center ring-1 ring-gray-500 w-fit">
-          Your Videos
+        <CardTitle className=" px-5 py-1 border-1 border-neutral-700 bg-[#0e0e11] rounded-sm text-md text-center w-fit">
+          Videos Collection
         </CardTitle>
       </CardHeader>
       <CardContent className=" w-full relative overflow-hidden">
@@ -62,7 +61,7 @@ const VideosDisplay: React.FC = () => {
               videoUrls.map((url, index) => (
                 <div
                   key={index}
-                  className="flex-none w-80 h-60"
+                  className="flex-none w-80 h-60 bg-black/20 rounded-2xl"
                   style={{ scrollSnapAlign: 'start' }}
                 >
                   <video
@@ -74,14 +73,14 @@ const VideosDisplay: React.FC = () => {
               ))
             ) : (
               <div className='w-full flex justify-center items-center'>
-              <p className="text-gray-400 text-center w-full py-2 px-2  ring-gray-500">No videos available</p>
+              <p className="text-gray-400 text-center w-full py-2 px-2  ">No videos available</p>
               </div>
             )}
           </div>
         </div>
       </CardContent>
     </Card>
-    </div>
+    
   );
 };
 
