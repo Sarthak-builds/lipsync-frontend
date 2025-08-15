@@ -111,7 +111,7 @@ const newVoice:VoiceMetaData =  await createVoice(filesDataForNewVoice);
                <VoicesTable></VoicesTable>
             </div>
              {(createPanel)&&<div className="w-full h-full bg-black/40 inset-0 bg-opacity-50 backdrop-blur-xs z-50 flex justify-center items-center fixed  ">
-                <Card className="w-[700px] bg-black rounded-3xl border-1 border-neutral-800 text-white font-geist">
+                <Card className="w-[700px] bg-black rounded-3xl border-1 border-neutral-700 text-white font-geist">
             <CardHeader>
               <CardTitle className="text-lg">Create Voice</CardTitle>
                <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 " />

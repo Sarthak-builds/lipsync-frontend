@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { useFileStore } from "../../stores/fileStore";
 import { useVideoStore } from "../../stores/videoStore";
 import { Card, CardHeader, CardTitle, CardContent } from "../UI/card";
@@ -18,33 +18,32 @@ const VideosUpload: React.FC = () => {
     }
   };
 
-  useEffect(() => {
+  const handleUpload = async () => {
     if (selectedFile) {
-      const uploadFileAsync = async () => {
         try {
    
           const responseOfVideoUploaded = await uploadVideoFile(selectedFile);
-          // await createVideo({ title: "TEST", file: responseOfVideoUploaded.id });
           setSelectedFile(null);
           console.log("Upload response:", responseOfVideoUploaded);
           const videoPreviewResponse = await getFileById(responseOfVideoUploaded.id);
           setVideoPreviewUrl(videoPreviewResponse.file);
-
+          setSelectedFile(null);
           if (fileInputRef.current) {
             fileInputRef.current.value = "";
           }
         } catch (error) {
           console.error("Upload failed:", error);
         }
-      };
-      uploadFileAsync();
-    }
-  }, [uploadVideoFile, selectedFile, getFileById]);
+      }
+    };
 
   const handleAddFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      setSelectedFile(e.target.files[0]);
-      console.log("Selected file:", e.target.files[0]);
+      const file = e.target.files[0];
+      setSelectedFile(file);
+      const previewUrl = URL.createObjectURL(file);
+      setVideoPreviewUrl(previewUrl);
+      console.log("Selected file:", file);
     }
   };
 const handleReset = () => {
@@ -55,17 +54,17 @@ const handleReset = () => {
   }
 };
   return (
-    <div className=" h-100 flex flex-col md:flex-row gap-6 px-4 py-6 text-white font-grotesk rounded-md  border-gray-500">
-       <Card className="w-full md:w-1/2 bg-black rounded-md border-1 border-gray-500">
+    <div className=" flex flex-col md:flex-row gap-6 px-4 py-6 text-white font-geist rounded-sm bg-[#0d0d0fd6]  border-neutral-700 border-1">
+       <Card className="w-full md:w-1/2 bg-black rounded-3xl border-1 border-neutral-700">
         <CardHeader>
           <CardTitle className="text-lg">Upload Video</CardTitle>
           <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500" />
         </CardHeader>
-        <CardContent className=" h-full flex flex-col justify-between">
-          <div className="flex flex-col gap-4 justify-center items-center mt-5">
+        <CardContent className="  flex flex-col gap-5">
+          
             {/* <p className="italic text-gray-500 text-md w-fit">Upload a Video</p> */}
             <div
-              className="w-90 h-40 rounded-md flex justify-center items-center border-1 hover:bg-indigo-600/10 border-indigo-600/50 text-base cursor-pointer"
+              className="w-full h-fit rounded-xl flex justify-center items-center border-dotted border-2 hover:bg-blue-600/10 border-blue-500 text-base cursor-pointer py-6 text-center"
               onClick={handleFormDisplay}
             >
               <input
@@ -75,22 +74,25 @@ const handleReset = () => {
                 className="hidden"
                 onChange={handleAddFiles}
               />
-              <span>Choose Video File</span>
+              <span className="text-base">
+                <i className="ri-video-upload-line px-2"></i>Upload Your Video Sample <br />
+                <span className="text-gray-500">[Max - 100 MB]</span>
+              </span>
             </div>
-          </div>
+          
           <div className="flex gap-4 justify-center mt-4">
-            <ButtonRed type="button" text="Reset" onClick={handleReset} />
-            <Button type="button" text="Upload Video" onClick={handleFormDisplay} />
+            <ButtonRed type="button" text="Clear" onClick={handleReset} />
+            <Button type="button" text="Upload Video" onClick={handleUpload} />
           </div>
         </CardContent>
       </Card>
-      <Card className="w-full md:w-1/2 bg-black rounded-md border-1 border-gray-500">
+      <Card className="w-full bg-black rounded-3xl border-1 border-neutral-700 text-white font-geist">
         <CardHeader>
           <CardTitle className="text-lg">Video Preview</CardTitle>
           <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500" />
         </CardHeader>
         <CardContent>
-          <div className=" px-4 w-full h-60 bg-black/20 rounded-xl flex items-center justify-center">
+          <div className="  w-full h-60 bg-black/20 rounded-xl flex items-center justify-center">
             {videoPreviewUrl ? (
               <video
                 src={videoPreviewUrl}
