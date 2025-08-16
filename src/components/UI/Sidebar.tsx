@@ -10,14 +10,15 @@ const Sidebar: React.FC = () => {
                 LIPSYNC AI
             </div>
            <div className="flex flex-col gap-3 font-geist w-full px-4">
-            <NavLink to="/"  className={({isActive})=>isActive? "bg-neutral-800 text-white w-full px-4 py-2 rounded-sm transition-colors duration-300":"hover:bg-neutral-800  px-4 py-2 rounded-sm"}> <i className="ri-home-8-line px-2"></i>Home</NavLink>
+            {/* <NavLink to="/"  className={({isActive})=>isActive? "bg-neutral-800 text-white w-full px-4 py-2 rounded-sm transition-colors duration-300":"hover:bg-neutral-800  px-4 py-2 rounded-sm"}> <i className="ri-home-8-line px-2"></i>Home</NavLink> */}
+             <NavLink to="/Clips" className={({isActive})=>isActive? "bg-neutral-800 text-white w-full px-4 py-2 rounded-sm transition-colors ":"hover:bg-neutral-800  px-4 py-2 rounded-sm"}><i className="ri-ai-generate px-2"></i>Generate clips</NavLink>
     
             <NavLink to="/Videos" className={({isActive})=>isActive? "bg-neutral-800 text-white w-full px-4 py-2 rounded-sm transition-colors duration-300":"hover:bg-neutral-800  px-4 py-2 rounded-sm"}><i className="ri-video-ai-line px-2"></i>Videos</NavLink>
 
              <NavLink to="/Voices" className={({isActive})=>isActive? "bg-neutral-800 text-white w-full px-4 py-2 rounded-sm transition-colors duration-300":"hover:bg-neutral-800  px-4 py-2 rounded-sm"}><i className="ri-mic-ai-line px-2"></i>Voices</NavLink>
-            <NavLink to="/Speech" className={({isActive})=>isActive? "bg-neutral-800 text-white w-full px-4 py-2 rounded-sm transition-colors duration-300":"hover:bg-neutral-800  px-4 py-2 rounded-sm"}><i className="ri-user-voice-line px-2"></i>Speech</NavLink>
+            {/* <NavLink to="/Speech" className={({isActive})=>isActive? "bg-neutral-800 text-white w-full px-4 py-2 rounded-sm transition-colors duration-300":"hover:bg-neutral-800  px-4 py-2 rounded-sm"}><i className="ri-user-voice-line px-2"></i>Speech Collection</NavLink> */}
             
-            <NavLink to="/Clips" className={({isActive})=>isActive? "bg-neutral-800 text-white w-full px-4 py-2 rounded-sm transition-colors ":"hover:bg-neutral-800  px-4 py-2 rounded-sm"}><i className="ri-ai-generate px-2"></i>Generate clips</NavLink>
+           
            </div>
         </div>
     )

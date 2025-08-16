@@ -21,8 +21,8 @@ useEffect(() => {
 
     return(
         <>
-        <div className="mt-15">
-            <h1 className=" my-2  px-5 py-1 rounded-tl-lg rounded-br-lg  text-md text-center ring-1 ring-gray-500 w-fit mb-5"> Your speeches Table</h1>
+        <div className="">
+           <h1 className="  mt-6 mb-4 p-[1px]  rounded-sm text-md text-center  w-fit bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 "><div className='bg-black w-full rounded-sm px-5 py-1'>Speech Collection</div></h1>
             <TableSpeech speechGeneratedResponseDisplay = {allSpeechGenerated} voicesCollection={voicesCollection}></TableSpeech>
         </div>
         </>

@@ -24,7 +24,7 @@ export interface GeneratedVoiceResponse {
 
 //for displaying data
 export interface VoicesData {
-  id: string | number;
+  id:  number;
   name: string;
   created_at?: string;
   files?: VoiceFiles[];

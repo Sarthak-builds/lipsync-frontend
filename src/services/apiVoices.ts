@@ -32,5 +32,10 @@ export const getAllVoices = async ():Promise<Voices[]> => {
  export const generatedVoiceResponse = async (id:number | null):Promise<GeneratedVoiceResponse> => {
     const response = await api.post(`/voices/${id}/create-elevenlabs-voice/`);
     console.log(response);
-    return response.data;
+    return response.data;    
+ }
+
+ export const deleteVoiceById = async (id:number):Promise<void> => {
+   const response = await api.delete(`/voices/${id}`);
+   console.log(response.data);
  }

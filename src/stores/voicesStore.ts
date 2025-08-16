@@ -10,6 +10,7 @@ interface VoicesState {
     getAllVoices : () => Promise<void>;
     createVoice : (filesIdCollection:{ files: FilesIdData[]}) => Promise<VoiceMetaData>;
     generatedVoiceResponse : (id:VoiceIdForGeneration) => Promise<GeneratedVoiceResponse>;
+    deleteVoiceById : (voiceId:number) => Promise<void>;
 } 
 
  export const useVoiceStore = create<VoicesState>() (
@@ -34,7 +35,11 @@ interface VoicesState {
         set({generatedVoice: response});
         console.log(response);
         return response;
-       }
+       },
+       deleteVoiceById: async (voiceId:number) => {
+           const response = await api.deleteVoiceById(voiceId);
+           return response;
+       },
     }),
     {
         name: "voice-storage",

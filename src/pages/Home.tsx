@@ -5,7 +5,8 @@ const Home:React.FC = () => {
 
 
     return (
-        <div className="flex py-10 px-20 bg-white/85 ml-0.5 mr-5 rounded-sm  w-full h-full min-h-screen flex-col gap-10 font-grotesk">
+        <div className="flex my-1 rounded-sm border-1 border-neutral-800
+        py-4 px-8 bg-[#0d0d0fd6] mx-1 text-white w-full h-full  flex-col  font-geist">
          home page </div>
          
     )

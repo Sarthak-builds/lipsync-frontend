@@ -56,10 +56,9 @@ const handleReset = () => {
   return (
     <div className=" flex flex-col md:flex-row gap-6 px-4 py-6 text-white font-geist rounded-sm bg-[#0d0d0fd6]  border-neutral-700 ">
        <Card className="w-full md:w-1/2  rounded-3xl border-1 border-neutral-700">
-        <CardHeader>
-          <CardTitle className="text-lg">Upload Video</CardTitle>
-          <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500" />
-        </CardHeader>
+        <CardHeader className='mb-5'>
+            <CardTitle className="text-md p-[1px] w-fit rounded-sm bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500"><div className='bg-black w-full rounded-sm px-5 py-1'>Upload Video</div></CardTitle>
+            </CardHeader>
         <CardContent className="  flex flex-col gap-5">
           
             {/* <p className="italic text-gray-500 text-md w-fit">Upload a Video</p> */}
@@ -87,10 +86,9 @@ const handleReset = () => {
         </CardContent>
       </Card>
       <Card className="w-full  rounded-3xl border-1 border-neutral-700 text-white font-geist">
-        <CardHeader>
-          <CardTitle className="text-lg">Video Preview</CardTitle>
-          <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500" />
-        </CardHeader>
+        <CardHeader className='mb-5'>
+            <CardTitle className="text-md p-[1px] w-fit rounded-sm bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500"><div className='bg-black w-full rounded-sm px-5 py-1'>Video Preview</div></CardTitle>
+            </CardHeader>
         <CardContent>
           <div className="  w-full h-60 bg-black/20 rounded-xl flex items-center justify-center">
             {videoPreviewUrl ? (
