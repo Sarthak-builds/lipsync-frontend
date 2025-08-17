@@ -7,6 +7,7 @@ interface ClipState {
     generatedClipsResponse: generatedClipsResponse | null;
     generatedClipsCollection: generatedClipsResponse[];
     generateClip: (generateClipsPayload:generateClipsPayload) => Promise<generatedClipsResponse>;
+    getClipById: (generatedCLipId:number) => Promise<generatedClipsResponse>;
 }
 
 export const useClipStore = create<ClipState>() (
@@ -19,9 +20,14 @@ export const useClipStore = create<ClipState>() (
           set((state) => ({
           generatedClipsResponse: response,
           generatedClipsCollection: [...state.generatedClipsCollection, response],
+          
         }));
           return response;
         },
+        getClipById : async (generatedClipId) => {
+            const response = await api.generateClipsById(generatedClipId);
+            return response;
+          },
     }),
 {
         name: "Clips-storage",

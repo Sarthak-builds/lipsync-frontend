@@ -16,6 +16,10 @@ api.interceptors.request.use( (config)=> {
 })
 
 export const generateClips = async (generateClipsPayload:generateClipsPayload) => {
-const response = api.post('/videos/', generateClipsPayload);
-return (await response).data;
+const response = await api.post('/videos/', generateClipsPayload);
+return response.data;
+}
+export const generateClipsById = async (generatedClipId:number) => {
+    const response = await api.get(`/videos/${generatedClipId}/`);
+    return response.data;
 }

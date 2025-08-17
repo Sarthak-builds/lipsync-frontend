@@ -3,6 +3,7 @@ import { useState , useRef} from 'react';
 import { useClipStore } from '../stores/clipStore';
 import { useVideoStore } from '../stores/videoStore';
 import { useSpeechStore } from '../stores/speechStore';
+import { useFileStore } from '../stores/fileStore';
 import type { generateClipsPayload } from '../types/generateClips';
 import type { FileResponseMetaData } from '../types/apiFiles';
 import type { SpeechRequest } from '../types/speech';
@@ -12,20 +13,33 @@ import ButtonRed from '../components/UI/ButtonRed';
 import { generateSpeech } from '../services/apiSpeech';
 import { useVoiceStore } from '../stores/voicesStore';
 
-
 const GenerateClips: React.FC = () => {
     const {allSpeechGenerated} = useSpeechStore();
-    // const { generateClip} = useClipStore();
+    const { generateClip, getClipById} = useClipStore();
   const { generatedClipsResponse } = useClipStore();
   const { videosCollection,  } = useVideoStore();
   const { voicesCollection } = useVoiceStore();
+  const { getFileById } = useFileStore();
   const [selectedVideoId, setSelectedVideoId] = useState<number | null>(null);
   const [selectedVoiceId, setSelectedVoiceId] = useState<number | null>(null);
   const [selectedSpeechId, setSelectedSpeechId] = useState<number | null>(null);
    const [text, setText] = useState<string>('');
+   const [clipUrl, setClipUrl] = useState<string | null>(null);
    const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // useEffect(()=> {
+  //   const fetchClipUrl = async ()=> {
+  //     if(generatedClipsResponse?.id) {
+  //       try {
+  //         const filesData = await getFileById(generatedClipsResponse.id);
+  //         setClipUrl(filesData.file);
+  //       } catch(e) { setError("Error");}
+  //     }
+  //   }
+  //   fetchClipUrl();
+  // },[generatedClipsResponse, getFileById]);
 
   const handleGenerateClip = async () => {
     if (!selectedVideoId || !selectedVoiceId) {
@@ -49,7 +63,11 @@ const GenerateClips: React.FC = () => {
       speech_generation_id:speechId,
       };
       console.log(generateClipPayload);
-      // await generateClip(generateClipPayload);
+      const responseClip= await generateClip(generateClipPayload);
+      const responseClipIdForURL = responseClip.id;
+      const responseClipById = await getClipById(responseClipIdForURL);
+      const previewUrl = await getFileById(responseClipById.file);
+      setClipUrl(previewUrl.file);
     } catch (err) {
       setError('Failed to generate clip');
       console.error('error:', err);
@@ -60,12 +78,18 @@ const GenerateClips: React.FC = () => {
   const handleReset = () => {
     setSelectedSpeechId(null);
     setSelectedVideoId(null);
+    setSelectedVoiceId(null);
     setText('');
     setError(null);
+    setClipUrl(null);
 
   }
+  const handleVideoChange = (e: React.ChangeEvent<HTMLSelectElement>) => { const value = e.target.value;
+    setSelectedVideoId(value === '' ? null : Number(value));
+  };
   const handleVoiceChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedVoiceId(Number(e.target.value) || null);
+    const value = e.target.value;
+    setSelectedVoiceId(value=== '' ? null : Number(value) || null);
 }
 
   return (
@@ -83,8 +107,10 @@ const GenerateClips: React.FC = () => {
           
         </CardHeader>
        <CardContent className="flex items-center justify-center h-full">
-            {generatedClipsResponse ? (
-              <p>{generatedClipsResponse.title}</p>
+            {clipUrl ? (<video  src={clipUrl}  controls className="w-full max-w-[600px] rounded-md"  onError={() => setError('Failed to load video')}>
+                </video>
+              ) :generatedClipsResponse ? (
+             <p className="text-gray-400">Loading clip preview...</p>
             ) : (
               <p className="text-gray-400">No clip generated yet</p>
             )}
@@ -101,7 +127,7 @@ const GenerateClips: React.FC = () => {
           </CardHeader>
           <CardContent className="flex flex-col gap-6">
             <div className="flex flex-col gap-2">
-              <select  value={selectedVideoId ?? ''}  onChange={(e) => setSelectedVideoId(Number(e.target.value) || null)}  className="p-2 rounded bg-black text-white ring-1 ring-neutral-800 text-sm"  disabled={isLoading}
+              <select  value={selectedVideoId ?? ''}  onChange={handleVideoChange}  className="p-2 rounded bg-black text-white ring-1 ring-neutral-800 text-sm"  disabled={isLoading}
               >
                 <option value="">Video Selection</option>
                 {videosCollection?.map((video: FileResponseMetaData) => (
@@ -114,17 +140,20 @@ const GenerateClips: React.FC = () => {
                   className=" px-2 w-full h-12 rounded-md flex justify-center items-center border-1  border-neutral-800 text-sm cursor-pointer bg-black"
                   value={selectedVoiceId ?? ''}
                   onChange={handleVoiceChange}
+                  disabled={isLoading}
                 >
-                 { voicesCollection.length>0? (
-                        voicesCollection.map((voice)=> (
-                            <option className="bg-white/9 text-white"  key={voice.id} value={voice.id}>
-                                 {voice.name}
-                            </option>
-                        ))
-                    ) 
-                    :(<option value="" disabled> No voices available</option>)
-
-                    }
+                 <option value="">Select a Voice</option>
+                    {voicesCollection.length > 0 ? (
+                      voicesCollection.map((voice) => (
+                        <option className="bg-white/9 text-white" key={voice.id} value={voice.id}>
+                          {voice.name}
+                        </option>
+                      ))
+                    ) : (
+                      <option value="" disabled>
+                        No voices available
+                      </option>
+                    )}
               </select>
             </div>
             <div className="flex flex-col gap-2"> <textarea ref={textAreaRef}value={text} onChange={(e) => setText(e.target.value)} placeholder="Text Input" className="p-2 rounded text-sm bg-white/1 text-white ring-1 ring-neutral-700 h-36" />
