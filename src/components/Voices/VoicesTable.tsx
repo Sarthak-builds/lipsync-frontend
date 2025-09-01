@@ -31,5 +31,3 @@ useEffect(() => {
 
 
 export default VoicesTable;
-
-

@@ -5,8 +5,9 @@ export interface generateClipsPayload {
 
 export interface generatedClipsResponse {
     id:number;
-    title:string;
-    file:number;
+    speech_generation:number;
+    original_video:number;
+    generated_video:number;
     created_by:number;
     created_at:string;
 }
