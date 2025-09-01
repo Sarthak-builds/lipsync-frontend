@@ -27,11 +27,12 @@ const GenerateClips: React.FC = () => {
   const [clipUrl, setClipUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
+const [isVideoLoading, setIsVideoLoading] = useState(false);
 
   useEffect(() => {
     const fetchClipUrl = async () => {
       if (generatedClipsResponse?.id) {
+        setIsVideoLoading(true);
         try {
           console.log('GenerateClips fetching clip URL for ID:', generatedClipsResponse.id);
           const clipData = await getClipById(generatedClipsResponse.id);
@@ -39,10 +40,16 @@ const GenerateClips: React.FC = () => {
           const fileData = await getFileById(clipData.generated_video);
           console.log('GenerateClips getFileById response:', fileData);
           setClipUrl(fileData.file);
+          setTimeout(() => {
+        fetchClipUrl(); // Refresh after 10 seconds
+      }, 10000);
         } catch (e) {
           console.error('GenerateClips fetchClipUrl error:', e);
           setError('Failed to load clip preview');
         }
+         finally {
+          setIsVideoLoading(false);
+         }
       }
     };
     fetchClipUrl();
@@ -72,6 +79,8 @@ const GenerateClips: React.FC = () => {
       };
       console.log(generateClipPayload);
       await generateClip(generateClipPayload);
+      setIsVideoLoading(true);
+      
     } catch (err) {
       setError('Failed to generate clip');
       console.error('error:', err);
@@ -107,7 +116,12 @@ const GenerateClips: React.FC = () => {
           
         </CardHeader>
        <CardContent className="flex items-center justify-center h-full">
-            {clipUrl ? (
+            {isVideoLoading ? (
+                <div className="flex flex-col items-center justify-center">
+                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+                  <p className="text-gray-400 mt-2">Loading video...</p>
+                </div>
+              ) : clipUrl ? (
                 <video
                   className="max-w-full max-h-[500px]"
                   controls
@@ -116,10 +130,10 @@ const GenerateClips: React.FC = () => {
                 >
                   Your browser does not support the video tag.
                 </video>
-              ) : generatedClipsResponse ? 
-              (<p></p>)
-               : (
-                <p className="text-gray-400">No clip generated yet</p>
+              ) : generatedClipsResponse ? (
+                <p></p>
+              ) : (
+                <p className="text-gray-400"></p>
               )}
         </CardContent>
       </Card>
