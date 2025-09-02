@@ -47,8 +47,7 @@ const handleCreateVoice = async () => {
         }
     if(selectedFile){
             try {
-                const response = await uploadFile(selectedFile);
-                console.log(response);
+               await uploadFile(selectedFile);
                  const filesDataForNewVoice = {
                 name: voiceName.trim(),
                 files: filesIdDataCollection.files,

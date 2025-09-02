@@ -29,7 +29,6 @@ const navigate = useNavigate();
     }
      navigate('/');
    }
-//new changes are reuqired
     return (
          <AuroraBackground>
         <div className="z-20 text-white flex justify-center items-center w-full h-screen font-grotesk bg-black/30">

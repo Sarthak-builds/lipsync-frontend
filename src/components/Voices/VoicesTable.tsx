@@ -10,8 +10,7 @@ const { getAllVoices, voicesCollection} = useVoiceStore();
 
 useEffect(() => {
   const fetchVoices = async () => {
-    const response = await getAllVoices();
-    console.log(response);
+    await getAllVoices();
   };
 
   fetchVoices();

@@ -19,13 +19,13 @@ const VideosDisplay: React.FC = () => {
   const fetchVideos = async () => {
     try {
       const videos: FileResponseMetaData[] = videosCollection;
-      console.log('Videos collection:', videos);
+      // console.log('Videos collection:', videos);
       const videoFileIds = videos
         .map((video) => video.id)
         .filter((id) => !fetchedVideoIdsRef.current.has(id));
 
       if (videoFileIds.length === 0) {
-        console.log('No new videos to fetch');
+        // console.log('No new videos to fetch');
         return;
       }
       const videoFilesPromises = videoFileIds.map((videoFileId) =>
@@ -36,7 +36,7 @@ const VideosDisplay: React.FC = () => {
       const newUrls = videoFiles.map((file) => file.file);
       setVideoUrls((prevUrls) => {
         const updatedUrls = [...prevUrls, ...newUrls];
-        console.log('Updated video URLs:', updatedUrls);
+        // console.log('Updated video URLs:', updatedUrls);
         return updatedUrls;
       });
     } catch (error) {

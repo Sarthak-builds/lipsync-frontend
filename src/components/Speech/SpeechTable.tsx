@@ -11,8 +11,7 @@ const {voicesCollection, getAllVoices} = useVoiceStore();
 useEffect(() => {
   const fetchData = async () => {
     await getAllVoices();
-    const response = await getAllSpeechesGenerated();
-    console.log(response);
+    await getAllSpeechesGenerated();
   };
 
   fetchData();

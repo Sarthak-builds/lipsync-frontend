@@ -18,7 +18,7 @@ persist( (set)=> ({
     isAuthenticated:false,
     register : async (credential)=> {
     const response = await api.register(credential);
-    console.log(response);
+    
     if(response && response.user) {
         const userResponse:User = {
             id: response.user.id,
@@ -26,15 +26,15 @@ persist( (set)=> ({
             last_name : response.user.last_name,
             email: response.user.email
         }
-        console.log(`ye raha user response: ${userResponse}`);
+        
         set({user:userResponse, isAuthenticated:true});
-        console.log(userResponse);
+        
     }
     
     },
     login : async (credentials) => {
      const response = await api.login(credentials);
-     console.log(response);
+   
      set({token:response.token, isAuthenticated:true});
     },
     logout: ()=> set({user:null, isAuthenticated:false, token:null})
@@ -51,7 +51,7 @@ persist( (set)=> ({
         },
         setItem : (name, value) => {
             localStorage.setItem(name, JSON.stringify(value));
-            console.log("value stored in local storage")
+            
         },
         removeItem: (name) => localStorage.removeItem(name)
     },

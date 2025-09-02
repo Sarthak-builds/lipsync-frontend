@@ -8,7 +8,6 @@ const api = axios.create({
 
 export const register = async (credentials : SignUpCredentials): Promise<AuthResponse> => {
     const response = await api.post("/register", credentials);
-    console.log(response.data); //for checking
     return response.data;
 }
  export const login = async (credentials :LoginCredentials ): Promise<AuthResponse> => {

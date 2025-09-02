@@ -27,19 +27,19 @@ export const useFileStore = create<FileState>() (
         filesByIdData: [],
         uploadFile : async (file) => {
           const response = await apiFiles.uploadFile(file);
-          console.log(`filestores.ts se response of uploadFile : ${response}`);
+          
           set(()=> ({ filesData : [response], filesIdDataCollection: 
             {files: [response.id]}  })  );
             return response;
         },
         getAllFiles : async () => {
             const response = await apiFiles.getAllFiles();
-            console.log(response);
+            
             set({filesData:response.files_collection});
         },
         getFileById : async (id) => {
             const response = await apiFiles.getFileById(id);
-            console.log(response);
+            
            set ({
   filesByIdData: [response],
 });
@@ -47,8 +47,8 @@ export const useFileStore = create<FileState>() (
             return response;
         },
         deleteFileById : async (id) => {
-            const response = await apiFiles.deleteFileById(id);
-            console.log(response);
+             await apiFiles.deleteFileById(id);
+           
             set((state)=> ({filesData: state.filesData.filter((f)=> f.id !== id), filesIdDataCollection:{files: state.filesIdDataCollection.files.filter((fileId)=> fileId!==id)}}));
         },
         setFilesDataEmpty : async () => {
@@ -66,7 +66,7 @@ export const useFileStore = create<FileState>() (
             },
             setItem:(name, value)=> {
                 localStorage.setItem(name, JSON.stringify(value));
-                console.log("value stored in local storage");
+                
             },
             removeItem: (name) => {
              localStorage.removeItem(name);

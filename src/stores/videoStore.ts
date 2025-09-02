@@ -36,12 +36,12 @@ export const useVideoStore = create<VideoState>() (
         videosCollection: [...state.videosCollection, uploadedFile],
         videoGeneratedResponse: uploadedFile,
       }));
-      console.log(uploadedFile);
+      
       return uploadedFile;
           },
         generatevideo : async (videoGeneratePayload) => {
             const response =await api.generateVideo(videoGeneratePayload);
-           console.log(response);
+          
            set( {videoGeneratedResponse:  response});
            return response;
         },
@@ -58,7 +58,7 @@ export const useVideoStore = create<VideoState>() (
             },
             setItem: (name, value) => {
                 localStorage.setItem(name, JSON.stringify(value));
-                console.log("videos metadata stored in file Storage")
+          
             },
             removeItem: (name) => {
                 localStorage.removeItem(name);

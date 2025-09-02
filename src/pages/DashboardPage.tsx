@@ -7,11 +7,8 @@ import { useVoiceStore } from "../stores/voicesStore";
 
 const Dashboard: React.FC = () => {
    const {user} = useAuthStore();
-   console.log(user);
 
    const {deleteFileById, uploadFile, filesData, filesIdDataCollection} = useFileStore();
-   console.log(filesData);
-   console.log(filesIdDataCollection);
 const [selectedFile,setSelectedFile] = useState<File | null>(null);
 
    const handleFileChange = (e:React.ChangeEvent<HTMLInputElement>)=> {
@@ -20,8 +17,7 @@ const [selectedFile,setSelectedFile] = useState<File | null>(null);
 
   const handleUpload = async () => {
     if(selectedFile) {
-        const response = await uploadFile(selectedFile);
-        console.log(`jab upload from dashboard se krte tab ka response :${response}`)
+ await uploadFile(selectedFile);        
         setSelectedFile(null);
     }
   }
@@ -33,22 +29,15 @@ const [selectedFile,setSelectedFile] = useState<File | null>(null);
 //    voices
 const {getAllVoices, createVoice, voicesCollection , generatedVoiceResponse} = useVoiceStore();
 const handleGetVoice = async () => {
-  const response= await getAllVoices();
-  console.log(response);
+  await getAllVoices();
 }
 const handleCreateVoice = async () => {
-    console.log(`files id data collection : ${filesIdDataCollection}`);
-    console.log(filesIdDataCollection);
-    const response = await createVoice(filesIdDataCollection);
-    console.log(`ye raha create voice ka response ${response}`);
+  await createVoice(filesIdDataCollection);
 }
 
 const handleVoiceGeneration = async () => {  
     const idOfVoiceForGeneration= voicesCollection.map((o)=> o.id);
-    console.log(idOfVoiceForGeneration[0]);
-     const response= await generatedVoiceResponse(idOfVoiceForGeneration[0]);
-      //abhi ke liye we have array of voice ids....later we will select the id from the array by selecting the voice from the ui...isliye abhi direct 0th index ka add kiya hai.
-     console.log(response);
+     await generatedVoiceResponse(idOfVoiceForGeneration[0]);
 }
 
 

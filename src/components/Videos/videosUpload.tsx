@@ -24,7 +24,7 @@ const VideosUpload: React.FC = () => {
    
           const responseOfVideoUploaded = await uploadVideoFile(selectedFile);
           setSelectedFile(null);
-          console.log("Upload response:", responseOfVideoUploaded);
+          // console.log("Upload response:", responseOfVideoUploaded);
           const videoPreviewResponse = await getFileById(responseOfVideoUploaded.id);
           setVideoPreviewUrl(videoPreviewResponse.file);
           setSelectedFile(null);
@@ -43,7 +43,7 @@ const VideosUpload: React.FC = () => {
       setSelectedFile(file);
       const previewUrl = URL.createObjectURL(file);
       setVideoPreviewUrl(previewUrl);
-      console.log("Selected file:", file);
+      // console.log("Selected file:", file);
     }
   };
 const handleReset = () => {

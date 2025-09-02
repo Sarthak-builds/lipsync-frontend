@@ -34,17 +34,13 @@ const [isVideoLoading, setIsVideoLoading] = useState(false);
       if (generatedClipsResponse?.id) {
         setIsVideoLoading(true);
         try {
-          console.log('GenerateClips fetching clip URL for ID:', generatedClipsResponse.id);
           const clipData = await getClipById(generatedClipsResponse.id);
-          console.log('GenerateClips getClipById response:', clipData);
           const fileData = await getFileById(clipData.generated_video);
-          console.log('GenerateClips getFileById response:', fileData);
           setClipUrl(fileData.file);
           setTimeout(() => {
         fetchClipUrl(); // Refresh after 10 seconds
       }, 10000);
         } catch (e) {
-          console.error('GenerateClips fetchClipUrl error:', e);
           setError('Failed to load clip preview');
         }
          finally {
@@ -68,7 +64,6 @@ const [isVideoLoading, setIsVideoLoading] = useState(false);
         text:text.trim(),
         voice: selectedVoiceId,
       };
-      console.log(speechPayload);
       const speechResponse = await generateSpeech(speechPayload);
       const speechId = speechResponse?.id;
       if(!speechId){ throw new Error('speech generate nai hoga idhar pr')}
@@ -77,7 +72,6 @@ const [isVideoLoading, setIsVideoLoading] = useState(false);
          source_video_file_id:selectedVideoId,
       speech_generation_id:speechId,
       };
-      console.log(generateClipPayload);
       await generateClip(generateClipPayload);
       setIsVideoLoading(true);
       

@@ -18,7 +18,7 @@ export const useSpeechStore = create<SpeechState> () (
       getAllSpeechesGenerated : async () => {
         const response = await api.getAllSpeechesGenerated();
         set(()=> ({allSpeechGenerated: response}));
-        // console.log(response);
+        
         return response;
       },
       generateSpeech : async (speechPayload) => {
@@ -38,7 +38,7 @@ export const useSpeechStore = create<SpeechState> () (
             },
             setItem: (name, value) => {
                 localStorage.setItem(name, JSON.stringify(value));
-                console.log("speeches stored in file Storage")
+             
             },
             removeItem: (name) => {
                 localStorage.removeItem(name);

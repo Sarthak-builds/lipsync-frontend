@@ -17,7 +17,6 @@ api.interceptors.request.use((config)=>{
 
 export const getAllVideos = async ():Promise<VideoCollection> => {
 const response = await api.get('/videos/');
-console.log(response.data);
 return response.data;
 }
 
@@ -29,6 +28,5 @@ return response.data;
 //to generate the video from fal
 export const generateVideo = async (videoGeneratePayload:VideoGenerationPayload) => {
 const response = await api.post("/videos/generate_videos/", videoGeneratePayload);
-console.log(response.data);
 return response.data;
 }

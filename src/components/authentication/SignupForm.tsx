@@ -25,7 +25,6 @@ if(name==="lastName") {setLastName(value)};
 const handleSubmit = async (e:React.FormEvent) => {
 e.preventDefault();
 try {
-    console.log({first_name, last_name, email, password})
    await register({ first_name, last_name, email, password}); 
    navigate("/login");
 } catch (error) {

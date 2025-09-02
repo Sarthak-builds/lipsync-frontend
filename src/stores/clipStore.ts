@@ -16,7 +16,7 @@ export const useClipStore = create<ClipState>() (
         generatedClipsCollection: [],
         generateClip : async (generateClipsPayload) => {
           const response = await api.generateClips(generateClipsPayload);
-          console.log(response);
+          
           set((state) => ({
           generatedClipsResponse: response,
           generatedClipsCollection: [...state.generatedClipsCollection, response],
@@ -40,7 +40,7 @@ export const useClipStore = create<ClipState>() (
             },
             setItem:(name, value)=> {
                 localStorage.setItem(name, JSON.stringify(value));
-                console.log("value stored in local storage");
+               
             },
             removeItem: (name) => {
              localStorage.removeItem(name);

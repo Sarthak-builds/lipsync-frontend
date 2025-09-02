@@ -22,13 +22,11 @@ export const uploadFile = async (file:FileUpload): Promise<FileResponseMetaData>
     const formData = new FormData();
     formData.append('file', file instanceof File? file:(file as any).file) //handle fileUpload type in typesscript
     const response = await api.post("/files/", formData);
-    console.log(response.data);
    return response.data;
 }
 
 export const getAllFiles = async (): Promise<FilesResponse> => {
     const response = await api.get("/files");
-    console.log(response.data);
     return response.data;
 }
 
@@ -38,6 +36,5 @@ export const getFileById = async (id:FileById | FileById[]): Promise<FileRespons
 }
 
 export const deleteFileById = async (id:FileById):Promise<void> => {
-  const response = await api.delete(`/files/${id}`);
-  console.log(response.data);
+   await api.delete(`/files/${id}`);
 }

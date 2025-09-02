@@ -21,19 +21,19 @@ interface VoicesState {
        
        createVoice : async (filesIdCollection) => {
            const responseVoice = await api.createVoice(filesIdCollection);
-           console.log(responseVoice);
+           
            set ({voiceMetaData:responseVoice});
            return responseVoice;
        },
        getAllVoices : async ()=> {
             const response = await api.getAllVoices();
-            console.log(response);
+            
             set( () => ( { voicesCollection: [ ...response]}) );
        },
        generatedVoiceResponse : async (id:number) => {
         const response = await api.generatedVoiceResponse(id);
         set({generatedVoice: response});
-        console.log(response);
+     
         return response;
        },
        deleteVoiceById: async (voiceId:number) => {
@@ -53,7 +53,7 @@ interface VoicesState {
             },
             setItem: (name, value) => {
                 localStorage.setItem(name, JSON.stringify(value));
-                console.log("voices metadata stored in file Storage")
+              
             },
             removeItem: (name) => {
                 localStorage.removeItem(name);

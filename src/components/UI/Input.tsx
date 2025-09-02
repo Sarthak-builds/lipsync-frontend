@@ -6,7 +6,6 @@ interface InputProps {
     placeholder: string;
     onChange: (e:React.ChangeEvent<HTMLInputElement>) => void;
 }
-//react.fc strictly tells that the it returns a jsx and work as a functional component.
 const Input: React.FC<InputProps> = ({type, name, value, placeholder, onChange}) => {
 
     return(
