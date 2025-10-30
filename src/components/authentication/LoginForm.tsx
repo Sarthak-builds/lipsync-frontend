@@ -28,6 +28,7 @@ const navigate = useNavigate();
       console.log("Login Failed", error);
     }
      navigate('/');
+     
    }
     return (
          <AuroraBackground>
