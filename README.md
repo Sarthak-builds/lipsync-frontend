@@ -1,69 +1,78 @@
-# React + TypeScript + Vite
+# Lipsync
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Lipsync** is a modern web application designed for voice synthesis, video creation, and clip generation. Built with **React 19** and **TypeScript**, it leverages a powerful stack including **Vite**, **Tailwind CSS**, and **Framer Motion** to deliver a responsive and interactive user experience.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **🔐 Authentication**: Secure user login and registration system.
+- **🎙️ Voice Management**: Browse and manage synthesized voices (`/voices`).
+- **🗣️ Speech Synthesis**: Convert text to speech with advanced controls (`/speech`).
+- **📹 Video Creation**: Tools for generating lipsync videos (`/videos`).
+- **✂️ Clip Generation**: Create and manage short video clips (`/Clips`).
+- **📊 Dashboard**: Centralized home for managing your media assets.
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Framework**: [React 19](https://react.dev/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **UI Components**: [Radix UI](https://www.radix-ui.com/) (Primitives), [Lucide React](https://lucide.dev/) (Icons)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/), [Tailwindcss Animate](https://github.com/jamiebuilds/tailwindcss-animate)
+- **State Management**: [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction)
+- **Routing**: [React Router DOM v7](https://reactrouter.com/)
+- **Notifications**: [Sonner](https://sonner.emilkowal.ski/)
+- **HTTP Client**: [Axios](https://axios-http.com/)
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🚀 Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Follow these steps to set up the project locally.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Prerequisites
+
+- Node.js (Latest LTS recommended)
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd lipsync
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Environment Setup**
+    Ensure you have the necessary environment configuration files (e.g., `.env.development`, `.env.production`) set up in the root directory.
+
+### Running the App
+
+Start the development server:
+
+```bash
+npm run dev
+# or
+npm run dev:development
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The application will typically be available at `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Building for Production
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+To create a production build:
+
+```bash
+npm run build:production
 ```
+
+## 📜 Scripts
+
+- `dev`: Starts the development server.
+- `build:production`: Type-checks and builds the application for production.
+- `lint`: Runs ESLint to catch code quality issues.
+- `preview`: Previews the production build locally.
+
