@@ -1,5 +1,5 @@
 import React, { type ReactNode } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from '../components/UI/Sidebar';
 import ProtectedRoute from './ProtectedRoute';
 
@@ -8,9 +8,12 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const { pathname } = useLocation();
+  const showSidebar = pathname !== '/';
+
   return (
-    <div className="flex min-h-screen bg-[#0d0d0f]">
-      <Sidebar />
+    <div className="flex min-h-screen bg-white dark:bg-[#0d0d0f] transition-colors duration-300">
+      {showSidebar && <Sidebar />}
       <main className="flex-1 min-h-screen overflow-hidden">
         <ProtectedRoute>
           {children || <Outlet />}

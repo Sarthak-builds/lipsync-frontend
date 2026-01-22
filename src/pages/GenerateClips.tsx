@@ -1,187 +1,131 @@
-
-import { useState ,useEffect, useRef} from 'react';
-import { useClipStore } from '../stores/clipStore';
-import { useVideoStore } from '../stores/videoStore';
-// import { useSpeechStore } from '../stores/speechStore';
-import { useFileStore } from '../stores/fileStore';
-import type { generateClipsPayload } from '../types/generateClips';
-import type { FileResponseMetaData } from '../types/apiFiles';
-import type { SpeechRequest } from '../types/speech';
+import React, { useState } from 'react';
+import { Clapperboard, Sparkles, Video, Volume2, Wand2, Play } from 'lucide-react';
+import { toast } from 'sonner';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/UI/card';
-import Button from '../components/UI/Button';
-import ButtonRed from '../components/UI/ButtonRed';
-import { generateSpeech } from '../services/apiSpeech';
-import { useVoiceStore } from '../stores/voicesStore';
-
 
 const GenerateClips: React.FC = () => {
-  // const { allSpeechGenerated } = useSpeechStore();
-  const { generateClip, getClipById, generatedClipsResponse } = useClipStore();
-  const { videosCollection } = useVideoStore();
-  const { voicesCollection } = useVoiceStore();
-  const { getFileById } = useFileStore();
-  const [selectedVideoId, setSelectedVideoId] = useState<number | null>(null);
-  const [selectedVoiceId, setSelectedVoiceId] = useState<number | null>(null);
-  const [text, setText] = useState<string>('');
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  const [clipUrl, setClipUrl] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-const [isVideoLoading, setIsVideoLoading] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState<string>("");
+  const [selectedVoice, setSelectedVoice] = useState<string>("");
+  const [text, setText] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
 
-  useEffect(() => {
-    const fetchClipUrl = async () => {
-      if (generatedClipsResponse?.id) {
-        setIsVideoLoading(true);
-        try {
-          const clipData = await getClipById(generatedClipsResponse.id);
-          const fileData = await getFileById(clipData.generated_video);
-          setClipUrl(fileData.file);
-          setTimeout(() => {
-        fetchClipUrl(); // Refresh after 10 seconds
-      }, 10000);
-        } catch (e) {
-          setError('Failed to load clip preview');
-        }
-         finally {
-          setIsVideoLoading(false);
-         }
-      }
-    };
-    fetchClipUrl();
-  }, [generatedClipsResponse, getClipById, getFileById]);
-
-  const handleGenerateClip = async () => {
-    if (!selectedVideoId || !selectedVoiceId) {
-      setError('Please select both a video and a speech');
+  const handleGenerate = () => {
+    if (!selectedVideo || !selectedVoice || !text.trim()) {
+      toast.error("Please select a video, voice, and enter text.");
       return;
     }
 
-    setIsLoading(true);
-    setError(null);
-    try {
-      const speechPayload : SpeechRequest = {
-        text:text.trim(),
-        voice: selectedVoiceId,
-      };
-      const speechResponse = await generateSpeech(speechPayload);
-      const speechId = speechResponse?.id;
-      if(!speechId){ throw new Error('speech generate nai hoga idhar pr')}
-
-      const generateClipPayload: generateClipsPayload = {
-         source_video_file_id:selectedVideoId,
-      speech_generation_id:speechId,
-      };
-      await generateClip(generateClipPayload);
-      setIsVideoLoading(true);
-      
-    } catch (err) {
-      setError('Failed to generate clip');
-      console.error('error:', err);
-    } finally {
-      setIsLoading(false);
-    }
+    setIsGenerating(true);
+    // Simulate a delay then show the message
+    setTimeout(() => {
+      setIsGenerating(false);
+      toast.info("We are building, this functionality cost us due api of ai message.", {
+        description: "The AI generation pipeline is currently restricted.",
+        duration: 5000,
+      });
+    }, 1500);
   };
-  const handleReset = () => {
-    setSelectedVoiceId(null);
-    setSelectedVideoId(null);
-    setText('');
-    setError(null);
-    setClipUrl(null);
-
-  }
-  const handleVideoChange = (e: React.ChangeEvent<HTMLSelectElement>) => { setSelectedVideoId(Number(e.target.value) || null);  };
-  const handleVoiceChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedVoiceId(Number(e.target.value) || null);
-}
 
   return (
-    <div className="flex my-1 rounded-sm border-1 border-neutral-800
-        py-4 px-8 bg-[#0d0d0fd6] mx-1 text-white w-full h-full  flex-col  font-geist">
-           <div>
-        <h1 className="text-xl font-semibold my-2 font-geist">GENERATE CLIPS</h1>
-        <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500" />
+    <div className="flex flex-col w-full min-h-screen bg-white dark:bg-[#0d0d0f] text-zinc-900 dark:text-white p-6 font-sans transition-colors duration-300">
+      <div className="flex items-center gap-3 mb-8">
+        <div className="p-2 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg shadow-lg shadow-blue-500/20">
+          <Clapperboard className="w-6 h-6 text-white" />
+        </div>
+        <div>
+          <h1 className="text-2xl font-bold">Generate Content</h1>
+          <p className="text-zinc-500 dark:text-zinc-400 text-sm">Synchronize audio and video with AI.</p>
+        </div>
       </div>
-        <div className='w-full h-full py-2 px-1 flex gap-4'>
-         <div className="w-full h-full flex items-start justify-center border-1 border-neutral-700 rounded-md">
-        <Card className="h-full rounded-none border-0 w-full">
-        <CardHeader>
-          <CardTitle className="text-md p-[1px] w-fit rounded-sm bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500"><div className='bg-black w-full rounded-sm px-5 py-1'>Generated Clip Preview</div></CardTitle>
-          
-        </CardHeader>
-       <CardContent className="flex items-center justify-center h-full">
-            {isVideoLoading ? (
-                <div className="flex flex-col items-center justify-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-                  <p className="text-gray-400 mt-2">Loading video...</p>
-                </div>
-              ) : clipUrl ? (
-                <video
-                  className="max-w-full max-h-[500px]"
-                  controls
-                  src={clipUrl}
-                  onError={() => setError('Failed to load video')}
-                >
-                  Your browser does not support the video tag.
-                </video>
-              ) : generatedClipsResponse ? (
-                <p></p>
-              ) : (
-                <p className="text-gray-400"></p>
-              )}
-        </CardContent>
-      </Card>
-      </div>
-       <div>
-        {/* sidebar selection yaha se hogsa */}
-        <div className="w-full min-w-120   h-full border-1 bg-[#060606ad] rounded-md border-neutral-700">
-        <Card className="w-full rounded-none border-0">
-          <CardHeader className='mb-5'>
-            <CardTitle className="text-sm p-[1px] w-fit rounded-sm bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500"><div className='bg-black w-full rounded-sm px-5 py-1'>Control Panel</div></CardTitle>
-          
-          </CardHeader>
-          <CardContent className="flex flex-col gap-6">
-            <div className="flex flex-col gap-2">
-              <select  value={selectedVideoId ?? ''}  onChange={handleVideoChange} className="p-2 rounded bg-black text-white ring-1 ring-neutral-800 text-sm"  disabled={isLoading}
-              >
-                <option value="">Video Selection</option>
-                {videosCollection?.map((video: FileResponseMetaData) => (
-                  <option key={video.id} value={video.id} className="bg-white/9">Video ID: {video.id}  </option>
-                ))}
-              </select>
-            </div>
-            <div className="flex flex-col gap-2">
-              <select 
-                  className=" px-2 w-full h-12 rounded-md flex justify-center items-center border-1  border-neutral-800 text-sm cursor-pointer bg-black"
-                  value={selectedVoiceId ?? ''}
-                  onChange={handleVoiceChange}
-                >
-                 <option value="">Voice Selection</option>
-                 { voicesCollection.length>0? (
-                        voicesCollection.map((voice)=> (
-                            <option className="bg-white/9 text-white"  key={voice.id} value={voice.id}>
-                                 {voice.name}
-                            </option>
-                        ))
-                    ) 
-                    :(<option value="" disabled> No voices available</option>)
 
-                    }
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
+        {/* Control Panel */}
+        <Card className="col-span-1 bg-zinc-50 dark:bg-[#121214] border-zinc-200 dark:border-white/5 h-fit shadow-lg">
+          <CardHeader className="border-b border-zinc-200 dark:border-white/5 pb-4">
+            <CardTitle className="text-sm font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400 flex items-center gap-2">
+              <Wand2 className="w-4 h-4 text-blue-600 dark:text-blue-500" />
+              Configuration
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-6 space-y-6">
+            {/* Video Selection */}
+            <div className="space-y-3">
+              <label className="text-sm font-medium text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
+                <Video className="w-4 h-4 text-zinc-500" /> Source Video
+              </label>
+              <select
+                value={selectedVideo}
+                onChange={(e) => setSelectedVideo(e.target.value)}
+                className="w-full bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 rounded-lg px-3 py-2.5 text-sm focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all text-zinc-900 dark:text-white"
+              >
+                <option value="">Select a video...</option>
+                <option value="v1">Demo_Product_Launch.mp4</option>
+                <option value="v2">Tutorial_Part1.mp4</option>
+                <option value="v3">Customer_Testimonial.mp4</option>
               </select>
             </div>
-            <div className="flex flex-col gap-2"> <textarea ref={textAreaRef} value={text} onChange={(e) => setText(e.target.value)} placeholder="Text Input" className="p-2 rounded text-sm bg-white/1 text-white ring-1 ring-neutral-700 h-36" />
+
+            {/* Voice Selection */}
+            <div className="space-y-3">
+              <label className="text-sm font-medium text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
+                <Volume2 className="w-4 h-4 text-zinc-500" /> AI Voice
+              </label>
+              <select
+                value={selectedVoice}
+                onChange={(e) => setSelectedVoice(e.target.value)}
+                className="w-full bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 rounded-lg px-3 py-2.5 text-sm focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all text-zinc-900 dark:text-white"
+              >
+                <option value="">Select a voice...</option>
+                <option value="voice1">Narrative - Deep Male</option>
+                <option value="voice2">Friendly Female</option>
+                <option value="voice3">News Anchor</option>
+              </select>
             </div>
-            <div className="flex w-full justify-center items-center gap-4">
-              <ButtonRed type="button" text="Clear" onClick={handleReset}/>
-              <Button type="button" text={isLoading ? 'Generating...' : 'Generate Clip'} onClick={handleGenerateClip} />
+
+            {/* Script Input */}
+            <div className="space-y-3">
+              <label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Script / Text</label>
+              <textarea
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                className="w-full h-32 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 rounded-lg px-3 py-2.5 text-sm focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all text-zinc-900 dark:text-white resize-none"
+                placeholder="Enter the text you want the video to speak..."
+              />
             </div>
-            {error && <p className="text-red-500 text-center"></p>}
+
+            <button
+              onClick={handleGenerate}
+              disabled={isGenerating}
+              className="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-lg font-medium shadow-lg shadow-blue-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              {isGenerating ? (
+                <>
+                  <Sparkles className="w-4 h-4 animate-spin" />
+                  Processing...
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-4 h-4" />
+                  Generate Clip
+                </>
+              )}
+            </button>
           </CardContent>
         </Card>
+
+        {/* Preview Area */}
+        <div className="col-span-1 lg:col-span-2 bg-zinc-100 dark:bg-black/40 border border-zinc-200 dark:border-white/5 rounded-xl flex items-center justify-center relative overflow-hidden group">
+          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 dark:opacity-20 pointer-events-none"></div>
+
+          <div className="text-center space-y-4">
+            <div className="w-16 h-16 bg-white dark:bg-zinc-900/80 rounded-full flex items-center justify-center mx-auto border border-zinc-200 dark:border-white/5 shadow-sm">
+              <Play className="w-6 h-6 text-zinc-400 dark:text-zinc-600 ml-1" />
+            </div>
+            <p className="text-zinc-400 dark:text-zinc-500 font-medium">Preview will appear here</p>
+          </div>
+        </div>
       </div>
-      </div>
-      </div>
-      </div>
+    </div>
   );
 };
 

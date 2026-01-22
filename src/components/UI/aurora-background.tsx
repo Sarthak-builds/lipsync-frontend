@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "../../components/lib/utils";
+import { cn } from "../../lib/utils";
 import React from "react";
 import type { ReactNode } from "react";
 
@@ -18,7 +18,7 @@ export const AuroraBackground: React.FC<AuroraBackgroundProps> = ({
     <main>
       <div
         className={cn(
-          "relative flex h-screen flex-col items-center justify-center bg-black text-white pointer-events-auto z-0",
+          "relative flex h-screen flex-col items-center justify-center bg-white dark:bg-black text-zinc-900 dark:text-white pointer-events-auto z-0 transition-colors duration-300",
           className
         )}
         {...props}
@@ -28,13 +28,13 @@ export const AuroraBackground: React.FC<AuroraBackgroundProps> = ({
           style={
             {
               "--aurora": "repeating-linear-gradient(100deg, #3b82f6 10%, #a5b4fc 15%, #93c5fd 20%, #ddd6fe 25%, #60a5fa 30%)",
-              "--gradient": "repeating-linear-gradient(100deg, #000 0%, #000 7%, transparent 10%, transparent 12%, #000 16%)",
+              "--gradient": "repeating-linear-gradient(100deg, var(--black) 0%, var(--black) 7%, transparent 10%, transparent 12%, var(--black) 16%)",
               "--blue-500": "#3b82f6",
               "--indigo-300": "#a5b4fc",
               "--blue-300": "#93c5fd",
               "--violet-200": "#ddd6fe",
               "--blue-400": "#60a5fa",
-              "--black": "#000",
+              "--black": "var(--background)",
               "--transparent": "transparent",
             } as React.CSSProperties
           }
@@ -43,20 +43,20 @@ export const AuroraBackground: React.FC<AuroraBackgroundProps> = ({
             className={cn(
               "absolute -inset-[10px] [background-image:var(--gradient),var(--aurora)] [background-size:300%,200%] [background-position:50% 50%,50% 50%] opacity-50 blur-[10px] filter will-change-transform",
               showRadialGradient &&
-                "[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,transparent_70%)]"
+              "[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,transparent_70%)]"
             )}
             style={{
-    animation: "var(--animate-aurora)",
-    "--aurora": "repeating-linear-gradient(100deg, #3b82f6 10%, #a5b4fc 15%, #93c5fd 20%, #ddd6fe 25%, #60a5fa 30%)",
-    "--gradient": "repeating-linear-gradient(100deg, #000 0%, #000 7%, transparent 10%, transparent 12%, #000 16%)",
-    "--blue-500": "#3b82f6",
-    "--indigo-300": "#a5b4fc",
-    "--blue-300": "#93c5fd",
-    "--violet-200": "#ddd6fe",
-    "--blue-400": "#60a5fa",
-    "--black": "#000",
-    "--transparent": "transparent",
-  } as React.CSSProperties}
+              animation: "var(--animate-aurora)",
+              "--aurora": "repeating-linear-gradient(100deg, #3b82f6 10%, #a5b4fc 15%, #93c5fd 20%, #ddd6fe 25%, #60a5fa 30%)",
+              "--gradient": "repeating-linear-gradient(100deg, var(--black) 0%, var(--black) 7%, transparent 10%, transparent 12%, var(--black) 16%)",
+              "--blue-500": "#3b82f6",
+              "--indigo-300": "#a5b4fc",
+              "--blue-300": "#93c5fd",
+              "--violet-200": "#ddd6fe",
+              "--blue-400": "#60a5fa",
+              "--black": "var(--background)",
+              "--transparent": "transparent",
+            } as React.CSSProperties}
           ></div>
         </div>
         <div className="relative z-20 flex justify-center items-center w-full h-full font-grotesk">

@@ -1,156 +1,143 @@
-import VoicesTable from "../components/Voices/VoicesTable";
-import Button from "../components/UI/Button";
-import {  useRef, useState } from "react";
-import { useFileStore } from "../stores/fileStore";
-import { useVoiceStore } from "../stores/voicesStore";
-import type { VoiceMetaData } from "../types/voices";
-import {Card, CardHeader, CardTitle,CardContent} from "../components/UI/card"
-import ButtonRed from "../components/UI/ButtonRed";
+import React, { useState } from "react";
+import { Mic, Plus, Play, Music } from "lucide-react";
+import { toast } from "sonner";
+import { cn } from "../lib/utils";
+import { Card, CardContent, CardHeader, CardTitle } from "../components/UI/card";
 
-
-const VoicePage:React.FC = () => {
-    const [voiceName, setVoiceName] = useState<string>("");
-const [createPanel, setCreatePanel] = useState(false);
-const [selectedFile, setSelectedFile] = useState< File  | null> (null);
-const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-const fileInputRef = useRef<HTMLInputElement>(null);
-const { uploadFile, filesData, filesIdDataCollection, setFilesDataEmpty} = useFileStore();
-const {createVoice, generatedVoiceResponse, getAllVoices} = useVoiceStore();
- const voiceNameInputRef = useRef<HTMLInputElement>(null);
-
-const onCreateClick = () => {
-setCreatePanel((prev)=> !prev);
+interface VoiceItem {
+  id: number;
+  name: string;
+  source: string;
 }
-const handleFormDisplay = () => {
-     if(fileInputRef.current) {
-        fileInputRef.current.click();
-    }
-}
-const handleAddFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            setSelectedFile(file);
-            const url = URL.createObjectURL(file);
-            setPreviewUrl(url);
-        }
-    };
 
-const handleCreateVoice = async () => {
-  if (!voiceName?.trim()) {
-            console.log("Voice name is required");
-            voiceNameInputRef.current?.focus();
-            return;
-        }
-        if (!selectedFile) {
-            console.log("A voice samplez file is required");
-            return;
-        }
-    if(selectedFile){
-            try {
-               await uploadFile(selectedFile);
-                 const filesDataForNewVoice = {
-                name: voiceName.trim(),
-                files: filesIdDataCollection.files,
-            };
-            const newVoice: VoiceMetaData = await createVoice(filesDataForNewVoice);
-             if (newVoice?.id && newVoice.name) {
-                await generatedVoiceResponse(newVoice.id);
-            }
-             await getAllVoices();
-            clearAndClosePanel();
-           } catch (error) {
-                console.error("upload failed", error);
-            }
-        }
-       } ;
-       const clearAndClosePanel = () => {
-        setVoiceName("");
-        setSelectedFile(null);
-        if (previewUrl) {
-            URL.revokeObjectURL(previewUrl);
-            setPreviewUrl(null); }
-        if (fileInputRef.current) {
-            fileInputRef.current.value = ""; }
-        setFilesDataEmpty();
-        setCreatePanel(false); 
-    };
-    const handleBackClick = () => {
-        clearAndClosePanel();
-    }
-    const handleVoiceName = (e: React.ChangeEvent<HTMLInputElement>) => {
-     setVoiceName(e.target.value);
-    };
-    return (
-       <div className="flex my-1 rounded-sm border-1 border-neutral-800
-        py-4 px-8 bg-[#0d0d0fd6] mx-1 text-white w-full h-full  flex-col  font-geist"> 
-       <div>
-        <h1 className="text-xl font-semibold my-2 ">VOICES</h1>
-       <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 " />
+const VoicePage: React.FC = () => {
+  const [voices, setVoices] = useState<VoiceItem[]>([
+    { id: 1, name: "Narrative - Deep Male", source: "pre-made" },
+    { id: 2, name: "Friendly Female", source: "pre-made" },
+    { id: 3, name: "News Anchor", source: "cloned" },
+  ]);
+  const [showCreatePanel, setShowCreatePanel] = useState(false);
+  const [newVoiceName, setNewVoiceName] = useState("");
 
-       </div>
-            <div className="flex flex-col relative">
-              <div className="absolute right-0 top-5 w-45 flex justify-end ">
-              <Button type="button" text="Create +" onClick={onCreateClick}></Button>
+  const handleCreateVoice = () => {
+    if (!newVoiceName.trim()) {
+      toast.error("Please enter a voice name");
+      return;
+    }
+
+    // The requested message
+    toast.info("We are building, this functionality cost us due api of ai message.", {
+      description: "Simulating voice creation for demo workflow.",
+      duration: 5000,
+    });
+
+    // Simulate success for workflow
+    const newVoice = {
+      id: Date.now(),
+      name: newVoiceName,
+      source: "custom-cloned"
+    };
+    setVoices([newVoice, ...voices]);
+    setNewVoiceName("");
+    setShowCreatePanel(false);
+  };
+
+  return (
+    <div className="flex flex-col w-full min-h-screen bg-white dark:bg-[#0d0d0f] text-zinc-900 dark:text-white p-8 font-sans transition-colors duration-300">
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h1 className="text-2xl font-bold flex items-center gap-2">
+            <Mic className="w-6 h-6 text-blue-600 dark:text-blue-500" />
+            Voice Lab
+          </h1>
+          <p className="text-zinc-500 dark:text-zinc-400 text-sm mt-1">Clone voices or choose from our premium library.</p>
+        </div>
+        <button
+          onClick={() => setShowCreatePanel(true)}
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors text-sm font-medium shadow-md shadow-blue-500/20"
+        >
+          <Plus className="w-4 h-4" />
+          New Voice
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {voices.map((voice) => (
+          <div key={voice.id} className="bg-zinc-50 dark:bg-[#121214] border border-zinc-200 dark:border-white/5 rounded-xl p-4 flex items-center justify-between hover:border-blue-500/30 transition-colors group shadow-sm">
+            <div className="flex items-center gap-4">
+              <div className={cn(
+                "w-10 h-10 rounded-full flex items-center justify-center",
+                voice.source === 'pre-made' ? "bg-blue-100 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400" : "bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400"
+              )}>
+                <Mic className="w-5 h-5" />
               </div>
-               <VoicesTable></VoicesTable>
-            </div>
-             {(createPanel)&&<div className="w-full h-full bg-black/40 inset-0 bg-opacity-50 backdrop-blur-xs z-50 flex justify-center items-center fixed  ">
-                <Card className="w-[700px] bg-black rounded-3xl border-1 border-neutral-700 text-white font-geist">
-            <CardHeader>
-              <CardTitle className="text-lg">Create Voice</CardTitle>
-               <hr className="w-full h-[2px] border-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 " />
-            </CardHeader>
-            <CardContent className="flex flex-col gap-5">
-              <div className="flex gap-4  justify-center items-center mt-5">
-                {/* <p className="italic text-gray-500 text-md w-50 ">Add a voice sample</p> */}
-                
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    accept="audio/*"
-                    className="hidden"
-                    onChange={handleAddFiles}
-                  />
-                  {!selectedFile ? ( <div className="w-full h-fit rounded-xl flex justify-center items-center border-dotted border-2 hover:bg-blue-600/10 border-blue-500 text-base cursor-pointer py-6 text-center"  onClick={handleFormDisplay} >
-  <span className="text-base">
- <i className="ri-voice-ai-line px-2"></i>Upload Your Voice Sample <br />
-  <span className="text-gray-500">[Max - 100 MB]</span> </span>
-      </div>) : (
-       <div className="w-full flex flex-col items-center gap-3 p-8 border rounded-lg border-blue-500 bg-gray-900/50">
-         <p className="font-semibold text-white">{selectedFile.name}</p>
-         {previewUrl && <audio controls src={previewUrl} className="w-full mx-6 py-1 h-12 px-4 rounded-sm bg-black text-white"></audio>}
-         </div> )}
-                 
-                
-              </div>
-              <div className="flex  flex-col gap-2 items-start px-5 my-2">
-               <div className="flex  justify-center gap-5 items-center w-full">
-                 <h2 className="w-fit"> Name:</h2>
-                <input ref={voiceNameInputRef} className="border-1 rounded-sm border-neutral-800 py-1 px-3 w-full" type="string" name="VoiceName" onChange={handleVoiceName} placeholder="Spongebob's voice sample" value={voiceName} ></input>
-               </div>
-              
-              {filesData.map((file) => (
-                <div key={file.id} className=" w-full">
-                  <a href={file.file} target="_blank" className="text-blue-400 w-full">
-                   <span className=" text-white"> Source:</span>  {file.file}
-                  </a>
+              <div>
+                <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-200">{voice.name}</h3>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] uppercase tracking-wider text-zinc-500 border border-zinc-300 dark:border-zinc-800 px-1.5 rounded">{voice.source}</span>
                 </div>
-              ))}
               </div>
-              <div className="flex gap-4 justify-center">
-                <ButtonRed type="button" text="Back" onClick={handleBackClick}>
-                </ButtonRed>
-                <Button text="Create a Voice" type="button" onClick={handleCreateVoice}>
-                </Button>
-                
+            </div>
+            <button className="p-2 text-zinc-400 hover:text-zinc-900 dark:hover:text-white rounded-full hover:bg-zinc-200 dark:hover:bg-white/5 transition-colors">
+              <Play className="w-4 h-4 fill-current" />
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* Create Voice Modal Overlay */}
+      {showCreatePanel && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+          <Card className="w-full max-w-md bg-white dark:bg-[#09090b] border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-white shadow-2xl">
+            <CardHeader className="border-b border-zinc-100 dark:border-white/5 pb-4">
+              <CardTitle className="text-lg font-medium flex items-center gap-2">
+                <Plus className="w-5 h-5 text-blue-600 dark:text-blue-500" />
+                Create New Voice
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-6 space-y-4">
+              <div className="space-y-2">
+                <label className="text-sm text-zinc-600 dark:text-zinc-400">Voice Name</label>
+                <input
+                  type="text"
+                  value={newVoiceName}
+                  onChange={(e) => setNewVoiceName(e.target.value)}
+                  placeholder="e.g. Spongebob AI"
+                  className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all placeholder:text-zinc-400 dark:placeholder:text-zinc-600 dark:text-white"
+                  autoFocus
+                />
+              </div>
+
+              <div className="p-4 border border-dashed border-zinc-300 dark:border-zinc-800 rounded-xl bg-zinc-50 dark:bg-zinc-900/50 flex flex-col items-center justify-center text-center space-y-2 cursor-pointer hover:border-blue-500/50 transition-colors">
+                <div className="p-2 bg-zinc-200 dark:bg-zinc-800 rounded-full text-zinc-500 dark:text-zinc-400">
+                  <Music className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Upload sample audio</p>
+                  <p className="text-xs text-zinc-500">MP3, WAV up to 10MB</p>
+                </div>
+              </div>
+
+              <div className="flex gap-3 pt-4">
+                <button
+                  onClick={() => setShowCreatePanel(false)}
+                  className="flex-1 px-4 py-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-lg text-sm font-medium transition-colors text-zinc-900 dark:text-white"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleCreateVoice}
+                  className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-medium transition-colors"
+                >
+                  Create Voice
+                </button>
               </div>
             </CardContent>
           </Card>
-                
-             </div>}
-             </div>
-        
-    )
-}
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default VoicePage;

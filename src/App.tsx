@@ -1,4 +1,5 @@
 import './App.css'
+import { Toaster } from 'sonner';
 import { Navigate, Route, Routes } from 'react-router-dom'
 import LoginForm from './components/authentication/LoginForm'
 import SignupForm from './components/authentication/SignupForm'
@@ -13,28 +14,29 @@ import Home from './pages/Home'
 // import Uploads from './pages/Uploads'
 
 
-const App:React.FC = ()=> {
-const {isAuthenticated} = useAuthStore();
+const App: React.FC = () => {
+  const { isAuthenticated } = useAuthStore();
 
   return (
-   <>
-   <Routes>
-       <Route path='/register' element= { <SignupForm></SignupForm>}/>;
-         <Route path="/login" element={<LoginForm/>}/>;
+    <>
+      <Routes>
+        <Route path='/register' element={<SignupForm></SignupForm>} />;
+        <Route path="/login" element={<LoginForm />} />;
 
-    <Route path='/' element={isAuthenticated? <Navigate to='/'></Navigate>: <Navigate to="/login"></Navigate>}></Route>;
-    
-         <Route path='/' element={<Layout></Layout>}>
-            {/* <Route index element= {<Dashboard></Dashboard>}></Route> */}
-            <Route index element = {<Home></Home>}></Route>
-            <Route path='/voices' element={<VoicePage></VoicePage>}></Route>
-            <Route path= '/speech' element={<Speech></Speech>}></Route>
-            <Route path= '/videos' element={<Videos></Videos>}></Route>
-            <Route path='/Clips' element={<GenerateClips></GenerateClips>}></Route>
-         </Route>
-     
-  </Routes>
-   </>
+        <Route path='/' element={isAuthenticated ? <Navigate to='/'></Navigate> : <Navigate to="/login"></Navigate>}></Route>;
+
+        <Route path='/' element={<Layout></Layout>}>
+          {/* <Route index element= {<Dashboard></Dashboard>}></Route> */}
+          <Route index element={<Home></Home>}></Route>
+          <Route path='/voices' element={<VoicePage></VoicePage>}></Route>
+          <Route path='/speech' element={<Speech></Speech>}></Route>
+          <Route path='/videos' element={<Videos></Videos>}></Route>
+          <Route path='/Clips' element={<GenerateClips></GenerateClips>}></Route>
+        </Route>
+
+      </Routes>
+      <Toaster position="top-right" richColors />
+    </>
   )
 }
 
