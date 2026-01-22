@@ -25,13 +25,11 @@ const VoicePage: React.FC = () => {
       return;
     }
 
-    // The requested message
     toast.info("We are building, this functionality cost us due api of ai message.", {
       description: "Simulating voice creation for demo workflow.",
       duration: 5000,
     });
 
-    // Simulate success for workflow
     const newVoice = {
       id: Date.now(),
       name: newVoiceName,
@@ -43,7 +41,7 @@ const VoicePage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col w-full min-h-screen bg-white dark:bg-[#0d0d0f] text-zinc-900 dark:text-white p-8 font-sans transition-colors duration-300">
+    <div className="flex flex-col w-full min-h-screen bg-white dark:bg-[#0d0d0f] text-zinc-900 dark:text-white p-4 md:p-8 font-sans transition-colors duration-300">
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold flex items-center gap-2">
@@ -85,7 +83,6 @@ const VoicePage: React.FC = () => {
         ))}
       </div>
 
-      {/* Create Voice Modal Overlay */}
       {showCreatePanel && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
           <Card className="w-full max-w-md bg-white dark:bg-[#09090b] border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-white shadow-2xl">

@@ -34,8 +34,6 @@ const SignupForm: React.FC = () => {
 
     return (
         <div className="flex min-h-screen w-full bg-white dark:bg-black font-sans transition-colors duration-300 relative">
-            {/* Theme Toggle */}
-            {/* Theme Toggle */}
             <div className="absolute top-6 right-6 z-50">
                 <button
                     onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -49,7 +47,6 @@ const SignupForm: React.FC = () => {
                 </button>
             </div>
 
-            {/* Left: Form Section */}
             <div className="w-full lg:w-1/2 flex items-center justify-center p-8 animate-in fade-in slide-in-from-left-4 duration-500">
                 <div className="w-full max-w-md space-y-8">
                     <div className="space-y-2">
@@ -132,7 +129,6 @@ const SignupForm: React.FC = () => {
                 </div>
             </div>
 
-            {/* Right: Image Section */}
             <div className="hidden lg:flex w-1/2 bg-zinc-100 dark:bg-zinc-900 relative overflow-hidden items-center justify-center border-l border-zinc-200 dark:border-zinc-800">
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2574&auto=format&fit=crop')] bg-cover bg-center opacity-90 dark:opacity-60 grayscale hover:grayscale-0 transition-all duration-700 ease-in-out transform hover:scale-105"></div>
                 <div className="relative z-10 p-12 text-white max-w-lg">

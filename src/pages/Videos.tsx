@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Upload, Play, Trash2, Film, Plus } from "lucide-react";
 import { toast } from "sonner";
-// import { cn } from "../lib/utils";
 
 interface VideoItem {
   id: number;
   name: string;
-  url: string; // Mock url or placeholder
+  url: string;
   size: string;
   date: string;
 }
@@ -19,13 +18,11 @@ const Videos: React.FC = () => {
   ]);
 
   const handleUpload = () => {
-    // Show the restriction message as requested, but also simulate add for workflow
     toast.info("We are building this functionality. Costs are limited due to AI API usage.", {
       description: "Simulating video upload for demo purposes.",
       duration: 5000,
     });
 
-    // Simulate adding a video
     const newVideo: VideoItem = {
       id: Date.now(),
       name: `New_Upload_${videos.length + 1}.mp4`,
@@ -37,7 +34,7 @@ const Videos: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col w-full min-h-screen bg-white dark:bg-[#0d0d0f] text-zinc-900 dark:text-white p-8 font-sans transition-colors duration-300">
+    <div className="flex flex-col w-full min-h-screen bg-white dark:bg-[#0d0d0f] text-zinc-900 dark:text-white p-4 md:p-8 font-sans transition-colors duration-300">
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold flex items-center gap-2">
@@ -56,7 +53,6 @@ const Videos: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Upload Placeholder (Visual cue) */}
         <div
           onClick={handleUpload}
           className="group border border-dashed border-zinc-300 dark:border-zinc-800 hover:border-blue-500/50 hover:bg-blue-500/5 rounded-xl h-48 flex flex-col items-center justify-center cursor-pointer transition-all"
@@ -70,10 +66,8 @@ const Videos: React.FC = () => {
 
         {videos.map((video) => (
           <div key={video.id} className="group relative bg-zinc-50 dark:bg-[#121214] border border-zinc-200 dark:border-white/5 hover:border-blue-500/30 dark:hover:border-white/10 rounded-xl overflow-hidden transition-all shadow-sm">
-            {/* Thumbnail Placeholder */}
             <div className="h-32 bg-zinc-200 dark:bg-zinc-900 flex items-center justify-center group-hover:bg-zinc-300 dark:group-hover:bg-zinc-800 transition-colors relative">
               <Film className="w-8 h-8 text-zinc-400 dark:text-zinc-700 group-hover:text-zinc-600" />
-              {/* Play Overlay */}
               <div className="absolute inset-0 bg-black/10 dark:bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity backdrop-blur-[1px]">
                 <button className="p-2 rounded-full bg-white/80 dark:bg-white/10 hover:bg-white text-zinc-900 dark:text-white backdrop-blur-md transition-transform hover:scale-110 shadow-lg">
                   <Play className="w-5 h-5 fill-current" />

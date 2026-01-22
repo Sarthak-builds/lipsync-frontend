@@ -16,7 +16,6 @@ const GenerateClips: React.FC = () => {
     }
 
     setIsGenerating(true);
-    // Simulate a delay then show the message
     setTimeout(() => {
       setIsGenerating(false);
       toast.info("We are building, this functionality cost us due api of ai message.", {
@@ -27,7 +26,7 @@ const GenerateClips: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col w-full min-h-screen bg-white dark:bg-[#0d0d0f] text-zinc-900 dark:text-white p-6 font-sans transition-colors duration-300">
+    <div className="flex flex-col w-full min-h-screen bg-white dark:bg-[#0d0d0f] text-zinc-900 dark:text-white p-4 md:p-6 font-sans transition-colors duration-300">
       <div className="flex items-center gap-3 mb-8">
         <div className="p-2 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg shadow-lg shadow-blue-500/20">
           <Clapperboard className="w-6 h-6 text-white" />
@@ -39,7 +38,6 @@ const GenerateClips: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
-        {/* Control Panel */}
         <Card className="col-span-1 bg-zinc-50 dark:bg-[#121214] border-zinc-200 dark:border-white/5 h-fit shadow-lg">
           <CardHeader className="border-b border-zinc-200 dark:border-white/5 pb-4">
             <CardTitle className="text-sm font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400 flex items-center gap-2">
@@ -48,7 +46,6 @@ const GenerateClips: React.FC = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-6 space-y-6">
-            {/* Video Selection */}
             <div className="space-y-3">
               <label className="text-sm font-medium text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
                 <Video className="w-4 h-4 text-zinc-500" /> Source Video
@@ -65,7 +62,6 @@ const GenerateClips: React.FC = () => {
               </select>
             </div>
 
-            {/* Voice Selection */}
             <div className="space-y-3">
               <label className="text-sm font-medium text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
                 <Volume2 className="w-4 h-4 text-zinc-500" /> AI Voice
@@ -82,7 +78,6 @@ const GenerateClips: React.FC = () => {
               </select>
             </div>
 
-            {/* Script Input */}
             <div className="space-y-3">
               <label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Script / Text</label>
               <textarea
@@ -113,7 +108,6 @@ const GenerateClips: React.FC = () => {
           </CardContent>
         </Card>
 
-        {/* Preview Area */}
         <div className="col-span-1 lg:col-span-2 bg-zinc-100 dark:bg-black/40 border border-zinc-200 dark:border-white/5 rounded-xl flex items-center justify-center relative overflow-hidden group">
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 dark:opacity-20 pointer-events-none"></div>
 
