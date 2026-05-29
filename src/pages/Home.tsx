@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom';
 import { AuroraBackground } from '../components/UI/aurora-background';
 import { Sparkles, ArrowRight, Video, Mic, Wand2, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../components/providers/ThemeProvider';
+import DemoSection from '../components/Demo/DemoSection';
 
 const Home: React.FC = () => {
   const { theme, setTheme } = useTheme();
 
   return (
+    <>
     <AuroraBackground>
       <div className="absolute top-6 right-6 z-50">
         <button
@@ -97,6 +99,8 @@ const Home: React.FC = () => {
 
       </div>
     </AuroraBackground>
+    <DemoSection />
+  </>
   );
 };
 

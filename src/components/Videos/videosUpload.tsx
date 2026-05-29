@@ -25,9 +25,7 @@ const VideosUpload: React.FC = () => {
           const responseOfVideoUploaded = await uploadVideoFile(selectedFile);
           setSelectedFile(null);
           // console.log("Upload response:", responseOfVideoUploaded);
-          const videoPreviewResponse = await getFileById(responseOfVideoUploaded.id);
-          setVideoPreviewUrl(videoPreviewResponse.file);
-          setSelectedFile(null);
+          setVideoPreviewUrl(responseOfVideoUploaded.file);
           if (fileInputRef.current) {
             fileInputRef.current.value = "";
           }
