@@ -513,8 +513,8 @@ const Home: React.FC = () => {
         <DemoSection />
       </section>
 
-      {/* PRICING SECTION - Contrasting Soft Lavender Background */}
-      <section id="pricing" className="py-20 md:py-24 px-6 border-t border-[#ebdcd0]/40 dark:border-[#201f1c]/80 relative transition-colors duration-300 bg-[#f2ecf5] dark:bg-[#130f17]">
+      {/* PRICING SECTION - Contrasting Warm Sand Background */}
+      <section id="pricing" className="py-20 md:py-24 px-6 border-t border-[#ebdcd0]/40 dark:border-[#201f1c]/80 relative transition-colors duration-300 bg-[#f5f2eb] dark:bg-[#11110f]">
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="text-center space-y-3 max-w-2xl mx-auto">
             <h2 className="text-xs font-semibold font-mono tracking-widest text-[#385942] dark:text-[#7ea68a] uppercase">
