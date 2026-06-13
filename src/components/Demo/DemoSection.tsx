@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Play, Mic, Video, Wand2 } from 'lucide-react';
+import { Mic, Video, Wand2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../UI/card';
 
 const DemoSection: React.FC = () => {

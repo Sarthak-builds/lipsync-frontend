@@ -1,12 +1,10 @@
 import { useRef, useState } from "react";
-import { useFileStore } from "../../stores/fileStore";
 import { useVideoStore } from "../../stores/videoStore";
 import { Card, CardHeader, CardTitle, CardContent } from "../UI/card";
 import Button from "../UI/Button";
 import ButtonRed from "../UI/ButtonRed";
 
 const VideosUpload: React.FC = () => {
-  const { getFileById } = useFileStore();
   const { uploadVideoFile } = useVideoStore(); // Added getAllVideos
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [videoPreviewUrl, setVideoPreviewUrl] = useState<string | null>(null);

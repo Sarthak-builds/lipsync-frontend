@@ -1,7 +1,6 @@
 import React, { type ReactNode, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from '../components/UI/Sidebar';
-import ProtectedRoute from './ProtectedRoute';
 import { Menu, Sparkles } from 'lucide-react';
 
 interface LayoutProps {
@@ -35,9 +34,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         )}
 
-        <ProtectedRoute>
-          {children || <Outlet />}
-        </ProtectedRoute>
+        {children || <Outlet />}
       </main>
     </div>
   );
