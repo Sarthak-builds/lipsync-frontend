@@ -18,7 +18,7 @@ const Videos: React.FC = () => {
   ]);
 
   const handleUpload = () => {
-    toast.info("We are building this functionality. Costs are limited due to AI API usage.", {
+    toast.info("We are building this functionality.", {
       description: "Simulating video upload for demo purposes.",
       duration: 5000,
     });
@@ -34,54 +34,56 @@ const Videos: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col w-full min-h-screen bg-white dark:bg-[#0d0d0f] text-zinc-900 dark:text-white p-4 md:p-8 font-sans transition-colors duration-300">
-      <div className="flex items-center justify-between mb-8">
+    <div className="flex flex-col w-full min-h-screen bg-[#faf8f5] dark:bg-[#0d0d0c] text-[#1c1c1c] dark:text-[#e5e1db] p-4 md:p-8 font-sans transition-colors duration-300 relative">
+      <div className="flex items-center justify-between mb-8 border-b border-[#ebdcd0]/30 dark:border-[#201f1c] pb-6">
         <div>
-          <h1 className="text-2xl font-bold flex items-center gap-2">
-            <Film className="w-6 h-6 text-blue-600 dark:text-blue-500" />
+          <h1 className="text-3xl font-normal flex items-center gap-2.5 font-serif text-[#1c1c1c] dark:text-white">
+            <Film className="w-7 h-7 text-[#385942] dark:text-[#7ea68a]" />
             Video Gallery
           </h1>
-          <p className="text-zinc-500 dark:text-zinc-400 text-sm mt-1">Manage your video assets for generation.</p>
+          <p className="text-[#5c5852] dark:text-[#a39e95] text-xs mt-1">Manage your video assets for generation.</p>
         </div>
         <button
           onClick={handleUpload}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors text-sm font-medium shadow-md shadow-blue-500/20"
+          className="flex items-center gap-2 px-5 py-2.5 bg-[#385942] hover:bg-[#2d4735] dark:bg-[#4b7358] dark:hover:bg-[#3d5e48] text-white dark:text-black rounded-full transition-colors text-xs font-semibold tracking-wide shadow-sm cursor-pointer"
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="w-3.5 h-3.5" />
           Upload Video
         </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Upload Dotted Card */}
         <div
           onClick={handleUpload}
-          className="group border border-dashed border-zinc-300 dark:border-zinc-800 hover:border-blue-500/50 hover:bg-blue-500/5 rounded-xl h-48 flex flex-col items-center justify-center cursor-pointer transition-all"
+          className="group border border-dashed border-[#ebdcd0] hover:border-[#385942] dark:border-[#201f1c] dark:hover:border-[#7ea68a] hover:bg-[#faf8f5] dark:hover:bg-[#121211]/30 rounded-2xl h-48 flex flex-col items-center justify-center cursor-pointer transition-all"
         >
-          <div className="p-3 rounded-full bg-zinc-100 dark:bg-zinc-900 group-hover:bg-blue-500/20 text-zinc-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-3">
-            <Upload className="w-6 h-6" />
+          <div className="p-3.5 rounded-full border border-[#ebdcd0] dark:border-[#201f1c] bg-transparent text-[#5c5852] group-hover:bg-[#385942] group-hover:text-white dark:group-hover:bg-[#4b7358] dark:group-hover:text-black transition-colors mb-3">
+            <Upload className="w-5 h-5" />
           </div>
-          <p className="text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-zinc-200 text-sm font-medium">Click to Upload</p>
-          <p className="text-zinc-500 dark:text-zinc-600 text-xs mt-1">MP4, MOV up to 100MB</p>
+          <p className="text-[#1c1c1c] dark:text-zinc-200 text-sm font-semibold">Click to Upload</p>
+          <p className="text-[#5c5852] dark:text-[#a39e95] text-[10px] mt-1 font-mono">MP4 or MOV files up to 100MB</p>
         </div>
 
+        {/* Video Items */}
         {videos.map((video) => (
-          <div key={video.id} className="group relative bg-zinc-50 dark:bg-[#121214] border border-zinc-200 dark:border-white/5 hover:border-blue-500/30 dark:hover:border-white/10 rounded-xl overflow-hidden transition-all shadow-sm">
-            <div className="h-32 bg-zinc-200 dark:bg-zinc-900 flex items-center justify-center group-hover:bg-zinc-300 dark:group-hover:bg-zinc-800 transition-colors relative">
-              <Film className="w-8 h-8 text-zinc-400 dark:text-zinc-700 group-hover:text-zinc-600" />
+          <div key={video.id} className="group relative bg-[#fdfdfc] dark:bg-[#121211] border border-[#ebdcd0] dark:border-[#201f1c] hover:border-[#385942] dark:hover:border-[#7ea68a] rounded-2xl overflow-hidden transition-all shadow-sm">
+            <div className="h-32 bg-[#faf8f5] dark:bg-[#0d0d0c] border-b border-[#ebdcd0]/30 dark:border-[#201f1c]/50 flex items-center justify-center relative">
+              <Film className="w-8 h-8 text-[#ebdcd0] dark:text-[#201f1c] group-hover:text-[#385942] dark:group-hover:text-[#7ea68a] transition-colors" />
               <div className="absolute inset-0 bg-black/10 dark:bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity backdrop-blur-[1px]">
-                <button className="p-2 rounded-full bg-white/80 dark:bg-white/10 hover:bg-white text-zinc-900 dark:text-white backdrop-blur-md transition-transform hover:scale-110 shadow-lg">
-                  <Play className="w-5 h-5 fill-current" />
+                <button className="p-3 rounded-full bg-white dark:bg-[#121211] text-[#385942] dark:text-[#7ea68a] hover:scale-105 transition-transform shadow-lg cursor-pointer border border-[#ebdcd0] dark:border-[#201f1c]">
+                  <Play className="w-4.5 h-4.5 fill-current ml-0.5" />
                 </button>
               </div>
             </div>
 
-            <div className="p-3">
+            <div className="p-4 bg-[#fdfdfc] dark:bg-[#121211]">
               <div className="flex justify-between items-start">
-                <div>
-                  <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-200 truncate max-w-[180px]" title={video.name}>{video.name}</h3>
-                  <p className="text-xs text-zinc-500 mt-0.5">{video.size} • {video.date}</p>
+                <div className="space-y-0.5">
+                  <h3 className="text-sm font-semibold text-[#1c1c1c] dark:text-zinc-200 truncate max-w-[180px]" title={video.name}>{video.name}</h3>
+                  <p className="text-xs text-[#5c5852] dark:text-[#a39e95] font-mono">{video.size} • {video.date}</p>
                 </div>
-                <button className="text-zinc-400 hover:text-red-500 transition-colors">
+                <button className="text-[#5c5852] dark:text-[#a39e95] hover:text-red-500 dark:hover:text-red-400 transition-colors p-1 rounded-full cursor-pointer">
                   <Trash2 className="w-4 h-4" />
                 </button>
               </div>

@@ -7,47 +7,47 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../UI/table"; // Adjust the import path based on your project structure
-
+} from "../UI/table";
 
 interface TableProps {
-   speechGeneratedResponseDisplay : SpeechGeneratedResponse[] | null;
-   voicesCollection: VoiceMetaData[];
+  speechGeneratedResponseDisplay: SpeechGeneratedResponse[] | null;
+  voicesCollection: VoiceMetaData[];
 }
-const TableSpeech: React.FC<TableProps> = ({speechGeneratedResponseDisplay, voicesCollection}) => {
 
-
-    return (
-        <div className="overflow-x-auto px-2 py-1 rounded-sm font-geist ">
-      <Table className="w-full  border-1 rounded-sm  border-neutral-700">
-        <TableHeader className="bg-black/50 h-12  rounded-md">
-          <TableRow className="text-base bg-black hover:bg-[#1111139e] rounded-sm">
-            <TableHead className="text-center text-white ">ID</TableHead>
-            <TableHead className="text-center text-white">VOICE NAME</TableHead>
-            <TableHead className="text-center text-white">CREATED AT</TableHead>
-            <TableHead className="text-center text-white">TEXT PROMPT</TableHead>
+const TableSpeech: React.FC<TableProps> = ({ speechGeneratedResponseDisplay, voicesCollection }) => {
+  return (
+    <div className="overflow-x-auto rounded-xl border border-[#ebdcd0] dark:border-[#201f1c] bg-[#fdfdfc] dark:bg-[#121211]">
+      <Table className="w-full">
+        <TableHeader className="bg-[#faf8f5] dark:bg-[#0d0d0c]">
+          <TableRow className="border-b border-[#ebdcd0] dark:border-[#201f1c] hover:bg-transparent">
+            <TableHead className="text-center font-semibold text-xs tracking-wider text-[#5c5852] dark:text-[#a39e95] h-11">ID</TableHead>
+            <TableHead className="text-center font-semibold text-xs tracking-wider text-[#5c5852] dark:text-[#a39e95]">VOICE NAME</TableHead>
+            <TableHead className="text-center font-semibold text-xs tracking-wider text-[#5c5852] dark:text-[#a39e95]">CREATED AT</TableHead>
+            <TableHead className="text-center font-semibold text-xs tracking-wider text-[#5c5852] dark:text-[#a39e95]">TEXT PROMPT</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className="bg-[#111113bb] rounded-t-md">
+        <TableBody>
           {speechGeneratedResponseDisplay && speechGeneratedResponseDisplay.length > 0 ? (
             speechGeneratedResponseDisplay.map((speech) => (
-              <TableRow key={speech.id} className="hover:bg-neutral-800">
-                <TableCell className="text-center text-white">{speech.id}</TableCell>
-                <TableCell className="text-center text-white">
+              <TableRow 
+                key={speech.id} 
+                className="border-b border-[#ebdcd0]/60 dark:border-[#201f1c] last:border-0 hover:bg-[#faf8f5] dark:hover:bg-[#0d0d0c]/50 transition-colors"
+              >
+                <TableCell className="text-center text-xs font-mono text-[#5c5852] dark:text-[#a39e95] py-3">{speech.id}</TableCell>
+                <TableCell className="text-center text-sm font-medium text-[#1c1c1c] dark:text-zinc-200">
                   {voicesCollection.find(v => v?.id === speech.voice)?.name || "Unknown"}
                 </TableCell>
-                <TableCell className="text-center text-white">
+                <TableCell className="text-center text-xs text-[#5c5852] dark:text-[#a39e95] font-mono">
                   {speech.created_at ? speech.created_at.split("T")[0] : "N/A"}
                 </TableCell>
-                <TableCell className="text-center text-white max-w-70 h-12 overflow-hidden text-ellipsis whitespace-nowrap">
+                <TableCell className="text-center text-xs text-[#5c5852] dark:text-[#a39e95] max-w-70 overflow-hidden text-ellipsis whitespace-nowrap">
                   {speech.text}
                 </TableCell>
               </TableRow>
-              
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={4} className="text-center text-white py-4">
+              <TableCell colSpan={4} className="text-center text-sm text-[#5c5852] dark:text-[#a39e95] py-8">
                 No speeches found
               </TableCell>
             </TableRow>
@@ -55,7 +55,7 @@ const TableSpeech: React.FC<TableProps> = ({speechGeneratedResponseDisplay, voic
         </TableBody>
       </Table>
     </div>
-    )
-}
+  );
+};
 
 export default TableSpeech;

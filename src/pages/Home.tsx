@@ -80,16 +80,11 @@ const Home: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#faf8f5] dark:bg-[#0d0d0c] text-[#1c1c1c] dark:text-[#e5e1db] font-sans selection:bg-[#e6dfd5] dark:selection:bg-[#2e2d2a] selection:text-[#1c1c1c] dark:selection:text-[#e5e1db] transition-colors duration-300 relative overflow-x-hidden">
       
-      {/* Editorial Decorative Blobs */}
-      <div className="absolute top-40 right-[-10%] w-[40vw] h-[40vw] bg-[#e6dfd5]/30 dark:bg-[#1a1917]/20 rounded-full blur-[100px] pointer-events-none z-0"></div>
-      <div className="absolute top-[120vh] left-[-10%] w-[35vw] h-[35vw] bg-[#608c6c]/5 dark:bg-[#608c6c]/2 rounded-full blur-[80px] pointer-events-none z-0"></div>
-
       {/* NAVBAR */}
       <header className="sticky top-0 z-50 w-full border-b border-[#ebdcd0]/40 dark:border-[#201f1c]/80 bg-[#faf8f5]/90 dark:bg-[#0d0d0c]/90 backdrop-blur-md transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-8">
             <Link to="/" className="flex items-center gap-3 group">
-              {/* Logo from assets */}
               <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#ebdcd0] dark:border-[#201f1c] shadow-sm transition-transform duration-300 group-hover:scale-105">
                 <img src={logoImage} className="w-full h-full object-cover" alt="LipSync Logo" />
               </div>
@@ -222,9 +217,54 @@ const Home: React.FC = () => {
         )}
       </header>
 
-      {/* HERO SECTION */}
-      <section className="relative pt-24 pb-20 md:pt-32 md:pb-28 flex flex-col items-center text-center px-6 z-10">
-        <div className="max-w-4xl mx-auto space-y-8">
+      {/* HERO SECTION - Warm Cream Background */}
+      <section className="relative pt-24 pb-20 md:pt-32 md:pb-28 flex flex-col items-center text-center px-6 z-10 bg-[#faf8f5] dark:bg-[#0d0d0c] transition-colors duration-300">
+        
+        {/* ADVANCED FLOATING BACKGROUND BLOBS */}
+        <motion.div
+          animate={{
+            x: [0, 40, -20, 0],
+            y: [0, -50, 30, 0],
+            scale: [1, 1.1, 0.9, 1],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute top-10 right-[-10%] w-[350px] h-[350px] rounded-full bg-[#608c6c]/10 dark:bg-[#4b7358]/5 blur-[90px] pointer-events-none z-0"
+        />
+        <motion.div
+          animate={{
+            x: [0, -30, 40, 0],
+            y: [0, 40, -40, 0],
+            scale: [1, 0.95, 1.05, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute bottom-5 left-[-5%] w-[320px] h-[320px] rounded-full bg-[#d8c5b2]/20 dark:bg-[#2e2b27]/15 blur-[80px] pointer-events-none z-0"
+        />
+        <motion.div
+          animate={{
+            x: [0, 50, -40, 0],
+            y: [0, 30, 50, 0],
+            scale: [1, 1.15, 0.9, 1],
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute top-[40%] left-[40%] w-[280px] h-[280px] rounded-full bg-[#d8b2d8]/10 dark:bg-[#271d27]/5 blur-[100px] pointer-events-none z-0"
+        />
+
+        {/* Diagonal Line Grid Lines */}
+        <div className="absolute inset-0 z-0 opacity-[0.03] dark:opacity-[0.04] pointer-events-none bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+
+        <div className="relative z-10 max-w-4xl mx-auto space-y-8">
           
           {/* Top Pill badge */}
           <motion.div
@@ -233,7 +273,7 @@ const Home: React.FC = () => {
             variants={fadeInUp}
             className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#ebdcd0] dark:border-[#201f1c] bg-[#fdfdfc]/80 dark:bg-[#121211]/80 text-xs font-medium text-[#5c5852] dark:text-[#a39e95] backdrop-blur-sm shadow-sm"
           >
-            <Sparkles className="w-3.5 h-3.5 text-[#385942] dark:text-[#608c6c]" />
+            <Sparkles className="w-3.5 h-3.5 text-[#385942] dark:text-[#7ea68a]" />
             <span>AI Voice Localization</span>
             <span className="w-[1px] h-3 bg-[#ebdcd0] dark:bg-[#201f1c]"></span>
             <span className="flex items-center gap-0.5 text-[#1c1c1c] dark:text-[#e5e1db] hover:text-[#385942] dark:hover:text-[#608c6c] transition-colors cursor-pointer">
@@ -308,10 +348,8 @@ const Home: React.FC = () => {
           className="relative mt-16 md:mt-20 w-full max-w-4xl rounded-2xl border border-[#ebdcd0] dark:border-[#201f1c] bg-[#fdfdfc] dark:bg-[#121211] p-3 shadow-xl z-10"
         >
           <div className="rounded-xl overflow-hidden border border-[#ebdcd0]/50 dark:border-[#201f1c]/50 bg-[#faf8f5] dark:bg-[#0d0d0c] aspect-video flex items-center justify-center relative group">
-            {/* Soft decorative ambient color glows in video mockup */}
             <div className="absolute inset-0 bg-gradient-to-tr from-[#385942]/5 via-transparent to-transparent opacity-60 pointer-events-none"></div>
             
-            {/* Simulated Video Frame details */}
             <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
               <span className="w-2.5 h-2.5 rounded-full bg-red-400/80 animate-ping"></span>
               <span className="font-mono text-[10px] tracking-widest text-[#5c5852] dark:text-[#a39e95] uppercase">Live Sync Deck</span>
@@ -344,8 +382,8 @@ const Home: React.FC = () => {
         </motion.div>
       </section>
 
-      {/* DETAILED FEATURES SECTION */}
-      <section id="features" className="py-20 md:py-24 px-6 border-t border-[#ebdcd0]/40 dark:border-[#201f1c]/80 relative transition-colors duration-300">
+      {/* DETAILED FEATURES SECTION - Contrasting Cream-Beige Background */}
+      <section id="features" className="py-20 md:py-24 px-6 border-t border-[#ebdcd0]/40 dark:border-[#201f1c]/80 bg-[#f4efe8] dark:bg-[#121210] relative transition-colors duration-300">
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="text-center space-y-3 max-w-2xl mx-auto">
             <h2 className="text-xs font-semibold font-mono tracking-widest text-[#385942] dark:text-[#7ea68a] uppercase">
@@ -398,7 +436,7 @@ const Home: React.FC = () => {
               <motion.div 
                 key={idx}
                 whileHover={{ y: -4, boxShadow: "0 10px 30px -10px rgba(0,0,0,0.1)" }}
-                className="group relative flex flex-col justify-between p-7 rounded-xl border border-[#ebdcd0]/70 dark:border-[#201f1c] bg-[#fdfdfc]/50 dark:bg-[#121211]/50 transition-all duration-300 cursor-default"
+                className="group relative flex flex-col justify-between p-7 rounded-xl border border-[#ebdcd0]/70 dark:border-[#201f1c] bg-[#fdfdfc]/80 dark:bg-[#1c1c1a]/50 transition-all duration-300 cursor-default"
               >
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
@@ -424,8 +462,8 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* HOW IT WORKS SECTION */}
-      <section id="how-it-works" className="py-20 md:py-24 px-6 border-t border-[#ebdcd0]/40 dark:border-[#201f1c]/80 relative transition-colors duration-300">
+      {/* HOW IT WORKS SECTION - Warm Sand Background */}
+      <section id="how-it-works" className="py-20 md:py-24 px-6 border-t border-[#ebdcd0]/40 dark:border-[#201f1c]/80 bg-[#faf8f5] dark:bg-[#0d0d0c] relative transition-colors duration-300">
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="text-center space-y-3 max-w-2xl mx-auto">
             <h2 className="text-xs font-semibold font-mono tracking-widest text-[#385942] dark:text-[#7ea68a] uppercase">
@@ -454,7 +492,7 @@ const Home: React.FC = () => {
                 desc: "Hit render. Our speech-sync pipeline computes vocal shifts and matches your screen movements seamlessly."
               }
             ].map((step, idx) => (
-              <div key={idx} className="space-y-4 p-6.5 rounded-xl border border-[#ebdcd0]/40 dark:border-[#201f1c] bg-[#faf8f5]/40 dark:bg-[#0d0d0c]/40 hover:bg-[#fdfdfc] dark:hover:bg-[#121211] transition-all duration-300">
+              <div key={idx} className="space-y-4 p-6.5 rounded-xl border border-[#ebdcd0]/40 dark:border-[#201f1c] bg-[#fdfdfc]/50 dark:bg-[#121211]/30 hover:bg-[#fdfdfc] dark:hover:bg-[#121211] transition-all duration-300">
                 <div className="text-2xl font-serif font-bold text-[#385942]/70 dark:text-[#7ea68a]/70">
                   {step.step}
                 </div>
@@ -470,13 +508,13 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* SHOWCASE / DEMO SECTION */}
+      {/* SHOWCASE / DEMO SECTION - Contrasting Soft Sage Green Background */}
       <section id="demo" className="border-t border-[#ebdcd0]/40 dark:border-[#201f1c]/80 transition-colors duration-300">
         <DemoSection />
       </section>
 
-      {/* PRICING SECTION */}
-      <section id="pricing" className="py-20 md:py-24 px-6 border-t border-[#ebdcd0]/40 dark:border-[#201f1c]/80 relative transition-colors duration-300 bg-[#faf8f5]/50 dark:bg-[#0d0d0c]/30">
+      {/* PRICING SECTION - Contrasting Soft Lavender Background */}
+      <section id="pricing" className="py-20 md:py-24 px-6 border-t border-[#ebdcd0]/40 dark:border-[#201f1c]/80 relative transition-colors duration-300 bg-[#f2ecf5] dark:bg-[#130f17]">
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="text-center space-y-3 max-w-2xl mx-auto">
             <h2 className="text-xs font-semibold font-mono tracking-widest text-[#385942] dark:text-[#7ea68a] uppercase">
@@ -489,7 +527,7 @@ const Home: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {/* Free Plan */}
-            <div className="p-7.5 rounded-xl border border-[#ebdcd0] dark:border-[#201f1c] bg-[#fdfdfc] dark:bg-[#121211] flex flex-col justify-between space-y-8">
+            <div className="p-7.5 rounded-xl border border-[#ebdcd0] dark:border-[#201f1c] bg-[#fdfdfc] dark:bg-[#1c1c1a]/50 flex flex-col justify-between space-y-8">
               <div className="space-y-4 text-left">
                 <h3 className="font-semibold text-lg text-[#1c1c1c] dark:text-white font-sans">Hobby</h3>
                 <p className="text-xs text-[#5c5852] dark:text-[#a39e95]">For starting creator sets</p>
@@ -514,7 +552,7 @@ const Home: React.FC = () => {
             </div>
 
             {/* Pro Plan */}
-            <div className="p-7.5 rounded-xl border-2 border-[#385942] dark:border-[#7ea68a] bg-[#fdfdfc] dark:bg-[#121211] flex flex-col justify-between space-y-8 relative">
+            <div className="p-7.5 rounded-xl border-2 border-[#385942] dark:border-[#7ea68a] bg-[#fdfdfc] dark:bg-[#1c1c1a]/50 flex flex-col justify-between space-y-8 relative">
               <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-[#385942] dark:bg-[#7ea68a] text-white dark:text-black text-[9px] font-mono font-bold tracking-wider uppercase">
                 Editor Choice
               </div>
@@ -542,7 +580,7 @@ const Home: React.FC = () => {
             </div>
 
             {/* Enterprise Plan */}
-            <div className="p-7.5 rounded-xl border border-[#ebdcd0] dark:border-[#201f1c] bg-[#fdfdfc] dark:bg-[#121211] flex flex-col justify-between space-y-8">
+            <div className="p-7.5 rounded-xl border border-[#ebdcd0] dark:border-[#201f1c] bg-[#fdfdfc] dark:bg-[#1c1c1a]/50 flex flex-col justify-between space-y-8">
               <div className="space-y-4 text-left">
                 <h3 className="font-semibold text-lg text-[#1c1c1c] dark:text-white font-sans">Enterprise</h3>
                 <p className="text-xs text-[#5c5852] dark:text-[#a39e95]">For studio hubs & teams</p>
@@ -569,22 +607,22 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="border-t border-[#ebdcd0]/40 dark:border-[#201f1c]/80 pt-16 pb-12 px-6 transition-colors duration-300">
+      {/* FOOTER - Contrasting Dark Charcoal Background */}
+      <footer className="border-t border-[#ebdcd0]/30 dark:border-[#201f1c]/80 pt-16 pb-12 px-6 bg-[#1a1917] dark:bg-[#080808] text-[#e5e1db] dark:text-[#a39e95] transition-colors duration-300">
         <div className="max-w-7xl mx-auto space-y-12">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
             
             {/* Brand column */}
             <div className="col-span-2 space-y-4">
               <Link to="/" className="flex items-center gap-3 group w-fit">
-                <div className="relative w-7.5 h-7.5 rounded-full overflow-hidden border border-[#ebdcd0] dark:border-[#201f1c] shadow-sm">
+                <div className="relative w-7.5 h-7.5 rounded-full overflow-hidden border border-[#ebdcd0]/30 dark:border-[#201f1c] shadow-sm">
                   <img src={logoImage} className="w-full h-full object-cover" alt="LipSync Logo" />
                 </div>
-                <span className="font-semibold text-base tracking-tight text-[#1c1c1c] dark:text-white font-sans">
+                <span className="font-semibold text-base tracking-tight text-white dark:text-[#e5e1db] font-sans">
                   LIPSYNC AI
                 </span>
               </Link>
-              <p className="text-sm text-[#5c5852] dark:text-[#a39e95] max-w-xs leading-relaxed font-sans">
+              <p className="text-sm text-[#a39e95] dark:text-[#77746d] max-w-xs leading-relaxed font-sans">
                 An advanced speech-sync video suite built for editorial creators, offering hyper-realistic localization out of simple scripts.
               </p>
               <div className="pt-2">
@@ -592,7 +630,7 @@ const Home: React.FC = () => {
                   href="https://x.com/Sarthakbuilds" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#ebdcd0] dark:border-[#201f1c] hover:bg-[#f3eee5] dark:hover:bg-[#1a1917] text-xs font-mono text-[#5c5852] hover:text-[#1c1c1c] dark:text-[#a39e95] dark:hover:text-white transition-all"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#ebdcd0]/20 dark:border-[#201f1c] hover:bg-white/5 text-xs font-mono text-[#a39e95] hover:text-white transition-all"
                 >
                   <span>Built by @sarthakbuilds</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -602,41 +640,41 @@ const Home: React.FC = () => {
 
             {/* Product Links */}
             <div className="space-y-3.5 text-left">
-              <h4 className="text-xs font-mono font-semibold text-[#5c5852] dark:text-[#a39e95] uppercase tracking-widest">Product</h4>
-              <ul className="space-y-2 text-sm text-[#5c5852] dark:text-[#a39e95] font-sans">
-                <li><button onClick={() => scrollToSection('features')} className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors cursor-pointer">Features</button></li>
-                <li><button onClick={() => scrollToSection('how-it-works')} className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors cursor-pointer">How It Works</button></li>
-                <li><button onClick={() => scrollToSection('demo')} className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors cursor-pointer">Showcase</button></li>
-                <li><button onClick={() => scrollToSection('pricing')} className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors cursor-pointer">Pricing</button></li>
+              <h4 className="text-xs font-mono font-semibold text-[#a39e95] uppercase tracking-widest">Product</h4>
+              <ul className="space-y-2 text-sm text-[#77746d] hover:text-zinc-200 font-sans">
+                <li><button onClick={() => scrollToSection('features')} className="hover:text-white transition-colors cursor-pointer">Features</button></li>
+                <li><button onClick={() => scrollToSection('how-it-works')} className="hover:text-white transition-colors cursor-pointer">How It Works</button></li>
+                <li><button onClick={() => scrollToSection('demo')} className="hover:text-white transition-colors cursor-pointer">Showcase</button></li>
+                <li><button onClick={() => scrollToSection('pricing')} className="hover:text-white transition-colors cursor-pointer">Pricing</button></li>
               </ul>
             </div>
 
             {/* Developer Links */}
             <div className="space-y-3.5 text-left">
-              <h4 className="text-xs font-mono font-semibold text-[#5c5852] dark:text-[#a39e95] uppercase tracking-widest">Developers</h4>
-              <ul className="space-y-2 text-sm text-[#5c5852] dark:text-[#a39e95] font-sans">
-                <li><a href="#" className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors">Documentation</a></li>
-                <li><a href="#" className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors">API Reference</a></li>
-                <li><a href="#" className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors">Changelog</a></li>
-                <li><a href="#" className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors">System Status</a></li>
+              <h4 className="text-xs font-mono font-semibold text-[#a39e95] uppercase tracking-widest">Developers</h4>
+              <ul className="space-y-2 text-sm text-[#77746d] font-sans">
+                <li><a href="#" className="hover:text-white transition-colors">Documentation</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">API Reference</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Changelog</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">System Status</a></li>
               </ul>
             </div>
 
             {/* Legal Links */}
             <div className="space-y-3.5 text-left">
-              <h4 className="text-xs font-mono font-semibold text-[#5c5852] dark:text-[#a39e95] uppercase tracking-widest">Company</h4>
-              <ul className="space-y-2 text-sm text-[#5c5852] dark:text-[#a39e95] font-sans">
-                <li><a href="#" className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors">Terms of Service</a></li>
-                <li><a href="#" className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors">Security Details</a></li>
-                <li><a href="#" className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors">Support Portal</a></li>
+              <h4 className="text-xs font-mono font-semibold text-[#a39e95] uppercase tracking-widest">Company</h4>
+              <ul className="space-y-2 text-sm text-[#77746d] font-sans">
+                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Security Details</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Support Portal</a></li>
               </ul>
             </div>
 
           </div>
 
           {/* Bottom copyright */}
-          <div className="border-t border-[#ebdcd0]/40 dark:border-[#201f1c] pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#5c5852] dark:text-[#a39e95] gap-4 font-sans">
+          <div className="border-t border-[#ebdcd0]/10 dark:border-[#201f1c] pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#a39e95] dark:text-[#77746d] gap-4 font-sans">
             <div>
               &copy; {new Date().getFullYear()} LipSync AI Inc. All rights reserved.
             </div>

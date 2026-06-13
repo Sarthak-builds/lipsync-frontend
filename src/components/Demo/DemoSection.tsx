@@ -91,7 +91,7 @@ const DemoSection: React.FC = () => {
                         src={demo.src} 
                         controls 
                         className="w-full h-full object-cover"
-                        poster="/lipsync-logo.png"
+                        preload="metadata"
                       />
                     ) : (
                       <div className="w-full h-full flex flex-col items-center justify-center p-8 bg-[#fdfdfc] dark:bg-[#121211] relative">
