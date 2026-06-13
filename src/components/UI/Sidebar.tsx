@@ -6,131 +6,138 @@ import { useTheme } from "../providers/ThemeProvider";
 import logoImage from "../../assets/logo.jpg";
 
 interface SidebarProps {
-    className?: string;
-    onClose?: () => void;
+  className?: string;
+  onClose?: () => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ className, onClose }) => {
-    const [isCollapsed, setIsCollapsed] = useState(false);
-    const { theme, setTheme } = useTheme();
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const { theme, setTheme } = useTheme();
 
-    const navItems = [
-        { name: "Home", path: "/", icon: Home },
-        { name: "Videos", path: "/videos", icon: Video },
-        { name: "Voices", path: "/voices", icon: Mic },
-        { name: "Generate Clips", path: "/clips", icon: Clapperboard },
-    ];
+  const navItems = [
+    { name: "Home", path: "/", icon: Home },
+    { name: "Videos", path: "/videos", icon: Video },
+    { name: "Voices", path: "/voices", icon: Mic },
+    { name: "Generate Clips", path: "/clips", icon: Clapperboard },
+  ];
 
-    return (
-        <>
-            <div
-                className={cn(
-                    "fixed inset-0 z-40 bg-black/80 md:hidden",
-                    className?.includes("translate-x-0") ? "block" : "hidden"
-                )}
-                onClick={onClose}
-            />
+  return (
+    <>
+      {/* Mobile backdrop */}
+      <div
+        className={cn(
+          "fixed inset-0 z-40 bg-black/60 md:hidden",
+          className?.includes("translate-x-0") ? "block" : "hidden"
+        )}
+        onClick={onClose}
+      />
 
-            <aside
-                className={cn(
-                    "fixed inset-y-0 left-0 z-50 h-screen border-r border-white/5 bg-[#09090b] dark:bg-[#09090b] bg-white text-zinc-900 dark:text-white flex flex-col transition-transform duration-300 md:translate-x-0 md:static md:inset-auto",
-                    isCollapsed ? "md:w-20" : "md:w-64",
-                    "w-64",
-                    className
-                )}
+      <aside
+        className={cn(
+          "fixed inset-y-0 left-0 z-50 h-screen border-r border-[#ebdcd0]/60 dark:border-[#201f1c] bg-[#fdfdfc] dark:bg-[#121211] text-[#1c1c1c] dark:text-[#e5e1db] flex flex-col transition-all duration-300 md:translate-x-0 md:static md:inset-auto",
+          isCollapsed ? "md:w-20" : "md:w-64",
+          "w-64",
+          className
+        )}
+      >
+        {/* Brand Header */}
+        <div className="h-16 flex items-center justify-between px-4 border-b border-[#ebdcd0]/40 dark:border-[#201f1c] mb-6">
+          {(!isCollapsed || window.innerWidth < 768) && (
+            <div className="flex items-center gap-2.5 font-bold text-base tracking-tight font-sans text-[#1c1c1c] dark:text-white">
+              <img src={logoImage} className="w-6.5 h-6.5 rounded-full object-cover border border-[#ebdcd0] dark:border-[#201f1c]" alt="Logo" />
+              LIPSYNC AI
+            </div>
+          )}
+
+          <div className="flex items-center gap-1">
+            <button
+              onClick={onClose}
+              className="md:hidden p-2 rounded-full hover:bg-[#faf8f5] dark:hover:bg-[#0d0d0c] text-[#5c5852] dark:text-[#a39e95] transition-colors cursor-pointer"
             >
-                <div className="h-16 flex items-center justify-between px-4 border-b border-zinc-200 dark:border-white/5 mb-6">
-                    {(!isCollapsed || window.innerWidth < 768) && (
-                        <div className="flex items-center gap-2.5 font-bold text-base tracking-tight font-sans text-zinc-900 dark:text-zinc-50">
-                            <img src={logoImage} className="w-6.5 h-6.5 rounded-full object-cover border border-zinc-200 dark:border-zinc-800" alt="Logo" />
-                            LIPSYNC AI
-                        </div>
-                    )}
+              <X className="w-4 h-4" />
+            </button>
 
-                    <div className="flex items-center gap-1">
-                        
-                        <button
-                            onClick={onClose}
-                            className="md:hidden p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-white/5 text-zinc-500 dark:text-zinc-400 transition-colors"
-                        >
-                            <X className="w-5 h-5" />
-                        </button>
+            <button
+              onClick={() => setIsCollapsed(!isCollapsed)}
+              className={cn(
+                "hidden md:block p-2 rounded-full hover:bg-[#faf8f5] dark:hover:bg-[#0d0d0c] text-[#5c5852] dark:text-[#a39e95] transition-colors cursor-pointer",
+                isCollapsed ? "mx-auto" : ""
+              )}
+            >
+              {isCollapsed ? <Menu className="w-4.5 h-4.5" /> : <ChevronLeft className="w-4.5 h-4.5" />}
+            </button>
+          </div>
+        </div>
 
-                        
-                        <button
-                            onClick={() => setIsCollapsed(!isCollapsed)}
-                            className={cn(
-                                "hidden md:block p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-white/5 text-zinc-500 dark:text-zinc-400 transition-colors",
-                                isCollapsed ? "mx-auto" : ""
-                            )}
-                        >
-                            {isCollapsed ? <Menu className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
-                        </button>
-                    </div>
-                </div>
+        {/* Navigation */}
+        <nav className="flex-1 px-3 space-y-1.5 font-sans">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              onClick={() => window.innerWidth < 768 && onClose?.()}
+              className={({ isActive }) =>
+                cn(
+                  "flex items-center gap-3 px-3 py-2.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 group border border-transparent",
+                  isActive
+                    ? "bg-[#385942]/10 text-[#385942] dark:bg-[#4b7358]/10 dark:text-[#7ea68a] border-[#385942]/20 dark:border-[#4b7358]/20"
+                    : "text-[#5c5852] dark:text-[#a39e95] hover:bg-[#faf8f5] dark:hover:bg-[#0d0d0c] hover:text-[#1c1c1c] dark:hover:text-white",
+                  isCollapsed && "md:justify-center md:px-2"
+                )
+              }
+            >
+              {({ isActive }) => (
+                <>
+                  <item.icon className={cn(
+                    "w-4.5 h-4.5 transition-colors shrink-0", 
+                    isActive 
+                      ? "text-[#385942] dark:text-[#7ea68a]" 
+                      : "text-[#5c5852] dark:text-[#a39e95] group-hover:text-[#1c1c1c] dark:group-hover:text-white"
+                  )} />
+                  <span className={cn("md:block", isCollapsed ? "md:hidden" : "block")}>{item.name}</span>
+                </>
+              )}
+            </NavLink>
+          ))}
+        </nav>
 
-                <nav className="flex-1 px-3 space-y-1">
-                    {navItems.map((item) => (
-                        <NavLink
-                            key={item.path}
-                            to={item.path}
-                            onClick={() => window.innerWidth < 768 && onClose?.()}
-                            className={({ isActive }) =>
-                                cn(
-                                    "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 group",
-                                    isActive
-                                        ? "bg-blue-50 dark:bg-blue-600/10 text-blue-600 dark:text-blue-400 ring-1 ring-blue-500/20"
-                                        : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-white/5 hover:text-zinc-900 dark:hover:text-zinc-100",
-                                    isCollapsed && "md:justify-center md:px-2"
-                                )
-                            }
-                        >
-                            {({ isActive }) => (
-                                <>
-                                    <item.icon className={cn("w-5 h-5 transition-colors shrink-0", isActive ? "text-blue-600 dark:text-blue-400" : "text-zinc-500 dark:text-zinc-500 group-hover:text-zinc-700 dark:group-hover:text-zinc-300")} />
-                                    <span className={cn("md:block", isCollapsed ? "md:hidden" : "block")}>{item.name}</span>
-                                </>
-                            )}
-                        </NavLink>
-                    ))}
-                </nav>
+        {/* Sidebar Footer options */}
+        <div className="p-4 border-t border-[#ebdcd0]/40 dark:border-[#201f1c] space-y-2 font-sans">
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className={cn(
+              "flex items-center gap-3 p-2 rounded-full text-[11px] font-semibold text-[#5c5852] dark:text-[#a39e95] hover:bg-[#faf8f5] dark:hover:bg-[#0d0d0c] hover:text-[#1c1c1c] dark:hover:text-white transition-colors w-full group cursor-pointer",
+              isCollapsed && "md:justify-center"
+            )}
+          >
+            {theme === "dark" ? (
+              <Sun className="w-4 h-4 group-hover:text-yellow-400 transition-colors" />
+            ) : (
+              <Moon className="w-4 h-4 group-hover:text-[#385942] transition-colors" />
+            )}
+            <span className={cn("md:block", isCollapsed ? "md:hidden" : "block")}>Toggle Theme</span>
+          </button>
 
-                <div className="p-4 border-t border-zinc-200 dark:border-white/5 space-y-2">
-                    <button
-                        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                        className={cn(
-                            "flex items-center gap-3 p-2 rounded-lg text-xs text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors w-full group",
-                            isCollapsed && "md:justify-center"
-                        )}
-                    >
-                        {theme === "dark" ? (
-                            <Sun className="w-5 h-5 group-hover:text-yellow-400 transition-colors" />
-                        ) : (
-                            <Moon className="w-5 h-5 group-hover:text-blue-600 transition-colors" />
-                        )}
-                        <span className={cn("md:block font-medium", isCollapsed ? "md:hidden" : "block")}>Toggle Theme</span>
-                    </button>
-
-                    <a
-                        href="https://x.com/Sarthakbuilds"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={cn(
-                            "flex items-center gap-3 p-2 rounded-lg text-xs text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors group",
-                            isCollapsed && "md:justify-center"
-                        )}
-                    >
-                        <div className="w-6 h-6 rounded-full bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center shrink-0 group-hover:bg-zinc-300 dark:group-hover:bg-zinc-700 transition-colors">
-                            <span className="text-[10px] font-bold text-zinc-700 dark:text-zinc-300">S</span>
-                        </div>
-                        <div className={cn("flex flex-col md:block", isCollapsed ? "md:hidden" : "block")}>
-                            <span className="text-zinc-600 dark:text-zinc-400 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors font-medium">@sarthakbuilds</span>
-                        </div>
-                    </a>
-                </div>
-            </aside>
-        </>
-    );
+          <a
+            href="https://x.com/Sarthakbuilds"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              "flex items-center gap-3 p-2 rounded-full text-[11px] font-semibold text-[#5c5852] dark:text-[#a39e95] hover:bg-[#faf8f5] dark:hover:bg-[#0d0d0c] hover:text-[#1c1c1c] dark:hover:text-white transition-colors group",
+              isCollapsed && "md:justify-center"
+            )}
+          >
+            <div className="w-5 h-5 rounded-full bg-[#f3eee5] dark:bg-[#1a1917] flex items-center justify-center shrink-0 border border-[#ebdcd0]/60 dark:border-[#201f1c]">
+              <span className="text-[9px] font-bold text-[#385942] dark:text-[#7ea68a]">S</span>
+            </div>
+            <div className={cn("flex flex-col md:block", isCollapsed ? "md:hidden" : "block")}>
+              <span className="group-hover:text-[#385942] dark:group-hover:text-[#7ea68a] transition-colors">@sarthakbuilds</span>
+            </div>
+          </a>
+        </div>
+      </aside>
+    </>
+  );
 };
 
 export default Sidebar;

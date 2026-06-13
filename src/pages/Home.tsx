@@ -24,6 +24,7 @@ import { useAuthStore } from '../stores/authStore';
 import DemoSection from '../components/Demo/DemoSection';
 import { toast } from 'sonner';
 import logoImage from '../assets/logo.jpg';
+import { WavyBackground } from '../components/UI/wavy-background';
 
 const Home: React.FC = () => {
   const { theme, setTheme } = useTheme();
@@ -185,7 +186,7 @@ const Home: React.FC = () => {
                     className="w-full flex items-center justify-center gap-1.5 bg-[#385942] hover:bg-[#2d4735] dark:bg-[#4b7358] dark:hover:bg-[#3d5e48] text-white py-2.5 rounded-full text-xs font-semibold tracking-wide transition-colors shadow-sm"
                   >
                     Go to Workspace
-                    <ArrowRight className="w-3 h-3" />
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                   <button
                     onClick={() => { setMobileNavOpen(false); handleLogout(); }}
@@ -217,55 +218,17 @@ const Home: React.FC = () => {
         )}
       </header>
 
-      {/* HERO SECTION - Warm Cream Background */}
-      <section className="relative pt-24 pb-20 md:pt-32 md:pb-28 flex flex-col items-center text-center px-6 z-10 bg-[#faf8f5] dark:bg-[#0d0d0c] transition-colors duration-300">
-        
-        {/* ADVANCED FLOATING BACKGROUND BLOBS */}
-        <motion.div
-          animate={{
-            x: [0, 40, -20, 0],
-            y: [0, -50, 30, 0],
-            scale: [1, 1.1, 0.9, 1],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-10 right-[-10%] w-[350px] h-[350px] rounded-full bg-[#608c6c]/10 dark:bg-[#4b7358]/5 blur-[90px] pointer-events-none z-0"
-        />
-        <motion.div
-          animate={{
-            x: [0, -30, 40, 0],
-            y: [0, 40, -40, 0],
-            scale: [1, 0.95, 1.05, 1],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute bottom-5 left-[-5%] w-[320px] h-[320px] rounded-full bg-[#d8c5b2]/20 dark:bg-[#2e2b27]/15 blur-[80px] pointer-events-none z-0"
-        />
-        <motion.div
-          animate={{
-            x: [0, 50, -40, 0],
-            y: [0, 30, 50, 0],
-            scale: [1, 1.15, 0.9, 1],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-[40%] left-[40%] w-[280px] h-[280px] rounded-full bg-[#d8b2d8]/10 dark:bg-[#271d27]/5 blur-[100px] pointer-events-none z-0"
-        />
-
-        {/* Diagonal Line Grid Lines */}
-        <div className="absolute inset-0 z-0 opacity-[0.03] dark:opacity-[0.04] pointer-events-none bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:40px_40px]"></div>
-
-        <div className="relative z-10 max-w-4xl mx-auto space-y-8">
-          
+      {/* HERO SECTION - Wavy Background and Cream Canvas */}
+      <section className="relative min-h-[90vh] flex flex-col items-center justify-center text-center z-10 bg-[#faf8f5] dark:bg-[#0d0d0c] transition-colors duration-300 border-b border-[#ebdcd0]/30 dark:border-[#201f1c]/30">
+        <WavyBackground 
+          colors={["#2e4735", "#385942", "#4a7056", "#608c6c", "#7ea68a"]} 
+          backgroundFill={theme === "dark" ? "#0d0d0c" : "#faf8f5"}
+          waveOpacity={theme === "dark" ? 0.35 : 0.25}
+          blur={14}
+          speed="slow"
+          containerClassName="relative w-full h-auto min-h-[75vh] flex flex-col items-center justify-center bg-transparent py-16 px-6"
+          className="max-w-4xl mx-auto z-10 flex flex-col items-center space-y-8"
+        >
           {/* Top Pill badge */}
           <motion.div
             initial="hidden"
@@ -277,7 +240,7 @@ const Home: React.FC = () => {
             <span>AI Voice Localization</span>
             <span className="w-[1px] h-3 bg-[#ebdcd0] dark:bg-[#201f1c]"></span>
             <span className="flex items-center gap-0.5 text-[#1c1c1c] dark:text-[#e5e1db] hover:text-[#385942] dark:hover:text-[#608c6c] transition-colors cursor-pointer">
-              Explore templates <ChevronRight className="w-3 h-3" />
+              Explore templates <ChevronRight className="w-3.5 h-3.5" />
             </span>
           </motion.div>
 
@@ -322,7 +285,7 @@ const Home: React.FC = () => {
             initial="hidden"
             animate="visible"
             variants={fadeInUp}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2"
           >
             <Link
               to={isAuthenticated ? "/clips" : "/register"}
@@ -338,48 +301,50 @@ const Home: React.FC = () => {
               Watch Video Demo
             </button>
           </motion.div>
-        </div>
+        </WavyBackground>
 
         {/* INTERACTIVE VIDEO DECK MOCKUP */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="relative mt-16 md:mt-20 w-full max-w-4xl rounded-2xl border border-[#ebdcd0] dark:border-[#201f1c] bg-[#fdfdfc] dark:bg-[#121211] p-3 shadow-xl z-10"
-        >
-          <div className="rounded-xl overflow-hidden border border-[#ebdcd0]/50 dark:border-[#201f1c]/50 bg-[#faf8f5] dark:bg-[#0d0d0c] aspect-video flex items-center justify-center relative group">
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#385942]/5 via-transparent to-transparent opacity-60 pointer-events-none"></div>
-            
-            <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-400/80 animate-ping"></span>
-              <span className="font-mono text-[10px] tracking-widest text-[#5c5852] dark:text-[#a39e95] uppercase">Live Sync Deck</span>
-            </div>
+        <div className="relative pb-20 w-full max-w-4xl px-6 mx-auto z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="w-full rounded-2xl border border-[#ebdcd0] dark:border-[#201f1c] bg-[#fdfdfc] dark:bg-[#121211] p-3 shadow-xl"
+          >
+            <div className="rounded-xl overflow-hidden border border-[#ebdcd0]/50 dark:border-[#201f1c]/50 bg-[#faf8f5] dark:bg-[#0d0d0c] aspect-video flex items-center justify-center relative group">
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#385942]/5 via-transparent to-transparent opacity-60 pointer-events-none"></div>
+              
+              <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-400/80 animate-ping"></span>
+                <span className="font-mono text-[10px] tracking-widest text-[#5c5852] dark:text-[#a39e95] uppercase">Live Sync Deck</span>
+              </div>
 
-            {/* Circular waveform visualizer */}
-            <div className="flex items-center justify-center gap-1.5 h-12 w-full max-w-xs px-6">
-              {[35, 50, 25, 75, 45, 90, 60, 30, 80, 55, 70, 40, 95, 50, 65, 30, 85, 45, 60, 35].map((h, i) => (
-                <motion.div 
-                  key={i} 
-                  className="flex-1 bg-[#385942] dark:bg-[#7ea68a] rounded-full"
-                  animate={{ height: [`${h * 0.4}%`, `${h}%`, `${h * 0.4}%`] }}
-                  transition={{ duration: 1.5 + (i % 3) * 0.3, repeat: Infinity, ease: "easeInOut" }}
-                  style={{ minHeight: "4px" }}
-                />
-              ))}
-            </div>
+              {/* Circular waveform visualizer */}
+              <div className="flex items-center justify-center gap-1.5 h-12 w-full max-w-xs px-6">
+                {[35, 50, 25, 75, 45, 90, 60, 30, 80, 55, 70, 40, 95, 50, 65, 30, 85, 45, 60, 35].map((h, i) => (
+                  <motion.div 
+                    key={i} 
+                    className="flex-1 bg-[#385942] dark:bg-[#7ea68a] rounded-full"
+                    animate={{ height: [`${h * 0.4}%`, `${h}%`, `${h * 0.4}%`] }}
+                    transition={{ duration: 1.5 + (i % 3) * 0.3, repeat: Infinity, ease: "easeInOut" }}
+                    style={{ minHeight: "4px" }}
+                  />
+                ))}
+              </div>
 
-            {/* Big Elegant Play Button */}
-            <button 
-              onClick={() => scrollToSection('demo')}
-              className="absolute w-16 h-16 rounded-full bg-[#385942] hover:bg-[#2d4735] dark:bg-[#4b7358] dark:hover:bg-[#3d5e48] text-white flex items-center justify-center shadow-lg group transition-transform duration-300 hover:scale-105 cursor-pointer z-10"
-              aria-label="Play showcase"
-            >
-              <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current ml-1">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </button>
-          </div>
-        </motion.div>
+              {/* Big Elegant Play Button */}
+              <button 
+                onClick={() => scrollToSection('demo')}
+                className="absolute w-16 h-16 rounded-full bg-[#385942] hover:bg-[#2d4735] dark:bg-[#4b7358] dark:hover:bg-[#3d5e48] text-white flex items-center justify-center shadow-lg group transition-transform duration-300 hover:scale-105 cursor-pointer z-10"
+                aria-label="Play showcase"
+              >
+                <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current ml-1">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
       {/* DETAILED FEATURES SECTION - Contrasting Cream-Beige Background */}
@@ -641,7 +606,7 @@ const Home: React.FC = () => {
             {/* Product Links */}
             <div className="space-y-3.5 text-left">
               <h4 className="text-xs font-mono font-semibold text-[#a39e95] uppercase tracking-widest">Product</h4>
-              <ul className="space-y-2 text-sm text-[#77746d] hover:text-zinc-200 font-sans">
+              <ul className="space-y-2 text-sm text-[#77746d] hover:text-zinc-205 font-sans">
                 <li><button onClick={() => scrollToSection('features')} className="hover:text-white transition-colors cursor-pointer">Features</button></li>
                 <li><button onClick={() => scrollToSection('how-it-works')} className="hover:text-white transition-colors cursor-pointer">How It Works</button></li>
                 <li><button onClick={() => scrollToSection('demo')} className="hover:text-white transition-colors cursor-pointer">Showcase</button></li>
