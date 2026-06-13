@@ -1,8 +1,9 @@
 import { NavLink } from "react-router-dom";
-import { Home, Video, Mic, Clapperboard, Sparkles, Menu, ChevronLeft, Sun, Moon, X } from "lucide-react";
+import { Home, Video, Mic, Clapperboard, Menu, ChevronLeft, Sun, Moon, X } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { useState } from "react";
 import { useTheme } from "../providers/ThemeProvider";
+import logoImage from "../../assets/logo.jpg";
 
 interface SidebarProps {
     className?: string;
@@ -40,8 +41,8 @@ const Sidebar: React.FC<SidebarProps> = ({ className, onClose }) => {
             >
                 <div className="h-16 flex items-center justify-between px-4 border-b border-zinc-200 dark:border-white/5 mb-6">
                     {(!isCollapsed || window.innerWidth < 768) && (
-                        <div className="flex items-center gap-2 font-bold text-xl tracking-wide bg-gradient-to-r from-blue-600 to-sky-500 dark:from-blue-400 dark:to-sky-400 bg-clip-text text-transparent">
-                            <Sparkles className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                        <div className="flex items-center gap-2.5 font-bold text-base tracking-tight font-sans text-zinc-900 dark:text-zinc-50">
+                            <img src={logoImage} className="w-6.5 h-6.5 rounded-full object-cover border border-zinc-200 dark:border-zinc-800" alt="Logo" />
                             LIPSYNC AI
                         </div>
                     )}

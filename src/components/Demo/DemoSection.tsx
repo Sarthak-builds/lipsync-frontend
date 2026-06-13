@@ -36,25 +36,31 @@ const DemoSection: React.FC = () => {
   ];
 
   return (
-    <div className="py-20 px-4 md:px-10 bg-transparent">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
+    <div className="py-20 px-6 bg-[#edf2ee] dark:bg-[#0f1411] transition-colors duration-300 relative overflow-hidden">
+      {/* Decorative calm green ambient blob */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[200px] bg-[#608c6c]/10 rounded-full blur-[90px] pointer-events-none"></div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
+        <div className="text-center mb-16 space-y-3">
+          <h2 className="text-xs font-semibold font-mono tracking-widest text-[#385942] dark:text-[#7ea68a] uppercase">
+            Showcase
+          </h2>
+          <motion.h3 
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-bold text-zinc-900 dark:text-white mb-4"
+            className="text-3xl md:text-5xl font-normal tracking-tight text-[#1c1c1c] dark:text-white font-serif"
           >
-            See the Magic in Action
-          </motion.h2>
+            See the magic in <span className="italic text-[#385942] dark:text-[#7ea68a]">perfect action</span>
+          </motion.h3>
           <motion.p 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-zinc-600 dark:text-zinc-400 text-lg max-w-2xl mx-auto"
+            className="text-[#5c5852] dark:text-[#a39e95] text-base sm:text-lg max-w-xl mx-auto font-sans"
           >
-            Experience how our AI transforms original footage into perfectly lip-synced content.
+            Experience how our AI transforms original footage into naturally spoken clips.
           </motion.p>
         </div>
 
@@ -62,24 +68,24 @@ const DemoSection: React.FC = () => {
           {demos.map((demo, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
             >
-              <Card className="overflow-hidden border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-xl hover:shadow-2xl transition-all duration-300">
+              <Card className="overflow-hidden border-[#ebdcd0] dark:border-[#201f1c] bg-[#fdfdfc]/80 dark:bg-[#121211]/80 backdrop-blur-md hover:border-[#385942] dark:hover:border-[#7ea68a] transition-all duration-350 shadow-sm">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400">
-                      <demo.icon size={20} />
+                    <div className="p-2.5 rounded-full border border-[#ebdcd0] dark:border-[#201f1c] text-[#385942] dark:text-[#7ea68a] bg-[#faf8f5] dark:bg-[#0d0d0c]">
+                      <demo.icon size={18} />
                     </div>
-                    <CardTitle className="text-xl font-semibold text-zinc-900 dark:text-white">
+                    <CardTitle className="text-lg font-semibold text-[#1c1c1c] dark:text-white font-sans">
                       {demo.title}
                     </CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="rounded-xl overflow-hidden bg-black aspect-video flex items-center justify-center relative group">
+                  <div className="rounded-xl overflow-hidden bg-black aspect-video flex items-center justify-center relative group border border-[#ebdcd0]/40 dark:border-[#201f1c]/45">
                     {demo.type === 'video' ? (
                       <video 
                         src={demo.src} 
@@ -88,13 +94,14 @@ const DemoSection: React.FC = () => {
                         poster="/lipsync-logo.png"
                       />
                     ) : (
-                      <div className="w-full h-full flex flex-col items-center justify-center p-8 bg-gradient-to-br from-zinc-800 to-zinc-900">
-                        <Mic className="w-16 h-16 text-blue-500 mb-4 animate-pulse" />
-                        <audio src={demo.src} controls className="w-full" />
+                      <div className="w-full h-full flex flex-col items-center justify-center p-8 bg-[#fdfdfc] dark:bg-[#121211] relative">
+                        <div className="absolute inset-0 z-0 opacity-[0.03] bg-[radial-gradient(#808080_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                        <Mic className="w-12 h-12 text-[#385942] dark:text-[#7ea68a] mb-4 animate-pulse relative z-10" />
+                        <audio src={demo.src} controls className="w-full relative z-10" />
                       </div>
                     )}
                   </div>
-                  <p className="mt-4 text-sm text-zinc-500 dark:text-zinc-400 italic text-center">
+                  <p className="mt-4 text-xs text-[#5c5852] dark:text-[#a39e95] italic text-center font-sans">
                     {demo.description}
                   </p>
                 </CardContent>

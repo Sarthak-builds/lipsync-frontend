@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
   Sparkles, 
@@ -22,6 +23,7 @@ import { useTheme } from '../components/providers/ThemeProvider';
 import { useAuthStore } from '../stores/authStore';
 import DemoSection from '../components/Demo/DemoSection';
 import { toast } from 'sonner';
+import logoImage from '../assets/logo.jpg';
 
 const Home: React.FC = () => {
   const { theme, setTheme } = useTheme();
@@ -47,65 +49,92 @@ const Home: React.FC = () => {
     navigate("/");
   };
 
+  // Micro-animation variants
+  const fadeInUp: Variants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  };
+
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.03,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const letterVariants: Variants = {
+    hidden: { opacity: 0, y: 5 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", damping: 12, stiffness: 200 }
+    }
+  };
+
+  const titleText = "Speak in any voice, synchronized instantly.";
+
   return (
-    <div className="min-h-screen bg-white dark:bg-black text-zinc-900 dark:text-zinc-50 font-sans selection:bg-zinc-200 dark:selection:bg-zinc-800 selection:text-black dark:selection:text-white transition-colors duration-300 relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#0d0d0c] text-[#1c1c1c] dark:text-[#e5e1db] font-sans selection:bg-[#e6dfd5] dark:selection:bg-[#2e2d2a] selection:text-[#1c1c1c] dark:selection:text-[#e5e1db] transition-colors duration-300 relative overflow-x-hidden">
       
-      {/* GLOBAL BACKGROUND GRID */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03] dark:opacity-[0.05] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+      {/* Editorial Decorative Blobs */}
+      <div className="absolute top-40 right-[-10%] w-[40vw] h-[40vw] bg-[#e6dfd5]/30 dark:bg-[#1a1917]/20 rounded-full blur-[100px] pointer-events-none z-0"></div>
+      <div className="absolute top-[120vh] left-[-10%] w-[35vw] h-[35vw] bg-[#608c6c]/5 dark:bg-[#608c6c]/2 rounded-full blur-[80px] pointer-events-none z-0"></div>
 
       {/* NAVBAR */}
-      <header className="sticky top-0 z-50 w-full border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white/85 dark:bg-black/85 backdrop-blur-md transition-colors duration-300">
+      <header className="sticky top-0 z-50 w-full border-b border-[#ebdcd0]/40 dark:border-[#201f1c]/80 bg-[#faf8f5]/90 dark:bg-[#0d0d0c]/90 backdrop-blur-md transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-8">
-            <Link to="/" className="flex items-center gap-2.5 group">
-              {/* Vercel Geometric Triangle Logo */}
-              <div className="relative w-8 h-8 flex items-center justify-center bg-black dark:bg-white text-white dark:text-black rounded-md overflow-hidden transition-transform duration-300 group-hover:scale-105">
-                <svg viewBox="0 0 100 100" className="w-4.5 h-4.5 fill-current">
-                  <polygon points="50,15 90,85 10,85" />
-                </svg>
+            <Link to="/" className="flex items-center gap-3 group">
+              {/* Logo from assets */}
+              <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#ebdcd0] dark:border-[#201f1c] shadow-sm transition-transform duration-300 group-hover:scale-105">
+                <img src={logoImage} className="w-full h-full object-cover" alt="LipSync Logo" />
               </div>
-              <span className="font-semibold text-lg tracking-tight font-sans text-zinc-900 dark:text-white">
+              <span className="font-semibold text-base tracking-tight font-sans text-[#1c1c1c] dark:text-[#e5e1db]">
                 LIPSYNC AI
               </span>
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-zinc-600 dark:text-zinc-400">
-              <button onClick={() => scrollToSection('features')} className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors cursor-pointer">Features</button>
-              <button onClick={() => scrollToSection('how-it-works')} className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors cursor-pointer">How It Works</button>
-              <button onClick={() => scrollToSection('demo')} className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors cursor-pointer">Showcase</button>
-              <button onClick={() => scrollToSection('pricing')} className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors cursor-pointer">Pricing</button>
+            <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-[#5c5852] dark:text-[#a39e95]">
+              <button onClick={() => scrollToSection('features')} className="hover:text-[#1c1c1c] dark:hover:text-[#e5e1db] transition-colors cursor-pointer">Features</button>
+              <button onClick={() => scrollToSection('how-it-works')} className="hover:text-[#1c1c1c] dark:hover:text-[#e5e1db] transition-colors cursor-pointer">How It Works</button>
+              <button onClick={() => scrollToSection('demo')} className="hover:text-[#1c1c1c] dark:hover:text-[#e5e1db] transition-colors cursor-pointer">Showcase</button>
+              <button onClick={() => scrollToSection('pricing')} className="hover:text-[#1c1c1c] dark:hover:text-[#e5e1db] transition-colors cursor-pointer">Pricing</button>
             </nav>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3.5">
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-md border border-zinc-200 dark:border-zinc-800 bg-transparent hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-all cursor-pointer"
+              className="p-2.5 rounded-full border border-[#ebdcd0] dark:border-[#201f1c] bg-transparent hover:bg-[#f3eee5] dark:hover:bg-[#1a1917] transition-all cursor-pointer text-[#5c5852] dark:text-[#a39e95]"
               aria-label="Toggle theme"
             >
               {theme === "dark" ? (
-                <Sun className="w-4 h-4 text-zinc-400 hover:text-yellow-400 transition-colors" />
+                <Sun className="w-3.5 h-3.5 text-zinc-400 hover:text-yellow-400 transition-colors" />
               ) : (
-                <Moon className="w-4 h-4 text-zinc-650 hover:text-blue-600 transition-colors" />
+                <Moon className="w-3.5 h-3.5 text-zinc-650 hover:text-blue-600 transition-colors" />
               )}
             </button>
 
             {/* Auth Buttons */}
-            <div className="hidden sm:flex items-center gap-3">
+            <div className="hidden sm:flex items-center gap-3.5">
               {isAuthenticated ? (
                 <>
                   <Link
                     to="/clips"
-                    className="flex items-center justify-center gap-1.5 bg-black dark:bg-white text-white dark:text-black hover:bg-zinc-900 dark:hover:bg-zinc-100 px-4 py-1.5 rounded-md text-sm font-medium transition-colors border border-black dark:border-white shadow-sm"
+                    className="flex items-center justify-center gap-1.5 bg-[#385942] hover:bg-[#2d4735] dark:bg-[#4b7358] dark:hover:bg-[#3d5e48] text-white px-4.5 py-2 rounded-full text-xs font-semibold tracking-wide transition-all shadow-sm group"
                   >
                     Go to Workspace
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="text-sm font-medium text-zinc-655 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors px-3 py-1.5 cursor-pointer"
+                    className="text-xs font-semibold tracking-wide text-[#5c5852] dark:text-[#a39e95] hover:text-[#1c1c1c] dark:hover:text-white transition-colors px-3 py-2 cursor-pointer"
                   >
                     Log Out
                   </button>
@@ -114,13 +143,13 @@ const Home: React.FC = () => {
                 <>
                   <Link
                     to="/login"
-                    className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors px-3 py-1.5"
+                    className="text-xs font-semibold tracking-wide text-[#5c5852] dark:text-[#a39e95] hover:text-[#1c1c1c] dark:hover:text-white transition-colors px-3 py-2"
                   >
                     Log In
                   </Link>
                   <Link
                     to="/register"
-                    className="bg-black dark:bg-white text-white dark:text-black hover:bg-zinc-900 dark:hover:bg-zinc-150 px-4 py-1.5 rounded-md text-sm font-medium transition-colors border border-black dark:border-white shadow-sm"
+                    className="bg-[#385942] hover:bg-[#2d4735] dark:bg-[#4b7358] dark:hover:bg-[#3d5e48] text-white px-4.5 py-2 rounded-full text-xs font-semibold tracking-wide transition-all shadow-sm"
                   >
                     Sign Up
                   </Link>
@@ -131,7 +160,7 @@ const Home: React.FC = () => {
             {/* Mobile Nav Button */}
             <button
               onClick={() => setMobileNavOpen(!mobileNavOpen)}
-              className="md:hidden p-2 rounded-md border border-zinc-200 dark:border-zinc-800 bg-transparent hover:bg-zinc-55 dark:hover:bg-zinc-900 transition-colors cursor-pointer text-zinc-600 dark:text-zinc-400"
+              className="md:hidden p-2 rounded-full border border-[#ebdcd0] dark:border-[#201f1c] bg-transparent hover:bg-[#f3eee5] dark:hover:bg-[#1a1917] transition-colors cursor-pointer text-[#5c5852] dark:text-[#a39e95]"
             >
               {mobileNavOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
@@ -144,28 +173,28 @@ const Home: React.FC = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="md:hidden absolute top-16 left-0 w-full border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black p-6 space-y-4 shadow-xl z-50 transition-colors"
+            className="md:hidden absolute top-16 left-0 w-full border-b border-[#ebdcd0] dark:border-[#201f1c] bg-[#faf8f5] dark:bg-[#0d0d0c] p-6 space-y-4 shadow-xl z-50 transition-colors"
           >
             <div className="flex flex-col gap-3.5">
-              <button onClick={() => scrollToSection('features')} className="text-left font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors">Features</button>
-              <button onClick={() => scrollToSection('how-it-works')} className="text-left font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors">How It Works</button>
-              <button onClick={() => scrollToSection('demo')} className="text-left font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors">Showcase</button>
-              <button onClick={() => scrollToSection('pricing')} className="text-left font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors">Pricing</button>
+              <button onClick={() => scrollToSection('features')} className="text-left font-semibold text-sm text-[#5c5852] dark:text-[#a39e95] hover:text-[#1c1c1c] dark:hover:text-white transition-colors">Features</button>
+              <button onClick={() => scrollToSection('how-it-works')} className="text-left font-semibold text-sm text-[#5c5852] dark:text-[#a39e95] hover:text-[#1c1c1c] dark:hover:text-white transition-colors">How It Works</button>
+              <button onClick={() => scrollToSection('demo')} className="text-left font-semibold text-sm text-[#5c5852] dark:text-[#a39e95] hover:text-[#1c1c1c] dark:hover:text-white transition-colors">Showcase</button>
+              <button onClick={() => scrollToSection('pricing')} className="text-left font-semibold text-sm text-[#5c5852] dark:text-[#a39e95] hover:text-[#1c1c1c] dark:hover:text-white transition-colors">Pricing</button>
             </div>
-            <div className="border-t border-zinc-150 dark:border-zinc-900 pt-4 flex flex-col gap-3">
+            <div className="border-t border-[#ebdcd0]/60 dark:border-[#201f1c] pt-4 flex flex-col gap-3">
               {isAuthenticated ? (
                 <>
                   <Link
                     to="/clips"
                     onClick={() => setMobileNavOpen(false)}
-                    className="w-full flex items-center justify-center gap-1.5 bg-black dark:bg-white text-white dark:text-black hover:bg-zinc-900 dark:hover:bg-zinc-100 py-2.5 rounded-md text-sm font-medium transition-colors border border-black dark:border-white shadow-sm"
+                    className="w-full flex items-center justify-center gap-1.5 bg-[#385942] hover:bg-[#2d4735] dark:bg-[#4b7358] dark:hover:bg-[#3d5e48] text-white py-2.5 rounded-full text-xs font-semibold tracking-wide transition-colors shadow-sm"
                   >
                     Go to Workspace
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <ArrowRight className="w-3 h-3" />
                   </Link>
                   <button
                     onClick={() => { setMobileNavOpen(false); handleLogout(); }}
-                    className="w-full text-center text-sm font-medium text-zinc-500 hover:text-zinc-900 py-2.5 border border-zinc-200 dark:border-zinc-800 rounded-md bg-transparent dark:text-zinc-400 dark:hover:text-white transition-colors"
+                    className="w-full text-center text-xs font-semibold tracking-wide text-[#5c5852] hover:text-[#1c1c1c] py-2.5 border border-[#ebdcd0] dark:border-[#201f1c] rounded-full bg-transparent dark:text-[#a39e95] dark:hover:text-white transition-colors cursor-pointer"
                   >
                     Log Out
                   </button>
@@ -175,14 +204,14 @@ const Home: React.FC = () => {
                   <Link
                     to="/login"
                     onClick={() => setMobileNavOpen(false)}
-                    className="w-full text-center text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white py-2.5 border border-zinc-200 dark:border-zinc-800 rounded-md bg-transparent transition-colors"
+                    className="w-full text-center text-xs font-semibold tracking-wide text-[#5c5852] dark:text-[#a39e95] hover:text-[#1c1c1c] dark:hover:text-white py-2.5 border border-[#ebdcd0] dark:border-[#201f1c] rounded-full bg-transparent transition-colors"
                   >
                     Log In
                   </Link>
                   <Link
                     to="/register"
                     onClick={() => setMobileNavOpen(false)}
-                    className="w-full text-center text-sm font-medium bg-black dark:bg-white text-white dark:text-black hover:bg-zinc-900 dark:hover:bg-zinc-100 py-2.5 rounded-md transition-colors border border-black dark:border-white shadow-sm"
+                    className="w-full text-center text-xs font-semibold tracking-wide bg-[#385942] hover:bg-[#2d4735] dark:bg-[#4b7358] dark:hover:bg-[#3d5e48] text-white py-2.5 rounded-full transition-colors border border-[#385942] dark:border-[#4b7358] shadow-sm"
                   >
                     Sign Up
                   </Link>
@@ -194,159 +223,136 @@ const Home: React.FC = () => {
       </header>
 
       {/* HERO SECTION */}
-      <section className="relative pt-20 pb-24 md:pt-28 md:pb-36 flex flex-col items-center text-center px-6 overflow-hidden">
-        
-        {/* Glow Effects */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[250px] bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-full blur-[100px] pointer-events-none dark:from-blue-500/5 dark:to-indigo-500/5"></div>
-        
-        {/* Center Grid Highlight Mask */}
-        <div className="absolute top-0 inset-x-0 h-[450px] bg-gradient-to-b from-transparent via-white/80 to-white dark:via-black/80 dark:to-black z-0 pointer-events-none"></div>
-
-        <div className="relative z-10 max-w-4xl mx-auto space-y-6">
+      <section className="relative pt-24 pb-20 md:pt-32 md:pb-28 flex flex-col items-center text-center px-6 z-10">
+        <div className="max-w-4xl mx-auto space-y-8">
           
           {/* Top Pill badge */}
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-zinc-250 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 text-xs font-medium text-zinc-700 dark:text-zinc-300 backdrop-blur-sm shadow-sm"
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#ebdcd0] dark:border-[#201f1c] bg-[#fdfdfc]/80 dark:bg-[#121211]/80 text-xs font-medium text-[#5c5852] dark:text-[#a39e95] backdrop-blur-sm shadow-sm"
           >
-            <Sparkles className="w-3.5 h-3.5 text-blue-500 animate-pulse" />
-            <span>Introducing LipSync AI 2.0</span>
-            <span className="w-[1px] h-3 bg-zinc-300 dark:bg-zinc-750"></span>
-            <span className="flex items-center gap-0.5 text-zinc-900 dark:text-zinc-100 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
-              Read notes <ChevronRight className="w-3 h-3" />
+            <Sparkles className="w-3.5 h-3.5 text-[#385942] dark:text-[#608c6c]" />
+            <span>AI Voice Localization</span>
+            <span className="w-[1px] h-3 bg-[#ebdcd0] dark:bg-[#201f1c]"></span>
+            <span className="flex items-center gap-0.5 text-[#1c1c1c] dark:text-[#e5e1db] hover:text-[#385942] dark:hover:text-[#608c6c] transition-colors cursor-pointer">
+              Explore templates <ChevronRight className="w-3 h-3" />
             </span>
           </motion.div>
 
-          {/* Title */}
+          {/* Wispr Flow Editorial Styled Headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-zinc-900 dark:text-white leading-[1.05] font-sans"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="text-4xl sm:text-5xl md:text-7xl font-normal tracking-tight text-[#1c1c1c] dark:text-white leading-[1.1] font-serif max-w-3xl mx-auto"
           >
-            Make any video talk.<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-900 via-zinc-600 to-zinc-400 dark:from-white dark:via-zinc-300 dark:to-zinc-600">
-              Synchronized perfectly.
-            </span>
+            {titleText.split(" ").map((word, wordIdx) => {
+              const isItalic = word.toLowerCase().includes("synchronized") || word.toLowerCase().includes("instantly.");
+              return (
+                <span key={wordIdx} className="inline-block mr-3.5 sm:mr-4.5 last:mr-0">
+                  {word.split("").map((letter, letterIdx) => (
+                    <motion.span
+                      key={letterIdx}
+                      variants={letterVariants}
+                      className={isItalic ? "italic font-normal text-[#385942] dark:text-[#7ea68a]" : ""}
+                      style={{ display: "inline-block" }}
+                    >
+                      {letter}
+                    </motion.span>
+                  ))}
+                </span>
+              );
+            })}
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base sm:text-lg md:text-xl text-zinc-550 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed"
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            className="text-base sm:text-lg md:text-xl text-[#5c5852] dark:text-[#a39e95] max-w-2xl mx-auto leading-relaxed font-sans"
           >
-            Turn voice clones, audio files, or plain text scripts into realistic videos with zero delay. Perfect mouth-syncing powered by next-gen generative AI.
+            Flow brings voices to life. Transform standard recordings into perfectly synchronized visuals. Create localized videos with editorial precision and zero effort.
           </motion.p>
 
           {/* CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-4"
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
           >
             <Link
               to={isAuthenticated ? "/clips" : "/register"}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 bg-black dark:bg-white text-white dark:text-black hover:bg-zinc-900 dark:hover:bg-zinc-100 border border-black dark:border-white rounded-md font-medium text-base transition-colors shadow-lg cursor-pointer"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 bg-[#385942] hover:bg-[#2d4735] dark:bg-[#4b7358] dark:hover:bg-[#3d5e48] text-white rounded-full font-semibold text-sm tracking-wide transition-all shadow-md group cursor-pointer"
             >
-              Start Creating Free
-              <ArrowRight className="w-4 h-4" />
+              Start Creating Now
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
             <button
               onClick={() => scrollToSection('demo')}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 bg-white hover:bg-zinc-50 border border-zinc-200 text-zinc-900 dark:bg-black dark:hover:bg-zinc-900 dark:text-white dark:border-zinc-800 rounded-md font-medium text-base transition-colors cursor-pointer"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 bg-[#fdfdfc]/80 hover:bg-[#f3eee5] border border-[#ebdcd0] text-[#1c1c1c] dark:bg-[#121211]/80 dark:hover:bg-[#1a1917] dark:text-[#e5e1db] dark:border-[#201f1c] rounded-full font-semibold text-sm tracking-wide transition-colors cursor-pointer"
             >
-              Watch Showcase
+              Watch Video Demo
             </button>
           </motion.div>
         </div>
 
-        {/* APP MOCKUP GRAPHIC */}
+        {/* INTERACTIVE VIDEO DECK MOCKUP */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="relative mt-16 md:mt-24 w-full max-w-5xl rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-950/40 p-2 backdrop-blur-md shadow-2xl z-10"
+          className="relative mt-16 md:mt-20 w-full max-w-4xl rounded-2xl border border-[#ebdcd0] dark:border-[#201f1c] bg-[#fdfdfc] dark:bg-[#121211] p-3 shadow-xl z-10"
         >
-          {/* Top window bar mock */}
-          <div className="flex items-center justify-between px-4 py-2 border-b border-zinc-200 dark:border-zinc-800 text-xs text-zinc-400">
-            <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-400/70"></span>
-              <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/70"></span>
-              <span className="w-2.5 h-2.5 rounded-full bg-green-400/70"></span>
-            </div>
-            <div className="font-mono text-[10px] bg-zinc-100 dark:bg-zinc-900 px-3 py-0.5 rounded border border-zinc-200/50 dark:border-zinc-800">
-              lipsync-ai.vercel.app/workspace/clips
-            </div>
-            <div className="w-12"></div>
-          </div>
-          
-          {/* Main content grid mockup */}
-          <div className="grid grid-cols-1 md:grid-cols-3 bg-white dark:bg-zinc-950 rounded-b-lg overflow-hidden min-h-[300px] sm:min-h-[450px]">
-            {/* Sidebar menu */}
-            <div className="border-r border-zinc-100 dark:border-zinc-900 p-4 space-y-4 hidden sm:block text-left bg-zinc-50/50 dark:bg-zinc-950/20">
-              <div className="h-6 w-24 bg-zinc-100 dark:bg-zinc-900 rounded"></div>
-              <div className="space-y-2 pt-2">
-                <div className="h-8 w-full bg-zinc-100 dark:bg-zinc-900 rounded-md border border-zinc-200/30 dark:border-zinc-800 flex items-center px-3 gap-2">
-                  <Video className="w-3.5 h-3.5 text-zinc-400" />
-                  <div className="h-2 w-16 bg-zinc-300 dark:bg-zinc-700 rounded"></div>
-                </div>
-                <div className="h-8 w-full bg-zinc-50/20 dark:bg-transparent rounded-md flex items-center px-3 gap-2">
-                  <Mic className="w-3.5 h-3.5 text-zinc-400" />
-                  <div className="h-2 w-16 bg-zinc-200 dark:bg-zinc-800 rounded"></div>
-                </div>
-                <div className="h-8 w-full bg-zinc-50/20 dark:bg-transparent rounded-md flex items-center px-3 gap-2">
-                  <Wand2 className="w-3.5 h-3.5 text-zinc-400" />
-                  <div className="h-2 w-16 bg-zinc-200 dark:bg-zinc-800 rounded"></div>
-                </div>
-              </div>
+          <div className="rounded-xl overflow-hidden border border-[#ebdcd0]/50 dark:border-[#201f1c]/50 bg-[#faf8f5] dark:bg-[#0d0d0c] aspect-video flex items-center justify-center relative group">
+            {/* Soft decorative ambient color glows in video mockup */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#385942]/5 via-transparent to-transparent opacity-60 pointer-events-none"></div>
+            
+            {/* Simulated Video Frame details */}
+            <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-400/80 animate-ping"></span>
+              <span className="font-mono text-[10px] tracking-widest text-[#5c5852] dark:text-[#a39e95] uppercase">Live Sync Deck</span>
             </div>
 
-            {/* Video preview pane */}
-            <div className="col-span-2 p-6 flex flex-col justify-between space-y-6 text-left">
-              <div className="space-y-2">
-                <div className="h-4 w-36 bg-zinc-200 dark:bg-zinc-800 rounded"></div>
-                <div className="h-3 w-56 bg-zinc-100 dark:bg-zinc-900 rounded"></div>
-              </div>
-              
-              <div className="aspect-video w-full max-w-lg mx-auto rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center overflow-hidden relative group">
-                {/* Simulated play button */}
-                <div className="w-12 h-12 rounded-full bg-white dark:bg-black text-black dark:text-white flex items-center justify-center border border-zinc-200 dark:border-zinc-800 shadow-md group-hover:scale-105 transition-transform z-10">
-                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current ml-0.5">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-                
-                {/* Waveform graphic overlay */}
-                <div className="absolute bottom-4 inset-x-4 h-10 flex items-end justify-center gap-[3px] opacity-40 dark:opacity-20 z-0">
-                  {[40, 60, 20, 80, 50, 70, 30, 90, 45, 60, 85, 30, 50, 70, 95, 40, 60, 25, 80, 50].map((h, i) => (
-                    <div key={i} className="flex-1 bg-zinc-900 dark:bg-white rounded-t" style={{ height: `${h}%` }}></div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between border-t border-zinc-100 dark:border-zinc-900 pt-4">
-                <div className="h-6 w-24 bg-zinc-100 dark:bg-zinc-900 rounded"></div>
-                <div className="h-8 w-28 bg-black dark:bg-white rounded-md"></div>
-              </div>
+            {/* Circular waveform visualizer */}
+            <div className="flex items-center justify-center gap-1.5 h-12 w-full max-w-xs px-6">
+              {[35, 50, 25, 75, 45, 90, 60, 30, 80, 55, 70, 40, 95, 50, 65, 30, 85, 45, 60, 35].map((h, i) => (
+                <motion.div 
+                  key={i} 
+                  className="flex-1 bg-[#385942] dark:bg-[#7ea68a] rounded-full"
+                  animate={{ height: [`${h * 0.4}%`, `${h}%`, `${h * 0.4}%`] }}
+                  transition={{ duration: 1.5 + (i % 3) * 0.3, repeat: Infinity, ease: "easeInOut" }}
+                  style={{ minHeight: "4px" }}
+                />
+              ))}
             </div>
+
+            {/* Big Elegant Play Button */}
+            <button 
+              onClick={() => scrollToSection('demo')}
+              className="absolute w-16 h-16 rounded-full bg-[#385942] hover:bg-[#2d4735] dark:bg-[#4b7358] dark:hover:bg-[#3d5e48] text-white flex items-center justify-center shadow-lg group transition-transform duration-300 hover:scale-105 cursor-pointer z-10"
+              aria-label="Play showcase"
+            >
+              <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current ml-1">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </button>
           </div>
         </motion.div>
       </section>
 
       {/* DETAILED FEATURES SECTION */}
-      <section id="features" className="py-20 md:py-28 px-6 border-t border-zinc-200/80 dark:border-zinc-800/80 relative transition-colors duration-300">
+      <section id="features" className="py-20 md:py-24 px-6 border-t border-[#ebdcd0]/40 dark:border-[#201f1c]/80 relative transition-colors duration-300">
         <div className="max-w-7xl mx-auto space-y-16">
-          <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <h2 className="text-xs font-semibold font-mono tracking-widest text-zinc-500 uppercase">
-              Engineered For Excellence
+          <div className="text-center space-y-3 max-w-2xl mx-auto">
+            <h2 className="text-xs font-semibold font-mono tracking-widest text-[#385942] dark:text-[#7ea68a] uppercase">
+              Quiet Luxury Core
             </h2>
-            <p className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-900 dark:text-white leading-tight">
-              Powerful tools, built to optimize your creative pipeline.
+            <p className="text-3xl sm:text-4xl font-normal tracking-tight text-[#1c1c1c] dark:text-white font-serif">
+              Carefully crafted features to elevate your localization pipeline.
             </p>
           </div>
 
@@ -354,107 +360,108 @@ const Home: React.FC = () => {
             {[
               {
                 icon: Wand2,
-                title: "One-Click Sync Engine",
-                desc: "Simply drop your video and audio. Our deep neural network aligns the lip movements instantly with sub-frame precision.",
-                badge: "Core"
+                title: "One-Click Alignment",
+                desc: "Drop your visual footage alongside any audio sample. Our alignment algorithm maps lip profiles to speech cycles instantly.",
+                badge: "AI Sync"
               },
               {
                 icon: Mic,
-                title: "Premium AI Voice Library",
-                desc: "Gain access to 100+ hyper-realistic text-to-speech models covering multiple accents, ages, and languages.",
-                badge: "Updated"
+                title: "Warm Acoustic Speaker Models",
+                desc: "Synthesize sentences in 100+ natural voice models that retain vocal nuances, breath pauses, and organic tones.",
+                badge: "Accoustics"
               },
               {
                 icon: Video,
-                title: "HD Video Rendering",
-                desc: "Export final videos in full crystal-clear 1080p output. Perfect details, lighting, and texture maps preserved.",
-                badge: "1080p"
+                title: "HD Editorial Preserves",
+                desc: "Render final outcomes in crisp 1080p, preserving skin textures, camera noise levels, and ambient illumination.",
+                badge: "1080p HD"
               },
               {
                 icon: Zap,
-                title: "Lightning Rendering Speed",
-                desc: "Powered by cluster of high-end NVIDIA H100 GPUs, processing outputs 5x faster than average render queues.",
-                badge: "GPU"
+                title: "Calm Rendering Pipeline",
+                desc: "Background tasks process smoothly on our priority server blocks. Build localized content without heating up your local setup.",
+                badge: "Serverless"
               },
               {
                 icon: Shield,
-                title: "Secure Data Isolation",
-                desc: "Your source assets are processed with end-to-end encryption. Content is never reused for model pretraining.",
-                badge: "Security"
+                title: "Private Asset Locker",
+                desc: "Your recordings are locked to your dashboard. Assets are never analyzed or shared for commercial foundational model runs.",
+                badge: "ISO Secure"
               },
               {
                 icon: Cpu,
-                title: "Voice Cloning Module",
-                desc: "Record a short 10-second reference clip to synthesize an exact digital replica of your voice in multiple languages.",
-                badge: "Beta"
+                title: "Micro Vocal Replication",
+                desc: "Provide a quick 10-second reference speech snippet to clone voice patterns for cross-lingual localization.",
+                badge: "Beta V2"
               }
             ].map((feat, idx) => (
-              <div 
-                key={idx} 
-                className="group relative flex flex-col justify-between p-6 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black hover:border-zinc-400 dark:hover:border-zinc-600 transition-all duration-350 cursor-default"
+              <motion.div 
+                key={idx}
+                whileHover={{ y: -4, boxShadow: "0 10px 30px -10px rgba(0,0,0,0.1)" }}
+                className="group relative flex flex-col justify-between p-7 rounded-xl border border-[#ebdcd0]/70 dark:border-[#201f1c] bg-[#fdfdfc]/50 dark:bg-[#121211]/50 transition-all duration-300 cursor-default"
               >
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <div className="p-2.5 rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-white group-hover:bg-black group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-colors duration-300">
-                      <feat.icon className="w-5 h-5" />
+                    <div className="p-2.5 rounded-full border border-[#ebdcd0] dark:border-[#201f1c] bg-transparent text-[#385942] dark:text-[#7ea68a] group-hover:bg-[#385942] group-hover:text-white dark:group-hover:bg-[#4b7358] dark:group-hover:text-black transition-colors duration-300">
+                      <feat.icon className="w-4.5 h-4.5" />
                     </div>
-                    <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-800 text-zinc-500 bg-transparent">
+                    <span className="text-[9px] font-mono font-semibold px-2 py-0.5 rounded-full border border-[#ebdcd0] dark:border-[#201f1c] text-[#5c5852] dark:text-[#a39e95] bg-[#fdfdfc] dark:bg-[#121211]">
                       {feat.badge}
                     </span>
                   </div>
                   <div className="space-y-2">
-                    <h3 className="font-semibold text-base text-zinc-900 dark:text-white group-hover:translate-x-0.5 transition-transform duration-300">
+                    <h3 className="font-semibold text-base text-[#1c1c1c] dark:text-white font-sans">
                       {feat.title}
                     </h3>
-                    <p className="text-sm text-zinc-550 dark:text-zinc-450 leading-relaxed">
+                    <p className="text-sm text-[#5c5852] dark:text-[#a39e95] leading-relaxed">
                       {feat.desc}
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* HOW IT WORKS SECTION */}
-      <section id="how-it-works" className="py-20 md:py-28 px-6 border-t border-zinc-200/80 dark:border-zinc-800/80 relative transition-colors duration-300">
+      <section id="how-it-works" className="py-20 md:py-24 px-6 border-t border-[#ebdcd0]/40 dark:border-[#201f1c]/80 relative transition-colors duration-300">
         <div className="max-w-7xl mx-auto space-y-16">
-          <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <h2 className="text-xs font-semibold font-mono tracking-widest text-zinc-500 uppercase">
-              Simple Workflow
+          <div className="text-center space-y-3 max-w-2xl mx-auto">
+            <h2 className="text-xs font-semibold font-mono tracking-widest text-[#385942] dark:text-[#7ea68a] uppercase">
+              The Process
             </h2>
-            <p className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-900 dark:text-white leading-tight">
-              Create lipsynced videos in three steps.
+            <p className="text-3xl sm:text-4xl font-normal tracking-tight text-[#1c1c1c] dark:text-white font-serif">
+              Dictate your visual direction in three phases.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                step: "01",
-                title: "Upload Source Video",
-                desc: "Choose an existing MP4 template or upload your own video clip of any length containing a clear speaker view."
+                step: "I",
+                title: "Vocal Reference & Scripts",
+                desc: "Input your text scripts, choose preset actors, or clone individual vocals with brief audio submissions."
               },
               {
-                step: "02",
-                title: "Provide Audio or Script",
-                desc: "Upload an audio file (.mp3, .wav), clone your voice, or simply type your script and select one of our premium AI speaker models."
+                step: "II",
+                title: "Footage Drop",
+                desc: "Drag and drop any speaking video file. Our layout handles vertical shorts, landscape reels, and cinema cuts."
               },
               {
-                step: "03",
-                title: "Generate and Download",
-                desc: "Review your options and hit 'Generate'. Our backend matches the lip geometry and renders your video ready in seconds."
+                step: "III",
+                title: "Natural Translation",
+                desc: "Hit render. Our speech-sync pipeline computes vocal shifts and matches your screen movements seamlessly."
               }
             ].map((step, idx) => (
-              <div key={idx} className="space-y-4 p-6 rounded-lg border border-zinc-150 dark:border-zinc-900 bg-zinc-50/30 dark:bg-zinc-950/20 hover:bg-zinc-50/50 dark:hover:bg-zinc-950/40 transition-colors">
-                <div className="text-3xl font-mono font-bold text-zinc-350 dark:text-zinc-700">
+              <div key={idx} className="space-y-4 p-6.5 rounded-xl border border-[#ebdcd0]/40 dark:border-[#201f1c] bg-[#faf8f5]/40 dark:bg-[#0d0d0c]/40 hover:bg-[#fdfdfc] dark:hover:bg-[#121211] transition-all duration-300">
+                <div className="text-2xl font-serif font-bold text-[#385942]/70 dark:text-[#7ea68a]/70">
                   {step.step}
                 </div>
-                <h3 className="font-semibold text-lg text-zinc-900 dark:text-white">
+                <h3 className="font-semibold text-base text-[#1c1c1c] dark:text-white font-sans">
                   {step.title}
                 </h3>
-                <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                <p className="text-sm text-[#5c5852] dark:text-[#a39e95] leading-relaxed">
                   {step.desc}
                 </p>
               </div>
@@ -464,35 +471,35 @@ const Home: React.FC = () => {
       </section>
 
       {/* SHOWCASE / DEMO SECTION */}
-      <section id="demo" className="border-t border-zinc-200/80 dark:border-zinc-800/80 transition-colors duration-300">
+      <section id="demo" className="border-t border-[#ebdcd0]/40 dark:border-[#201f1c]/80 transition-colors duration-300">
         <DemoSection />
       </section>
 
       {/* PRICING SECTION */}
-      <section id="pricing" className="py-20 md:py-28 px-6 border-t border-zinc-200/80 dark:border-zinc-800/80 relative transition-colors duration-300 bg-zinc-50/30 dark:bg-zinc-950/20">
+      <section id="pricing" className="py-20 md:py-24 px-6 border-t border-[#ebdcd0]/40 dark:border-[#201f1c]/80 relative transition-colors duration-300 bg-[#faf8f5]/50 dark:bg-[#0d0d0c]/30">
         <div className="max-w-7xl mx-auto space-y-16">
-          <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <h2 className="text-xs font-semibold font-mono tracking-widest text-zinc-500 uppercase">
-              Flexible Pricing
+          <div className="text-center space-y-3 max-w-2xl mx-auto">
+            <h2 className="text-xs font-semibold font-mono tracking-widest text-[#385942] dark:text-[#7ea68a] uppercase">
+              Calm Tiers
             </h2>
-            <p className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-900 dark:text-white leading-tight">
-              Pay only for what you need.
+            <p className="text-3xl sm:text-4xl font-normal tracking-tight text-[#1c1c1c] dark:text-white font-serif">
+              Simple plans for editorial workflows.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {/* Free Plan */}
-            <div className="p-6 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black flex flex-col justify-between space-y-8">
+            <div className="p-7.5 rounded-xl border border-[#ebdcd0] dark:border-[#201f1c] bg-[#fdfdfc] dark:bg-[#121211] flex flex-col justify-between space-y-8">
               <div className="space-y-4 text-left">
-                <h3 className="font-semibold text-lg text-zinc-900 dark:text-white">Hobby</h3>
-                <p className="text-xs text-zinc-500">For creators starting out</p>
-                <div className="text-3xl font-bold font-sans text-zinc-900 dark:text-white">
-                  $0 <span className="text-sm font-normal text-zinc-500">/mo</span>
+                <h3 className="font-semibold text-lg text-[#1c1c1c] dark:text-white font-sans">Hobby</h3>
+                <p className="text-xs text-[#5c5852] dark:text-[#a39e95]">For starting creator sets</p>
+                <div className="text-3xl font-normal font-serif text-[#1c1c1c] dark:text-white">
+                  $0 <span className="text-sm font-normal text-[#5c5852] dark:text-[#a39e95]">/mo</span>
                 </div>
-                <ul className="space-y-2.5 text-sm pt-4">
-                  {["3 Video Generations / mo", "10 Premium AI Voices", "Standard 720p Exports", "No Voice Cloning"].map((feat, i) => (
-                    <li key={i} className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400">
-                      <Check className="w-3.5 h-3.5 text-zinc-500" />
+                <ul className="space-y-3 text-sm pt-4">
+                  {["3 Synchronizations / mo", "10 Default Acoustics", "720p Rendering outputs", "Shared GPU clusters"].map((feat, i) => (
+                    <li key={i} className="flex items-center gap-2.5 text-[#5c5852] dark:text-[#a39e95]">
+                      <Check className="w-3.5 h-3.5 text-[#385942] dark:text-[#7ea68a]" />
                       <span>{feat}</span>
                     </li>
                   ))}
@@ -500,27 +507,27 @@ const Home: React.FC = () => {
               </div>
               <Link 
                 to={isAuthenticated ? "/clips" : "/register"}
-                className="w-full text-center py-2 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-650 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-md text-sm font-medium text-zinc-900 dark:text-white transition-colors"
+                className="w-full text-center py-2.5 border border-[#ebdcd0] dark:border-[#201f1c] hover:border-[#385942] dark:hover:border-[#7ea68a] hover:bg-[#faf8f5] dark:hover:bg-[#1a1917] rounded-full text-xs font-semibold tracking-wide text-[#1c1c1c] dark:text-[#e5e1db] transition-colors"
               >
-                Get Started
+                Start Free
               </Link>
             </div>
 
             {/* Pro Plan */}
-            <div className="p-6 rounded-lg border-2 border-zinc-900 dark:border-white bg-white dark:bg-black flex flex-col justify-between space-y-8 relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-black text-[10px] font-semibold tracking-wider uppercase">
-                Most Popular
+            <div className="p-7.5 rounded-xl border-2 border-[#385942] dark:border-[#7ea68a] bg-[#fdfdfc] dark:bg-[#121211] flex flex-col justify-between space-y-8 relative">
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-[#385942] dark:bg-[#7ea68a] text-white dark:text-black text-[9px] font-mono font-bold tracking-wider uppercase">
+                Editor Choice
               </div>
               <div className="space-y-4 text-left">
-                <h3 className="font-semibold text-lg text-zinc-900 dark:text-white">Pro</h3>
-                <p className="text-xs text-zinc-500">For professional content creators</p>
-                <div className="text-3xl font-bold font-sans text-zinc-900 dark:text-white">
-                  $29 <span className="text-sm font-normal text-zinc-500">/mo</span>
+                <h3 className="font-semibold text-lg text-[#1c1c1c] dark:text-white font-sans">Pro</h3>
+                <p className="text-xs text-[#5c5852] dark:text-[#a39e95]">For regular localized builders</p>
+                <div className="text-3xl font-normal font-serif text-[#1c1c1c] dark:text-white">
+                  $29 <span className="text-sm font-normal text-[#5c5852] dark:text-[#a39e95]">/mo</span>
                 </div>
-                <ul className="space-y-2.5 text-sm pt-4">
-                  {["Unlimited MP4 Uploads", "100+ Ultra-Realistic Voices", "Full 1080p HD Exports", "3 Custom Voice Clones", "Priority Rendering Queue"].map((feat, i) => (
-                    <li key={i} className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400">
-                      <Check className="w-3.5 h-3.5 text-zinc-900 dark:text-white" />
+                <ul className="space-y-3 text-sm pt-4">
+                  {["Unlimited MP4 Localizations", "100+ Custom Acoustic Speakers", "Full 1080p HD Outputs", "3 Private cloned vocals", "Priority rendering runs"].map((feat, i) => (
+                    <li key={i} className="flex items-center gap-2.5 text-[#5c5852] dark:text-[#a39e95]">
+                      <Check className="w-3.5 h-3.5 text-[#385942] dark:text-[#7ea68a]" />
                       <span>{feat}</span>
                     </li>
                   ))}
@@ -528,24 +535,24 @@ const Home: React.FC = () => {
               </div>
               <Link 
                 to={isAuthenticated ? "/clips" : "/register"}
-                className="w-full text-center py-2 bg-black dark:bg-white text-white dark:text-black hover:bg-zinc-900 dark:hover:bg-zinc-100 rounded-md text-sm font-medium transition-colors border border-black dark:border-white shadow-sm"
+                className="w-full text-center py-2.5 bg-[#385942] hover:bg-[#2d4735] dark:bg-[#4b7358] dark:hover:bg-[#3d5e48] text-white rounded-full text-xs font-semibold tracking-wide transition-all shadow-sm"
               >
-                Start Pro Trial
+                Claim Pro Trial 🎁
               </Link>
             </div>
 
             {/* Enterprise Plan */}
-            <div className="p-6 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black flex flex-col justify-between space-y-8">
+            <div className="p-7.5 rounded-xl border border-[#ebdcd0] dark:border-[#201f1c] bg-[#fdfdfc] dark:bg-[#121211] flex flex-col justify-between space-y-8">
               <div className="space-y-4 text-left">
-                <h3 className="font-semibold text-lg text-zinc-900 dark:text-white">Enterprise</h3>
-                <p className="text-xs text-zinc-500">For teams and organizations</p>
-                <div className="text-3xl font-bold font-sans text-zinc-900 dark:text-white">
+                <h3 className="font-semibold text-lg text-[#1c1c1c] dark:text-white font-sans">Enterprise</h3>
+                <p className="text-xs text-[#5c5852] dark:text-[#a39e95]">For studio hubs & teams</p>
+                <div className="text-3xl font-normal font-serif text-[#1c1c1c] dark:text-white">
                   Custom
                 </div>
-                <ul className="space-y-2.5 text-sm pt-4">
-                  {["Dedicated GPU Allocations", "Unlimited Voice Cloning", "Custom API Access Integrations", "SLA & 24/7 Priority Support", "Shared Team Dashboards"].map((feat, i) => (
-                    <li key={i} className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400">
-                      <Check className="w-3.5 h-3.5 text-zinc-500" />
+                <ul className="space-y-3 text-sm pt-4">
+                  {["Dedicated computing blades", "Unlimited replicated cloned sets", "Dedicated API credentials", "24/7 Priority support lines"].map((feat, i) => (
+                    <li key={i} className="flex items-center gap-2.5 text-[#5c5852] dark:text-[#a39e95]">
+                      <Check className="w-3.5 h-3.5 text-[#385942] dark:text-[#7ea68a]" />
                       <span>{feat}</span>
                     </li>
                   ))}
@@ -553,9 +560,9 @@ const Home: React.FC = () => {
               </div>
               <a 
                 href="mailto:contact@sarthakbuilds.in"
-                className="w-full text-center py-2 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-650 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-md text-sm font-medium text-zinc-900 dark:text-white transition-colors"
+                className="w-full text-center py-2.5 border border-[#ebdcd0] dark:border-[#201f1c] hover:border-[#385942] dark:hover:border-[#7ea68a] hover:bg-[#faf8f5] dark:hover:bg-[#1a1917] rounded-full text-xs font-semibold tracking-wide text-[#1c1c1c] dark:text-[#e5e1db] transition-colors"
               >
-                Contact Sales
+                Inquire Sales
               </a>
             </div>
           </div>
@@ -563,82 +570,80 @@ const Home: React.FC = () => {
       </section>
 
       {/* FOOTER */}
-      <footer className="border-t border-zinc-200/80 dark:border-zinc-800/80 pt-16 pb-12 px-6 transition-colors duration-300">
+      <footer className="border-t border-[#ebdcd0]/40 dark:border-[#201f1c]/80 pt-16 pb-12 px-6 transition-colors duration-300">
         <div className="max-w-7xl mx-auto space-y-12">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
             
             {/* Brand column */}
             <div className="col-span-2 space-y-4">
-              <Link to="/" className="flex items-center gap-2 group w-fit">
-                <div className="relative w-7.5 h-7.5 flex items-center justify-center bg-black dark:bg-white text-white dark:text-black rounded-md overflow-hidden transition-transform duration-300">
-                  <svg viewBox="0 0 100 100" className="w-4 h-4 fill-current">
-                    <polygon points="50,15 90,85 10,85" />
-                  </svg>
+              <Link to="/" className="flex items-center gap-3 group w-fit">
+                <div className="relative w-7.5 h-7.5 rounded-full overflow-hidden border border-[#ebdcd0] dark:border-[#201f1c] shadow-sm">
+                  <img src={logoImage} className="w-full h-full object-cover" alt="LipSync Logo" />
                 </div>
-                <span className="font-semibold text-base tracking-tight text-zinc-900 dark:text-white font-sans">
+                <span className="font-semibold text-base tracking-tight text-[#1c1c1c] dark:text-white font-sans">
                   LIPSYNC AI
                 </span>
               </Link>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-xs leading-relaxed">
-                An advanced AI-powered video editing platform designed for creating viral video content with lifelike synthetic voices.
+              <p className="text-sm text-[#5c5852] dark:text-[#a39e95] max-w-xs leading-relaxed font-sans">
+                An advanced speech-sync video suite built for editorial creators, offering hyper-realistic localization out of simple scripts.
               </p>
               <div className="pt-2">
                 <a 
                   href="https://x.com/Sarthakbuilds" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-zinc-200 dark:border-zinc-850 hover:bg-zinc-50 dark:hover:bg-zinc-900 text-xs font-mono text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-all"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#ebdcd0] dark:border-[#201f1c] hover:bg-[#f3eee5] dark:hover:bg-[#1a1917] text-xs font-mono text-[#5c5852] hover:text-[#1c1c1c] dark:text-[#a39e95] dark:hover:text-white transition-all"
                 >
                   <span>Built by @sarthakbuilds</span>
-                  <ExternalLink className="w-3 h-3" />
+                  <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               </div>
             </div>
 
             {/* Product Links */}
             <div className="space-y-3.5 text-left">
-              <h4 className="text-xs font-mono font-semibold text-zinc-400 uppercase tracking-widest">Product</h4>
-              <ul className="space-y-2 text-sm text-zinc-500 dark:text-zinc-400">
-                <li><button onClick={() => scrollToSection('features')} className="hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer">Features</button></li>
-                <li><button onClick={() => scrollToSection('how-it-works')} className="hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer">How It Works</button></li>
-                <li><button onClick={() => scrollToSection('demo')} className="hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer">Showcase</button></li>
-                <li><button onClick={() => scrollToSection('pricing')} className="hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer">Pricing</button></li>
+              <h4 className="text-xs font-mono font-semibold text-[#5c5852] dark:text-[#a39e95] uppercase tracking-widest">Product</h4>
+              <ul className="space-y-2 text-sm text-[#5c5852] dark:text-[#a39e95] font-sans">
+                <li><button onClick={() => scrollToSection('features')} className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors cursor-pointer">Features</button></li>
+                <li><button onClick={() => scrollToSection('how-it-works')} className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors cursor-pointer">How It Works</button></li>
+                <li><button onClick={() => scrollToSection('demo')} className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors cursor-pointer">Showcase</button></li>
+                <li><button onClick={() => scrollToSection('pricing')} className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors cursor-pointer">Pricing</button></li>
               </ul>
             </div>
 
             {/* Developer Links */}
             <div className="space-y-3.5 text-left">
-              <h4 className="text-xs font-mono font-semibold text-zinc-400 uppercase tracking-widest">Developers</h4>
-              <ul className="space-y-2 text-sm text-zinc-500 dark:text-zinc-400">
-                <li><a href="#" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Documentation</a></li>
-                <li><a href="#" className="hover:text-zinc-900 dark:hover:text-white transition-colors">API Reference</a></li>
-                <li><a href="#" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Changelog</a></li>
-                <li><a href="#" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Status</a></li>
+              <h4 className="text-xs font-mono font-semibold text-[#5c5852] dark:text-[#a39e95] uppercase tracking-widest">Developers</h4>
+              <ul className="space-y-2 text-sm text-[#5c5852] dark:text-[#a39e95] font-sans">
+                <li><a href="#" className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors">Documentation</a></li>
+                <li><a href="#" className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors">API Reference</a></li>
+                <li><a href="#" className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors">Changelog</a></li>
+                <li><a href="#" className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors">System Status</a></li>
               </ul>
             </div>
 
             {/* Legal Links */}
             <div className="space-y-3.5 text-left">
-              <h4 className="text-xs font-mono font-semibold text-zinc-400 uppercase tracking-widest">Company</h4>
-              <ul className="space-y-2 text-sm text-zinc-500 dark:text-zinc-400">
-                <li><a href="#" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Terms of Service</a></li>
-                <li><a href="#" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Security</a></li>
-                <li><a href="#" className="hover:text-zinc-900 dark:hover:text-white transition-colors">Support</a></li>
+              <h4 className="text-xs font-mono font-semibold text-[#5c5852] dark:text-[#a39e95] uppercase tracking-widest">Company</h4>
+              <ul className="space-y-2 text-sm text-[#5c5852] dark:text-[#a39e95] font-sans">
+                <li><a href="#" className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors">Terms of Service</a></li>
+                <li><a href="#" className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors">Security Details</a></li>
+                <li><a href="#" className="hover:text-[#1c1c1c] dark:hover:text-white transition-colors">Support Portal</a></li>
               </ul>
             </div>
 
           </div>
 
           {/* Bottom copyright */}
-          <div className="border-t border-zinc-150 dark:border-zinc-900 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 gap-4">
+          <div className="border-t border-[#ebdcd0]/40 dark:border-[#201f1c] pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#5c5852] dark:text-[#a39e95] gap-4 font-sans">
             <div>
               &copy; {new Date().getFullYear()} LipSync AI Inc. All rights reserved.
             </div>
             <div className="flex gap-4">
               <a href="#" className="hover:underline">Security</a>
-              <a href="#" className="hover:underline">Privacy</a>
-              <a href="#" className="hover:underline">Terms</a>
+              <a href="#" className="hover:underline">Privacy Policy</a>
+              <a href="#" className="hover:underline">Terms of Service</a>
             </div>
           </div>
         </div>
